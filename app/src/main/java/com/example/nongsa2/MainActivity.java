@@ -17,7 +17,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
     private TextView mTextMessage;
     FragmentManager fm = getSupportFragmentManager();
-    Fragment fragment = fm.findFragmentById(R.id.container);
+    Fragment fragment = fm.findFragmentById(R.id.container2);
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -27,22 +27,23 @@ public class MainActivity extends AppCompatActivity {
             Fragment fragment = null;
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+                    fragment = new Homepage();
+                    fm.beginTransaction().replace(R.id.container2,fragment).commit();
                     return true;
                 case R.id.navigation_dashboard:
-                    fragment = new PlusOneFragment();
-
-                    fm.beginTransaction().replace(R.id.container,fragment).commit();
+                    fragment = new secondpage();
+                    fm.beginTransaction().replace(R.id.container2,fragment).commit();
                     Log.d("ddd","MonthFragment");
                     return true;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+                    fragment = new thirdpage();
+                    fm.beginTransaction().replace(R.id.container2,fragment).commit();
                     return true;
             }
             if(fragment!=null) {
                 Log.d("ddd","setfm");
                 FragmentManager fm = getSupportFragmentManager();
-                fm.beginTransaction().replace(R.id.container, fragment).commit();
+                fm.beginTransaction().replace(R.id.container2, fragment).commit();
             }
             return false;
         }
@@ -53,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        mTextMessage = findViewById(R.id.message);
 
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
