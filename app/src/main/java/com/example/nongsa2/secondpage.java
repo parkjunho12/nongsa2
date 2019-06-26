@@ -1,6 +1,7 @@
 package com.example.nongsa2;
 
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -67,6 +68,9 @@ public class secondpage extends Fragment implements MainActivity.OnBackPressedLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+
+        출처: https://docko.tistory.com/entry/안드로이드-Action-Bar-색상-변경하기 [장똘]
         return inflater.inflate(R.layout.fragment_secondpage, container, false);
     }
 

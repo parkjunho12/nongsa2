@@ -1,11 +1,16 @@
 package com.example.nongsa2;
 
+import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -13,6 +18,9 @@ import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,21 +31,28 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
+        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment fragment = null;
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     fragment = new Homepage();
+                    getWindow().setStatusBarColor(Color.parseColor("#00ff0000"));
+                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0x00ff0000));
                     fm.beginTransaction().replace(R.id.container2,fragment).commit();
                     return true;
                 case R.id.navigation_dashboard:
                     fragment = new secondpage();
+                    getWindow().setStatusBarColor(Color.parseColor("#b3e5ff"));
+                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0x90d9ffff));
                     fm.beginTransaction().replace(R.id.container2,fragment).commit();
                     Log.d("ddd","MonthFragment");
                     return true;
                 case R.id.navigation_notifications:
                     fragment = new thirdpage();
+                    getWindow().setStatusBarColor(Color.parseColor("#fff7a2"));
+                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFFf27000));
                     fm.beginTransaction().replace(R.id.container2,fragment).commit();
                     return true;
             }
@@ -49,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
