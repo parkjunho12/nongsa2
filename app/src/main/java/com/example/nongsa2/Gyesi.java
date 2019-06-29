@@ -2,13 +2,27 @@ package com.example.nongsa2;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.List;
 
 
 /**
@@ -24,7 +38,7 @@ public class Gyesi extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    Migration_info_array Migration_info_array=new Migration_info_array();
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -60,6 +74,7 @@ public class Gyesi extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        new BackgroundTask().execute();
     }
 
     @Override
@@ -101,5 +116,111 @@ public class Gyesi extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    class BackgroundTask extends AsyncTask<String, Void, String> {
+        String target;
+
+
+
+
+        @Override
+        protected void onPreExecute() {
+            target = "http://dbwo4011.cafe24.com/migration/migration_info_request.php";
+            Log.e(this.getClass().getName(), "백그라운드로 list뽑기 시작한다.");
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                URL url = new URL(target);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST"); //post방식으로
+                httpURLConnection.setDoInput(true); // server와 통신에서 입력가능상태로 설정
+                httpURLConnection.setDoOutput(true);//server와의 통신에서 출력 가능한 상태로
+                OutputStreamWriter wr = new OutputStreamWriter(httpURLConnection.getOutputStream());//서버로
+                wr.flush();//flush!
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String temp;
+                StringBuilder stringBuilder = new StringBuilder();
+                while ((temp = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(temp + "\n");
+                }
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return stringBuilder.toString().trim();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        public void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        public void onPostExecute(String res) {
+            Log.e(this.getClass().getName(), "백그라운드 try문안으로");
+            try {
+                Log.e(this.getClass().getName(), "백그라운드 try문안으로");
+                JSONObject jsonObject = new JSONObject(res);
+                JSONArray jsonArray = jsonObject.getJSONArray("response");
+                Log.e(this.getClass().getName(), "jsonArray"+jsonArray);
+                int count = 0;
+                while(count < jsonArray.length()){
+                    Log.e(this.getClass().getName(), "들어오긴하냐?");
+                    JSONObject object = jsonArray.getJSONObject(count);
+                    Migration_info_array.setID(object.getString("ID"));
+                    Migration_info_array.setSIDO_NM(object.getString("SIDO_NM"));
+                    Migration_info_array.setSIGUN_NM(object.getString("SIGUN_NM"));
+                    Migration_info_array.setADDR(object.getString("ADDR"));
+                    Migration_info_array.setDEAL_AMOUNT(object.getString("DEAL_AMOUNT"));
+                    Migration_info_array.setDEAL_BIGO(object.getString("DEAL_BIGO"));
+                    Migration_info_array.setBUILDING_AREA(object.getString("BUILDING_AREA"));
+                    Migration_info_array.setAREA_ETC(object.getString("AREA_ETC"));
+                    Migration_info_array.setBUILD_YEAR(object.getString("BUILD_YEAR"));
+                    Migration_info_array.setVACANT_YEAR(object.getString("VACANT_YEAR"));
+                    Migration_info_array.setSTRUCT_TYPE(object.getString("STRUCT_TYPE"));
+                    Migration_info_array.setOWNER_NM(object.getString("OWNER_NM"));
+                    Migration_info_array.setOWNER_CONTACT(object.getString("OWNER_CONTACT"));
+                    Migration_info_array.setINSPECTOR(object.getString("INSPECTOR"));
+                    Migration_info_array.setLOT_AREA(object.getString("LOT_AREA"));
+                    Migration_info_array.setBIGO(object.getString("BIGO"));
+                    Migration_info_array.setFILE_PATH1(object.getString("FILE_PATH1"));
+                    Migration_info_array.setFILE_PATH2(object.getString("FILE_PATH2"));
+                    Migration_info_array.setFILE_PATH3(object.getString("FILE_PATH3"));
+                    Migration_info_array.setDETAIL_URL(object.getString("DETAIL_URL"));
+                    Migration_info_array.setDEAL_NEGO_YN(object.getString("DEAL_NEGO_YN"));
+                    Migration_info_array.setLEASE_AMOUNT(object.getString("LEASE_AMOUNT"));
+                    Migration_info_array.setRENT_AMOUNT(object.getString("RENT_AMOUNT"));
+                    Migration_info_array.setGUBUN(object.getString("GUBUN"));
+                    Migration_info_array.setDEAL_TYPE(object.getString("DEAL_TYPE"));
+                    Migration_info_array.setREG_DT(object.getString("REG_DT"));
+
+                    count++;
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+            End_info_request();
+        }
+    }
+
+    private void End_info_request() {
+        int i=Migration_info_array.getListSize();
+        for(int l=0;l<i;l++)
+        {
+            Log.e(this.getClass().getName(), ""+Migration_info_array.getID(l));
+            Log.e(this.getClass().getName(), ""+Migration_info_array.getSIDO_NM(l));
+            Log.e(this.getClass().getName(), ""+Migration_info_array.getSIGUN_NM(l));
+            Log.e(this.getClass().getName(), ""+Migration_info_array.getADDR(l));
+            Log.e(this.getClass().getName(), "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        }
+
     }
 }

@@ -92,27 +92,28 @@
 
                         <Button
 
-                            android:id="@+id/register"
-                            style="?android:textAppearanceSmall"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-
-                            android:textStyle="bold"
                             android:layout_gravity="center"
-                            android:text="REGISTER" />
+                            android:id="@+id/email_sign_in_button"
+                            style="?android:textAppearanceSmall"
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:text="SIGN IN"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="5dp"
+                            />
 
                     </LinearLayout>
                     <Button
-                        android:layout_gravity="center"
-                        android:id="@+id/email_sign_in_button"
+                        android:id="@+id/findID"
                         style="?android:textAppearanceSmall"
-                        android:layout_width="300dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="SIGN IN"
+
                         android:textStyle="bold"
-                        android:layout_marginBottom="5dp"
-                        />
+                        android:layout_gravity="center"
+                        android:text="Find ID,PW" />
+
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>

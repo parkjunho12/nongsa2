@@ -104,6 +104,7 @@ public class secondpage extends Fragment implements MainActivity.OnBackPressedLi
         });
 
         mEmailView = (EditText) view.findViewById(R.id.email);
+
         Button mEmailSignInButton = (Button) view.findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,7 +161,10 @@ public class secondpage extends Fragment implements MainActivity.OnBackPressedLi
                         Log.e(this.getClass().getName(), "PW!" + PW);
                         Log.e(this.getClass().getName(), "Name!" + Name);
                         Log.e(this.getClass().getName(), "Phone!" + Phone);
-
+                        Static_setting.ID=ID;
+                        Static_setting.PW=PW;
+                        Static_setting.Name=Name;
+                        Static_setting.Phone=Phone;
                         startActivity(intent);
                         //nextIntent();
                     } else {
