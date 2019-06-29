@@ -21,10 +21,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Button.OnClickListener {
     private TextView mTextMessage;
     FragmentManager fm = getSupportFragmentManager();
     Fragment fragment = fm.findFragmentById(R.id.container2);
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             Fragment fragment = null;
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    fragment = new Homepage();
+                    fragment = new Fragment();
                     getWindow().setStatusBarColor(Color.parseColor("#00ff0000"));
 
                     fm.beginTransaction().replace(R.id.container2,fragment).commit();
@@ -72,8 +73,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        imageButton1 = findViewById(R.id.imbtn1);
+
+        imageButton1 = (ImageButton) findViewById(R.id.imbtn1);
+        imageButton1.setOnClickListener(this);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+    }
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    public void onClick(View view)
+    { Fragment fragment = null;
+        switch (view.getId())
+        {
+            case R.id.imbtn1:
+                fragment = new Gyesi();
+                getWindow().setStatusBarColor(Color.parseColor("#b3e5ff"));
+                fm.beginTransaction().replace(R.id.container2,fragment).commit();
+                Log.d("ddd","MonthFragment");
+                break;
+        }
     }
 
 

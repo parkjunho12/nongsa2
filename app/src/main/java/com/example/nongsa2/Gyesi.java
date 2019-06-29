@@ -14,12 +14,12 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Homepage.OnFragmentInteractionListener} interface
+ * {@link Gyesi.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Homepage#newInstance} factory method to
+ * Use the {@link Gyesi#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Homepage extends Fragment {
+public class Gyesi extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -31,7 +31,7 @@ public class Homepage extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public Homepage() {
+    public Gyesi() {
         // Required empty public constructor
     }
 
@@ -41,11 +41,11 @@ public class Homepage extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Homepage.
+     * @return A new instance of fragment Gyesi.
      */
     // TODO: Rename and change types and number of parameters
-    public static Homepage newInstance(String param1, String param2) {
-        Homepage fragment = new Homepage();
+    public static Gyesi newInstance(String param1, String param2) {
+        Gyesi fragment = new Gyesi();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -66,7 +66,7 @@ public class Homepage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_homepage, container, false);
+        return inflater.inflate(R.layout.fragment_gyesi, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -79,12 +79,7 @@ public class Homepage extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-          //  throw new RuntimeException(context.toString()
-               //     + " must implement OnFragmentInteractionListener");
-        }
+
     }
 
     @Override
