@@ -21,13 +21,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     private TextView mTextMessage;
     FragmentManager fm = getSupportFragmentManager();
     Fragment fragment = fm.findFragmentById(R.id.container2);
-
+    ImageButton imageButton1;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -39,20 +40,20 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_home:
                     fragment = new Homepage();
                     getWindow().setStatusBarColor(Color.parseColor("#00ff0000"));
-                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0x00ff0000));
+
                     fm.beginTransaction().replace(R.id.container2,fragment).commit();
                     return true;
                 case R.id.navigation_dashboard:
                     fragment = new secondpage();
                     getWindow().setStatusBarColor(Color.parseColor("#b3e5ff"));
-                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0x90d9ffff));
+
                     fm.beginTransaction().replace(R.id.container2,fragment).commit();
                     Log.d("ddd","MonthFragment");
                     return true;
                 case R.id.navigation_notifications:
                     fragment = new thirdpage();
                     getWindow().setStatusBarColor(Color.parseColor("#fff7a2"));
-                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFFf27000));
+
                     fm.beginTransaction().replace(R.id.container2,fragment).commit();
                     return true;
             }
@@ -71,9 +72,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
-
+        imageButton1 = findViewById(R.id.imbtn1);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
+
+
     // 뒤로가기 버튼 입력시간이 담길 long 객체
     private long pressedTime = 0;
 

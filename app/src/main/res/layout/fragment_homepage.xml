@@ -36,6 +36,7 @@
                 android:layout_height="80dp"
                 android:layout_margin="30dp"
                 android:layout_weight="1"
+                android:id="@+id/imbtn1"
                 android:background="#00ffffff"
                 android:scaleType="fitCenter"
                 android:src="@drawable/barley" />
