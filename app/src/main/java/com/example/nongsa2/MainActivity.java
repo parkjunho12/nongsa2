@@ -1,7 +1,6 @@
 package com.example.nongsa2;
 
 import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -15,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.MenuItem;
@@ -30,6 +30,15 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     FragmentManager fm = getSupportFragmentManager();
     Fragment fragment = fm.findFragmentById(R.id.container2);
     ImageButton imageButton1;
+    private void replaceFragment(Fragment fragment){
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.container2, fragment);
+        fragmentTransaction.commit();
+    }
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -41,21 +50,17 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
                 case R.id.navigation_home:
                     fragment = new Fragment();
                     getWindow().setStatusBarColor(Color.parseColor("#00ff0000"));
-
-                    fm.beginTransaction().replace(R.id.container2,fragment).commit();
+                   replaceFragment(fragment);
                     return true;
                 case R.id.navigation_dashboard:
                     fragment = new secondpage();
                     getWindow().setStatusBarColor(Color.parseColor("#b3e5ff"));
-
-                    fm.beginTransaction().replace(R.id.container2,fragment).commit();
-                    Log.d("ddd","MonthFragment");
+                    replaceFragment(fragment);
                     return true;
                 case R.id.navigation_notifications:
                     fragment = new thirdpage();
                     getWindow().setStatusBarColor(Color.parseColor("#fff7a2"));
-
-                    fm.beginTransaction().replace(R.id.container2,fragment).commit();
+                    replaceFragment(fragment);
                     return true;
             }
             if(fragment!=null) {
@@ -88,11 +93,12 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
             case R.id.imbtn1:
                 fragment = new Gyesi();
                 getWindow().setStatusBarColor(Color.parseColor("#b3e5ff"));
-                fm.beginTransaction().replace(R.id.container2,fragment).commit();
+                replaceFragment(fragment);
                 Log.d("ddd","MonthFragment");
                 break;
         }
     }
+
 
 
     // 뒤로가기 버튼 입력시간이 담길 long 객체
