@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="sido">
+    <item>경기도</item>
+        <item>서울</item>
+        <item>전라남도</item>
+        <item>경상남도</item>
+
+
+    </string-array>
+    <string-array name="maemae">
+        <item>매매</item>
+        <item>임대</item>
+        <item>분양</item>
+
+
+    </string-array>
+    <string-array name="year">
+        <item>2019년</item>
+        <item>2018년</item>
+        <item>2017년</item>
+        <item>2016년</item>
+        <item>2015년</item>
+
+    </string-array>
+    <string-array name="id">
+
+    </string-array>
+
+</resources>
