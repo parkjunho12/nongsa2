@@ -2,17 +2,22 @@ package com.example.nongsa2;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -94,12 +99,6 @@ public class Gyesi extends Fragment  {
         }
 
     }
-    private ArrayAdapter yearAdapter;
-    private Spinner yearSpinner;
-    private ArrayAdapter sidoAdapter;
-    private Spinner sidoSpinner;
-    private ArrayAdapter maemaeAdapter;
-    private Spinner maemaeSpinner;
 
 
     private String id="";
@@ -112,32 +111,25 @@ public class Gyesi extends Fragment  {
     @Override
     public void onActivityCreated(Bundle b){
         super.onActivityCreated(b);
-        final RadioGroup idgroup = (RadioGroup) getView().findViewById(R.id.boardradio);
-        yearSpinner =(Spinner)getView().findViewById(R.id.yearspin);
-        sidoSpinner =(Spinner)getView().findViewById(R.id.sidospin);
-        maemaeSpinner =(Spinner)getView().findViewById(R.id.maemaespin);
 
-        idgroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                RadioButton boardbutton = (RadioButton) getView().findViewById(i);
-                id= boardbutton.getText().toString();
 
-                yearAdapter= ArrayAdapter.createFromResource(getActivity(),R.array.year,android.R.layout.simple_spinner_dropdown_item);
-                yearSpinner.setAdapter(yearAdapter);
-                sidoAdapter= ArrayAdapter.createFromResource(getActivity(),R.array.sido,android.R.layout.simple_spinner_dropdown_item);
-                sidoSpinner.setAdapter(sidoAdapter);
-                maemaeAdapter= ArrayAdapter.createFromResource(getActivity(),R.array.maemae,android.R.layout.simple_spinner_dropdown_item);
-                maemaeSpinner.setAdapter(maemaeAdapter);
 
-            }
-        });
+
+
+
 
         boardlistview=(ListView) getView().findViewById(R.id.listview);
         boardList = new ArrayList<Board>();
-        adapter = new BoardListAdapter(getContext().getApplicationContext(),boardList);
+        adapter = new BoardListAdapter(getContext().getApplicationContext(),boardList,this);
         boardlistview.setAdapter(adapter);
+        boardlistview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+            Intent intent = new Intent(getActivity().getApplicationContext(),after_listclick.class);
+            startActivity(intent);
+            }
+        });
 
         Button searchbtn = (Button) getView().findViewById(R.id.search);
         searchbtn.setOnClickListener(new View.OnClickListener() {
@@ -310,7 +302,14 @@ public class Gyesi extends Fragment  {
             End_info_request();
         }
     }
-
+    private void replaceFragment(Fragment fragment){
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.container2, fragment);
+        fragmentTransaction.commit();
+    }
     private void End_info_request() {
         int i=Migration_info_array.getListSize();
         boardList.clear();

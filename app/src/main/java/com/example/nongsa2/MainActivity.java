@@ -1,6 +1,7 @@
 package com.example.nongsa2;
 
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         BottomNavigationView navView = findViewById(R.id.nav_view);
 
         imageButton1 = (ImageButton) findViewById(R.id.imbtn1);
@@ -92,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         {
             case R.id.imbtn1:
                 fragment = new Gyesi();
-                getWindow().setStatusBarColor(Color.parseColor("#b3e5ff"));
+
                 replaceFragment(fragment);
                 Log.d("ddd","MonthFragment");
                 break;

@@ -218,6 +218,7 @@ public class Migration_info_array {
         return REG_DT_list.size();
     }
 
+    static List<Integer> index = new ArrayList<>();
     static List<String> ID_list = new ArrayList<String>();
     static List<String> SIDO_NM_list = new ArrayList<String>();
     static List<String> SIGUN_NM_list = new ArrayList<String>();
