@@ -5,13 +5,15 @@
         <item>서울</item>
         <item>전라남도</item>
         <item>경상남도</item>
+        <item>강원도</item>
 
 
     </string-array>
     <string-array name="maemae">
         <item>매매</item>
-        <item>임대</item>
-        <item>분양</item>
+        <item>임대(전세)</item>
+        <item>임대(월세)</item>
+        <item>협의 후 결정</item>
 
 
     </string-array>
@@ -21,6 +23,11 @@
         <item>2017년</item>
         <item>2016년</item>
         <item>2015년</item>
+        <item>2014년</item>
+        <item>2013년</item>
+        <item>2012년</item>
+        <item>2011년</item>
+        <item>2010년</item>
 
     </string-array>
     <string-array name="id">

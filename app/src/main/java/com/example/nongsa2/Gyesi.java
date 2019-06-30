@@ -143,11 +143,10 @@ public class Gyesi extends Fragment  {
         searchbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-             new BackgroundTask().execute();
+                End_info_request();
             }
         });
     }
-
 
 
 
@@ -157,7 +156,7 @@ public class Gyesi extends Fragment  {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_gyesi, container, false);
 
-
+        new BackgroundTask().execute();
         return view;
     }
 
@@ -206,7 +205,7 @@ public class Gyesi extends Fragment  {
 //            try {
 //                +URLEncoder.encode(sidoSpinner.toString(),"UTF-8")+"&VACANT_YEAR="+URLEncoder.encode(yearSpinner.toString(),"UTF-8")
 //                        +"&DEAL_TYPE="+URLEncoder.encode(maemaeSpinner.toString(),"UTF-8"///////////검색기능 추가할때 필요한거
-                target = "http://dbwo4011.cafe24.com/migration/migration_info_request.php";
+                    target = "http://dbwo4011.cafe24.com/migration/migration_info_request.php";
 //            } catch (UnsupportedEncodingException e) {
 //                e.printStackTrace();/////////검색기능 추가할때 필요한거요겄도
 //            }
@@ -252,18 +251,18 @@ public class Gyesi extends Fragment  {
         public void onPostExecute(String res) {
             Log.e(this.getClass().getName(), "백그라운드 try문안으로");
                     try {
-                boardList.clear();
+                        boardList.clear();
                 Log.e(this.getClass().getName(), "백그라운드 try문안으로");
                         Log.e(this.getClass().getName(), "백그라운드 try문안으로");
                 JSONObject jsonObject = new JSONObject(res);
                         Log.e(this.getClass().getName(), "백그라운드 try문안으로");
                 JSONArray jsonArray = jsonObject.getJSONArray("response");
                 Log.e(this.getClass().getName(), "jsonArray"+jsonArray);
-                int count = 0;
-                String title;
-                String content;
-                String date;
 
+                        int count = 0;
+                        String title;
+                        String content;
+                        String date;
                 while(count < jsonArray.length()){
                     Log.e(this.getClass().getName(), "들어오긴하냐?");
                     JSONObject object = jsonArray.getJSONObject(count);
@@ -293,19 +292,18 @@ public class Gyesi extends Fragment  {
                     Migration_info_array.setGUBUN(object.getString("GUBUN"));
                     Migration_info_array.setDEAL_TYPE(object.getString("DEAL_TYPE"));
                     Migration_info_array.setREG_DT(object.getString("REG_DT"));
+
+
                     title = Migration_info_array.getGUBUN(count)+"("+Migration_info_array.getDEAL_TYPE(count)+")";
-                   date = "\n날짜 : "+Migration_info_array.getREG_DT(count);
-                  content ="시도 :"+Migration_info_array.getSIDO_NM(count)+"\n시군: "+Migration_info_array.getSIGUN_NM(count)+"\n이름 :"+Migration_info_array.getOWNER_NM(count)+"\n전화번호 : "+Migration_info_array.getOWNER_CONTACT(count)
-                          +" \n가격"+Migration_info_array.getDEAL_AMOUNT(count)+"\n정보 : "+Migration_info_array.getDEAL_NEGO_YN(count) ;
-
-
-
-                   Board board = new Board(title,date,content);
-                   boardList.add(board);
+                    date = "\n날짜 : "+Migration_info_array.getREG_DT(count);
+                    content ="시도 :"+Migration_info_array.getSIDO_NM(count)+"\n시군: "+Migration_info_array.getSIGUN_NM(count)+"\n이름 :"+Migration_info_array.getOWNER_NM(count)+"\n전화번호 : "+Migration_info_array.getOWNER_CONTACT(count)
+                            +" \n가격"+Migration_info_array.getDEAL_AMOUNT(count)+"\n정보 : "+Migration_info_array.getDEAL_NEGO_YN(count) ;
+                    Board board = new Board(title,date,content);
+                    boardList.add(board);
                     count++;
 
                 }
-                    adapter.notifyDataSetChanged();
+                        adapter.notifyDataSetChanged();
             } catch (Exception e){
                 e.printStackTrace();
             }
@@ -315,14 +313,25 @@ public class Gyesi extends Fragment  {
 
     private void End_info_request() {
         int i=Migration_info_array.getListSize();
+        boardList.clear();
         for(int l=0;l<i;l++)
         {
+            String title;
+            String content;
+            String date;
+            title = Migration_info_array.getGUBUN(l)+"("+Migration_info_array.getDEAL_TYPE(l)+")";
+            date = "\n날짜 : "+Migration_info_array.getREG_DT(l);
+            content ="시도 :"+Migration_info_array.getSIDO_NM(l)+"\n시군: "+Migration_info_array.getSIGUN_NM(l)+"\n이름 :"+Migration_info_array.getOWNER_NM(l)+"\n전화번호 : "+Migration_info_array.getOWNER_CONTACT(l)
+                    +" \n가격"+Migration_info_array.getDEAL_AMOUNT(l)+"\n정보 : "+Migration_info_array.getDEAL_NEGO_YN(l) ;
+            Board board = new Board(title,date,content);
+            boardList.add(board);
+
             Log.e(this.getClass().getName(), ""+Migration_info_array.getID(l));
             Log.e(this.getClass().getName(), ""+Migration_info_array.getSIDO_NM(l));
             Log.e(this.getClass().getName(), ""+Migration_info_array.getSIGUN_NM(l));
             Log.e(this.getClass().getName(), ""+Migration_info_array.getADDR(l));
             Log.e(this.getClass().getName(), "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        }
+        }  adapter.notifyDataSetChanged();
 
     }
 }
