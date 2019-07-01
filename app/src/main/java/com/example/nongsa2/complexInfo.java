@@ -48,7 +48,7 @@ public class complexInfo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new BackgroundTask().execute();
+
         Intent intent = getIntent();
         setContentView(R.layout.activity_complex_info);
         TextView textView = (TextView) findViewById(R.id.infos);
@@ -147,7 +147,7 @@ public class complexInfo extends AppCompatActivity {
         textView.setText(content);
         textView2.setText(title);
         textView3.setText(date);
-
+        new BackgroundTask().execute();
 
 
     }
@@ -269,13 +269,13 @@ public class complexInfo extends AppCompatActivity {
 
     public void end(){
         int i=city_info_array.getListSize();
-        float a=100,b=100;
+        float a=100;
 
         for(int j=0;j<i;j++)
         {
             if(city_info_array.getLatitude(j).equals("0")&&city_info_array.getIongitude(j).equals("0"))
             {
-                a=100;
+
 
             }
             else {
