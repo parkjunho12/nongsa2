@@ -54,10 +54,9 @@ import java.util.List;
  * Use the {@link Gyesi#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Gyesi extends Fragment  {
+public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListener {
 
-
-
+    Fragment fragment;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -98,9 +97,12 @@ public class Gyesi extends Fragment  {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
 
+
+
         }
 
     }
+
 
 
     private String id="";
@@ -150,7 +152,7 @@ public class Gyesi extends Fragment  {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_gyesi, container, false);
-
+        fragment = new Fragment();
         new BackgroundTask().execute();
         return view;
     }
@@ -165,6 +167,7 @@ public class Gyesi extends Fragment  {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        ((MainActivity) context).setOnBackPressedListener(this);
 
     }
 
@@ -172,6 +175,14 @@ public class Gyesi extends Fragment  {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onBack() {
+        MainActivity activity = (MainActivity) getActivity();
+        activity.setOnBackPressedListener(null);
+       replaceFragment(fragment);
+        activity.onBackPressed();
     }
 
     /**
@@ -245,15 +256,15 @@ public class Gyesi extends Fragment  {
         @Override
         public void onPostExecute(String res) {
             Log.e(this.getClass().getName(), "백그라운드 try문안으로");
-                    try {
+            try {
                 Log.e(this.getClass().getName(), "백그라운드 try문안으로");
-                        Log.e(this.getClass().getName(), "백그라운드 try문안으로");
+                Log.e(this.getClass().getName(), "백그라운드 try문안으로");
                 JSONObject jsonObject = new JSONObject(res);
-                        Log.e(this.getClass().getName(), "백그라운드 try문안으로");
+                Log.e(this.getClass().getName(), "백그라운드 try문안으로");
                 JSONArray jsonArray = jsonObject.getJSONArray("response");
 
 
-                        int count = 0;
+                int count = 0;
 
 
                 while(count < jsonArray.length()){
@@ -285,9 +296,8 @@ public class Gyesi extends Fragment  {
                     Migration_info_array.setGUBUN(object.getString("GUBUN"));
                     Migration_info_array.setDEAL_TYPE(object.getString("DEAL_TYPE"));
                     Migration_info_array.setREG_DT(object.getString("REG_DT"));
-
-
-
+                    Migration_info_array.setLatitude(object.getString("Latitude"));
+                    Migration_info_array.setLongtitude(object.getString("Longtitude"));
 
 
                     count++;
@@ -340,7 +350,8 @@ public class Gyesi extends Fragment  {
             String GUBUN;
             String DEAL_TYPE;
             String REG_DT;
-
+            String Latitude;
+            String Longtitude;
 
 
             FILE_PATH1=Migration_info_array.getFILE_PATH1(l);
@@ -385,6 +396,8 @@ public class Gyesi extends Fragment  {
             GUBUN = Migration_info_array.getGUBUN(l);
             DEAL_TYPE = Migration_info_array.getDEAL_TYPE(l);
             REG_DT = Migration_info_array.getREG_DT(l);
+            Latitude = Migration_info_array.getLatitude(l);
+            Longtitude = Migration_info_array.getLongtitude(l);
 
 
 
@@ -397,7 +410,7 @@ public class Gyesi extends Fragment  {
             date = "\n등록 날짜 : "+Migration_info_array.getREG_DT(l);
             content ="시도 :"+Migration_info_array.getSIDO_NM(l)+" "+Migration_info_array.getSIGUN_NM(l)+"\n이름 :"+Migration_info_array.getOWNER_NM(l)+"\n전화번호 : "+Migration_info_array.getOWNER_CONTACT(l)
                     +" \n가격"+Migration_info_array.getDEAL_AMOUNT(l) ;
-            Board board = new Board( title,  content,  date,  SIDO_NM,  ID,  SIGUN_NM,  ADDR,  DEAL_AMOUNT,  DEAL_BIGO,  BUILDING_AREA,  AREA_ETC,  BUILD_YEAR,  VACANT_YEAR,  STRUCT_TYPE,  OWNER_NM,  OWNER_CONTACT,  INSPECTOR,  LOT_AREA,  BIGO,  FILE_PATH1,  FILE_PATH2,  FILE_PATH3,  DETAIL_URL,  DEAL_NEGO_YN,  GUBUN,  DEAL_TYPE,  REG_DT);
+            Board board = new Board( title,  content,  date,  SIDO_NM,  ID,  SIGUN_NM,  ADDR,  DEAL_AMOUNT,  DEAL_BIGO,  BUILDING_AREA,  AREA_ETC,  BUILD_YEAR,  VACANT_YEAR,  STRUCT_TYPE,  OWNER_NM,  OWNER_CONTACT,  INSPECTOR,  LOT_AREA,  BIGO,  FILE_PATH1,  FILE_PATH2,  FILE_PATH3,  DETAIL_URL,  DEAL_NEGO_YN,  GUBUN,  DEAL_TYPE,  REG_DT,Latitude,Longtitude);
             boardList.add(board);
             /*
             Log.e(this.getClass().getName(), ""+Migration_info_array.getID(l));
@@ -408,4 +421,12 @@ public class Gyesi extends Fragment  {
         }  adapter.notifyDataSetChanged();
 
     }
-}
+    // 리스너 생성
+
+
+
+
+    }
+
+
+

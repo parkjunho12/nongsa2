@@ -100,6 +100,9 @@ public class BoardListAdapter extends BaseAdapter  {
                 intent.putExtra("GUBUN",boardList.get(i).getGUBUN());
                 intent.putExtra("DEAL_TYPE",boardList.get(i).getDEAL_TYPE());
                 intent.putExtra("REG_DT",boardList.get(i).getREG_DT());
+                intent.putExtra("Latitude",boardList.get(i).getLatitude());
+                intent.putExtra("Longtitude",boardList.get(i).getLongtitude());
+
 
             parent.startActivity(intent);
 

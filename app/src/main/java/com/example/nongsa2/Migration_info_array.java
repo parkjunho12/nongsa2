@@ -118,6 +118,8 @@ public class Migration_info_array {
         INSPECTOR_list.add(INSPECTOR);
     }
 
+
+
     public static String getLOT_AREA(int i) {
         return LOT_AREA_list.get(i);
     }
@@ -210,9 +212,26 @@ public class Migration_info_array {
         return REG_DT_list.get(i);
     }
 
+    public static void setLatitude(String Latitude) {
+        Latitude_list.add(Latitude);
+    }
+
+    public static String getLatitude(int i) {
+        return Latitude_list.get(i);
+    }
+    public static void setLongtitude(String Longtitude) {
+        Longtitude_list.add(Longtitude);
+    }
+
+    public static String getLongtitude(int i) {
+        return Longtitude_list.get(i);
+    }
+
+
     public static  void setREG_DT(String REG_DT) {
         REG_DT_list.add(REG_DT);
     }
+
 
     public static int getListSize() {
         return REG_DT_list.size();
@@ -245,5 +264,7 @@ public class Migration_info_array {
     static   List<String> GUBUN_list = new ArrayList<String>();
     static   List<String> DEAL_TYPE_list = new ArrayList<String>();
     static   List<String> REG_DT_list = new ArrayList<String>();
+    static   List<String> Latitude_list = new ArrayList<String>();
+    static   List<String> Longtitude_list = new ArrayList<String>();
 
 }

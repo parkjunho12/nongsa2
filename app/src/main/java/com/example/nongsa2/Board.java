@@ -32,8 +32,10 @@ public class Board {
     String GUBUN="";
     String DEAL_TYPE="";
     String REG_DT="";
+    String Latitude="";
+    String Longtitude="";
 
-    public Board(String title, String content, String date, String SIDO_NM, String ID, String SIGUN_NM, String ADDR, String DEAL_AMOUNT, String DEAL_BIGO, String BUILDING_AREA, String AREA_ETC, String BUILD_YEAR, String VACANT_YEAR, String STRUCT_TYPE, String OWNER_NM, String OWNER_CONTACT, String INSPECTOR, String LOT_AREA, String BIGO, String FILE_PATH1, String FILE_PATH2, String FILE_PATH3, String DETAIL_URL, String DEAL_NEGO_YN, String GUBUN, String DEAL_TYPE, String REG_DT) {
+    public Board(String title, String content, String date, String SIDO_NM, String ID, String SIGUN_NM, String ADDR, String DEAL_AMOUNT, String DEAL_BIGO, String BUILDING_AREA, String AREA_ETC, String BUILD_YEAR, String VACANT_YEAR, String STRUCT_TYPE, String OWNER_NM, String OWNER_CONTACT, String INSPECTOR, String LOT_AREA, String BIGO, String FILE_PATH1, String FILE_PATH2, String FILE_PATH3, String DETAIL_URL, String DEAL_NEGO_YN, String GUBUN, String DEAL_TYPE, String REG_DT,String Latitude,String Longtitude) {
         this.title = title;
         this.content = content;
         this.date = date;
@@ -61,6 +63,8 @@ public class Board {
         this.GUBUN = GUBUN;
         this.DEAL_TYPE = DEAL_TYPE;
         this.REG_DT = REG_DT;
+        this.Latitude = Latitude;
+        this.Longtitude = Longtitude;
     }
 
     public String getSIDO_NM() {
@@ -271,6 +275,13 @@ public class Board {
         this.content = content;
     }
 
+    public String getLatitude() {
+        return Latitude;
+    }
+
+    public void setLatitude(String Latitude) {
+        this.Latitude = Latitude;
+    }
     public String getDate() {
         return date;
     }
@@ -279,5 +290,12 @@ public class Board {
         this.date = date;
     }
 
+    public String getLongtitude() {
+        return Longtitude;
+    }
+
+    public void setLongtitude(String Longtitude) {
+        this.Longtitude = Longtitude;
+    }
 
 }
