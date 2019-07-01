@@ -269,8 +269,8 @@ public class complexInfo extends AppCompatActivity {
 
     public void end(){
         int i=city_info_array.getListSize();
-        float a=100;
-
+        float min=distFrom(Float.parseFloat(Lat1), Float.parseFloat(Long1), Float.parseFloat(city_info_array.getLatitude(0)), Float.parseFloat(city_info_array.getIongitude(0)));
+        int index=0;
         for(int j=0;j<i;j++)
         {
             if(city_info_array.getLatitude(j).equals("0")&&city_info_array.getIongitude(j).equals("0"))
@@ -279,19 +279,13 @@ public class complexInfo extends AppCompatActivity {
 
             }
             else {
-                if(j==0)
-                {
-                    a = distFrom(Float.parseFloat(Lat1), Float.parseFloat(Long1), Float.parseFloat(city_info_array.getLatitude(j)), Float.parseFloat(city_info_array.getIongitude(j)));
 
-                }
-                else
-                {
-                    if(bigyo(a,distFrom(Float.parseFloat(Lat1), Float.parseFloat(Long1), Float.parseFloat(city_info_array.getLatitude(j)), Float.parseFloat(city_info_array.getIongitude(j))))==a)
-                        {
 
-                        }
-                    else
-                        {
+                    if(min>distFrom(Float.parseFloat(Lat1), Float.parseFloat(Long1), Float.parseFloat(city_info_array.getLatitude(j)), Float.parseFloat(city_info_array.getIongitude(j))))
+                    {
+
+                        min=distFrom(Float.parseFloat(Lat1), Float.parseFloat(Long1), Float.parseFloat(city_info_array.getLatitude(j)), Float.parseFloat(city_info_array.getIongitude(j)));
+
                             VILL_ID =city_info_array.getVILL_ID(j);
                             VILL_NM =city_info_array.getVILL_NM(j);
                             VILL_NATURE_RESOURCE =city_info_array.getVILL_ECONOMY_RESOURCE(j);
@@ -308,12 +302,12 @@ public class complexInfo extends AppCompatActivity {
                             VILL_COMMUNITY_RESOURCE4 =city_info_array.getVILL_COMMUNITY_RESOURCE4(j);
 
                         }
-                }
+
 
             }
            Log.e(this.getClass().getName(), ""+city_info_array.getLatitude(j));
             Log.e(this.getClass().getName(), ""+city_info_array.getIongitude(j));
-            Log.e(this.getClass().getName(), ""+a);
+
             TextView textView =(TextView) findViewById(R.id.titles);
 
             textView.setText(VILL_NM);
