@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class MoreComplex extends AppCompatActivity {
@@ -26,6 +28,14 @@ public class MoreComplex extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_more_complex);
         TextView textView =(TextView) findViewById(R.id.morecom);
+        TextView textView2 =(TextView) findViewById(R.id.morecom2);
+        Button back =(Button) findViewById(R.id.morback);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
         Intent intent = getIntent();
 
          VILL_ID=intent.getStringExtra("VILL_ID");
@@ -43,10 +53,10 @@ public class MoreComplex extends AppCompatActivity {
          VILL_COMMUNITY_RESOURCE3=intent.getStringExtra("VILL_COMMUNITY_RESOURCE3");
          VILL_COMMUNITY_RESOURCE4=intent.getStringExtra("VILL_COMMUNITY_RESOURCE4");
 
-        String a=""+VILL_ID+"\n"+VILL_NM+"\n"+VILL_NATURE_RESOURCE+"\n"+VILL_ECONOMY_RESOURCE+"\n"+VILL_NATURE_RESOURCE1+"\n"+VILL_NATURE_RESOURCE2+"\n"+VILL_ECONOMY_RESOURCE1
+        String a=VILL_NATURE_RESOURCE+"\n"+VILL_ECONOMY_RESOURCE+"\n"+VILL_NATURE_RESOURCE1+"\n"+VILL_NATURE_RESOURCE2+"\n"+VILL_ECONOMY_RESOURCE1
                 +"\n"+VILL_ECONOMY_RESOURCE2+"\n"+VILL_ECONOMY_RESOURCE3+"\n"+VILL_COMMUNITY_RESOURCE
                 +"\n"+VILL_COMMUNITY_RESOURCE1+"\n"+VILL_COMMUNITY_RESOURCE2+"\n"+VILL_COMMUNITY_RESOURCE3+"\n"+VILL_COMMUNITY_RESOURCE4;
-
+        textView2.setText(VILL_NM);
         textView.setText(a);
 
     }
