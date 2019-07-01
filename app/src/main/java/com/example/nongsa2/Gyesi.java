@@ -29,8 +29,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
@@ -61,6 +61,7 @@ import java.util.List;
 public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListener {
 
     Fragment fragment;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -118,6 +119,8 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
     @Override
     public void onActivityCreated(Bundle b){
         super.onActivityCreated(b);
+
+
         boardlistview=(ListView) getView().findViewById(R.id.listview);
         boardList = new ArrayList<Board>();
         adapter = new BoardListAdapter(getContext().getApplicationContext(),boardList,this);
@@ -126,6 +129,7 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
 
         Button searchbtn = (Button) getView().findViewById(R.id.search);
         Button backbtn = (Button) getView().findViewById(R.id.back);
+        FloatingActionButton floatingactionbutton = (FloatingActionButton) getView().findViewById(R.id.floatingActionButton);
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -137,6 +141,13 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
             @Override
             public void onClick(View view) {
                 End_info_request();
+            }
+        });
+        floatingactionbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(),MemoActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -154,6 +165,7 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
 
 
         fragment = new Fragment();
+
 
         new BackgroundTask().execute();
 
@@ -434,10 +446,6 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
 
     }
     // 리스너 생성
-
-
-
-
     }
 
 

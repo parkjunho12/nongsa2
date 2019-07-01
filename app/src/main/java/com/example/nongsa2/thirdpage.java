@@ -96,7 +96,6 @@ public class thirdpage extends Fragment {
                 String Name =ed_Name.getText().toString();
                 String Phone =ed_Phone.getText().toString();
 
-
                 Response.Listener<String> responseListener =new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
