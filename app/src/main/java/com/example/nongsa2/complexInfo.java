@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -68,15 +69,16 @@ public class complexInfo extends AppCompatActivity {
             textView5.setText("");
 
         }
+
         String title =intent.getStringExtra("GUBUN")+"("+intent.getStringExtra("DEAL_TYPE")+")";
 
-        String content ="시도명 :"+intent.getStringExtra("SIDO_NM")+"\n시군명:"+intent.getStringExtra("SIGUN_NM")
-                +"\nID:"+intent.getStringExtra("ID ")+"\n ADDR :"+intent.getStringExtra(" ADDR ")+"\nDEAL_AMOUNT:"+intent.getStringExtra("DEAL_AMOUNT")+"\nDEAL_BIGO:"+intent.getStringExtra("DEAL_BIGO")
-                +"\nBUILDING_AREA:"+intent.getStringExtra("BUILDING_AREA")+"\nAREA_ETC:"+intent.getStringExtra("AREA_ETC")+"\nBUILD_YEAR:"+intent.getStringExtra("BUILD_YEAR")+"\nVACANT_YEAR:"+intent.getStringExtra("VACANT_YEAR");
+        String content =
+                "ID: "+intent.getStringExtra("ID")+"\n ADDR: "+intent.getStringExtra("ADDR")+"\nDEAL_AMOUNT: "+intent.getStringExtra("DEAL_AMOUNT")+"\nDEAL_BIGO: "+intent.getStringExtra("DEAL_BIGO")
+                +"\nBUILDING_AREA: "+intent.getStringExtra("BUILDING_AREA")+"\nAREA_ETC: "+intent.getStringExtra("AREA_ETC")+"\nBUILD_YEAR: "+intent.getStringExtra("BUILD_YEAR")+"\nVACANT_YEAR: "+intent.getStringExtra("VACANT_YEAR");
         String content2=
-                "STRUCT_TYPE:"+intent.getStringExtra("STRUCT_TYPE")+"\nOWNER_NM:"+intent.getStringExtra("OWNER_NM")+"\nOWNER_CONTACT:"+intent.getStringExtra("OWNER_CONTACT")+"\nINSPECTOR:"+intent.getStringExtra("INSPECTOR")
-                +"\nLOT_AREA:"+intent.getStringExtra("LOT_AREA")+"\nBIGO:"+intent.getStringExtra("BIGO")+"\nDEAL_NEGO_YN:"+intent.getStringExtra("DEAL_NEGO_YN")+"\nLEASE_AMOUNT:"+intent.getStringExtra("LEASE_AMOUNT")
-                +"\nRENT_AMOUNT:"+intent.getStringExtra("RENT_AMOUNT");
+                "STRUCT_TYPE: "+intent.getStringExtra("STRUCT_TYPE")+"\nOWNER_NM:"+intent.getStringExtra("OWNER_NM")+"\nOWNER_CONTACT: "+intent.getStringExtra("OWNER_CONTACT")+"\nINSPECTOR: "+intent.getStringExtra("INSPECTOR")
+                +"\nLOT_AREA: "+intent.getStringExtra("LOT_AREA")+"\nBIGO:"+intent.getStringExtra("BIGO")+"\nDEAL_NEGO_YN: "+intent.getStringExtra("DEAL_NEGO_YN");
+
 
         String date ="등록일 : "+intent.getStringExtra("REG_DT");
         textView4.setText(content2);
@@ -90,6 +92,11 @@ public class complexInfo extends AppCompatActivity {
             view.loadUrl(url);
             return true;
         }
+    }
+
+    private void bakku(){
+
+
     }
 }
 

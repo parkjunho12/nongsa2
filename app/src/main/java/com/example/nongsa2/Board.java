@@ -29,13 +29,11 @@ public class Board {
     String FILE_PATH3="";
     String DETAIL_URL="";
     String DEAL_NEGO_YN="";
-    String LEASE_AMOUNT="";
-    String RENT_AMOUNT="";
     String GUBUN="";
     String DEAL_TYPE="";
     String REG_DT="";
 
-    public Board(String title, String content, String date, String SIDO_NM, String ID, String SIGUN_NM, String ADDR, String DEAL_AMOUNT, String DEAL_BIGO, String BUILDING_AREA, String AREA_ETC, String BUILD_YEAR, String VACANT_YEAR, String STRUCT_TYPE, String OWNER_NM, String OWNER_CONTACT, String INSPECTOR, String LOT_AREA, String BIGO, String FILE_PATH1, String FILE_PATH2, String FILE_PATH3, String DETAIL_URL, String DEAL_NEGO_YN, String LEASE_AMOUNT, String RENT_AMOUNT, String GUBUN, String DEAL_TYPE, String REG_DT) {
+    public Board(String title, String content, String date, String SIDO_NM, String ID, String SIGUN_NM, String ADDR, String DEAL_AMOUNT, String DEAL_BIGO, String BUILDING_AREA, String AREA_ETC, String BUILD_YEAR, String VACANT_YEAR, String STRUCT_TYPE, String OWNER_NM, String OWNER_CONTACT, String INSPECTOR, String LOT_AREA, String BIGO, String FILE_PATH1, String FILE_PATH2, String FILE_PATH3, String DETAIL_URL, String DEAL_NEGO_YN, String GUBUN, String DEAL_TYPE, String REG_DT) {
         this.title = title;
         this.content = content;
         this.date = date;
@@ -60,8 +58,6 @@ public class Board {
         this.FILE_PATH3 = FILE_PATH3;
         this.DETAIL_URL = DETAIL_URL;
         this.DEAL_NEGO_YN = DEAL_NEGO_YN;
-        this.LEASE_AMOUNT = LEASE_AMOUNT;
-        this.RENT_AMOUNT = RENT_AMOUNT;
         this.GUBUN = GUBUN;
         this.DEAL_TYPE = DEAL_TYPE;
         this.REG_DT = REG_DT;
@@ -233,22 +229,6 @@ public class Board {
 
     public void setDEAL_NEGO_YN(String DEAL_NEGO_YN) {
         this.DEAL_NEGO_YN = DEAL_NEGO_YN;
-    }
-
-    public String getLEASE_AMOUNT() {
-        return LEASE_AMOUNT;
-    }
-
-    public void setLEASE_AMOUNT(String LEASE_AMOUNT) {
-        this.LEASE_AMOUNT = LEASE_AMOUNT;
-    }
-
-    public String getRENT_AMOUNT() {
-        return RENT_AMOUNT;
-    }
-
-    public void setRENT_AMOUNT(String RENT_AMOUNT) {
-        this.RENT_AMOUNT = RENT_AMOUNT;
     }
 
     public String getGUBUN() {

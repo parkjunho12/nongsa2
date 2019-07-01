@@ -77,8 +77,8 @@ public class BoardListAdapter extends BaseAdapter  {
             Intent intent = new Intent(parent.getContext().getApplicationContext(),complexInfo.class);
 
                 intent.putExtra("SIDO_NM",boardList.get(i).getSIDO_NM());
-                intent.putExtra("SIGUN_NM",boardList.get(i).getSIGUN_NM());
                 intent.putExtra("ID",boardList.get(i).getID());
+                intent.putExtra("SIGUN_NM",boardList.get(i).getSIGUN_NM());
                 intent.putExtra("ADDR",boardList.get(i).getADDR());
                 intent.putExtra("DEAL_AMOUNT",boardList.get(i).getDEAL_AMOUNT());
                 intent.putExtra("DEAL_BIGO",boardList.get(i).getDEAL_BIGO());
@@ -97,8 +97,6 @@ public class BoardListAdapter extends BaseAdapter  {
                 intent.putExtra("FILE_PATH3",boardList.get(i).getFILE_PATH3());
                 intent.putExtra("DETAIL_URL",boardList.get(i).getDETAIL_URL());
                 intent.putExtra("DEAL_NEGO_YN",boardList.get(i).getDEAL_NEGO_YN());
-                intent.putExtra("LEASE_AMOUNT",boardList.get(i).getLEASE_AMOUNT());
-                intent.putExtra("RENT_AMOUNT",boardList.get(i).getRENT_AMOUNT());
                 intent.putExtra("GUBUN",boardList.get(i).getGUBUN());
                 intent.putExtra("DEAL_TYPE",boardList.get(i).getDEAL_TYPE());
                 intent.putExtra("REG_DT",boardList.get(i).getREG_DT());

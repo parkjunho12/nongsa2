@@ -329,8 +329,6 @@ public class Gyesi extends Fragment  {
             String FILE_PATH3;
             String DETAIL_URL;
             String DEAL_NEGO_YN;
-            String LEASE_AMOUNT;
-            String RENT_AMOUNT;
             String GUBUN;
             String DEAL_TYPE;
             String REG_DT;
@@ -376,8 +374,6 @@ public class Gyesi extends Fragment  {
             FILE_PATH3 = Migration_info_array.getFILE_PATH3(l);
             DETAIL_URL = Migration_info_array.getDETAIL_URL(l);
             DEAL_NEGO_YN = Migration_info_array.getDEAL_NEGO_YN(l);
-            LEASE_AMOUNT = Migration_info_array.getLEASE_AMOUNT(l);
-            RENT_AMOUNT = Migration_info_array.getRENT_AMOUNT(l);
             GUBUN = Migration_info_array.getGUBUN(l);
             DEAL_TYPE = Migration_info_array.getDEAL_TYPE(l);
             REG_DT = Migration_info_array.getREG_DT(l);
@@ -390,10 +386,10 @@ public class Gyesi extends Fragment  {
 
 
             title = Migration_info_array.getGUBUN(l)+"("+Migration_info_array.getDEAL_TYPE(l)+")";
-            date = "\n날짜 : "+Migration_info_array.getREG_DT(l);
-            content ="시도 :"+Migration_info_array.getSIDO_NM(l)+"\n시군: "+Migration_info_array.getSIGUN_NM(l)+"\n이름 :"+Migration_info_array.getOWNER_NM(l)+"\n전화번호 : "+Migration_info_array.getOWNER_CONTACT(l)
-                    +" \n가격"+Migration_info_array.getDEAL_AMOUNT(l)+"\n정보 : "+Migration_info_array.getDEAL_NEGO_YN(l) ;
-            Board board = new Board( title,  content,  date,  SIDO_NM,  ID,  SIGUN_NM,  ADDR,  DEAL_AMOUNT,  DEAL_BIGO,  BUILDING_AREA,  AREA_ETC,  BUILD_YEAR,  VACANT_YEAR,  STRUCT_TYPE,  OWNER_NM,  OWNER_CONTACT,  INSPECTOR,  LOT_AREA,  BIGO,  FILE_PATH1,  FILE_PATH2,  FILE_PATH3,  DETAIL_URL,  DEAL_NEGO_YN,  LEASE_AMOUNT,  RENT_AMOUNT,  GUBUN,  DEAL_TYPE,  REG_DT);
+            date = "\n등록 날짜 : "+Migration_info_array.getREG_DT(l);
+            content ="시도 :"+Migration_info_array.getSIDO_NM(l)+" "+Migration_info_array.getSIGUN_NM(l)+"\n이름 :"+Migration_info_array.getOWNER_NM(l)+"\n전화번호 : "+Migration_info_array.getOWNER_CONTACT(l)
+                    +" \n가격"+Migration_info_array.getDEAL_AMOUNT(l) ;
+            Board board = new Board( title,  content,  date,  SIDO_NM,  ID,  SIGUN_NM,  ADDR,  DEAL_AMOUNT,  DEAL_BIGO,  BUILDING_AREA,  AREA_ETC,  BUILD_YEAR,  VACANT_YEAR,  STRUCT_TYPE,  OWNER_NM,  OWNER_CONTACT,  INSPECTOR,  LOT_AREA,  BIGO,  FILE_PATH1,  FILE_PATH2,  FILE_PATH3,  DETAIL_URL,  DEAL_NEGO_YN,  GUBUN,  DEAL_TYPE,  REG_DT);
             boardList.add(board);
             /*
             Log.e(this.getClass().getName(), ""+Migration_info_array.getID(l));
