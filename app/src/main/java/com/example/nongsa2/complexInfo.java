@@ -151,7 +151,6 @@ public class complexInfo extends AppCompatActivity {
         textView3.setText(date);
         new BackgroundTask().execute();
 
-
     }
 
     private class WebViewClientClass extends WebViewClient {
