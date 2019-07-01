@@ -26,9 +26,9 @@ public class complexInfo extends AppCompatActivity {
 
 
 
-        if(intent.getStringExtra("FILE_PATH1").equals("없음"))
+        if(intent.getStringExtra("FILE_PATH1").equals("")||intent.getStringExtra("FILE_PATH1").equals(null))
         {
-           textView5.setText("");
+            textView5.setText("사진 없음");
         }
         else {
             webView.getSettings().setJavaScriptEnabled(true);
@@ -37,11 +37,12 @@ public class complexInfo extends AppCompatActivity {
             webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);////웹뷰 쓸때 쓰는것
             webView.loadUrl(intent.getStringExtra("FILE_PATH1"));
             webView.setWebViewClient(new WebViewClientClass());
+            textView5.setText("");
 
         }
-        if(intent.getStringExtra("FILE_PATH2").equals("없음"))
+        if(intent.getStringExtra("FILE_PATH2").equals("")||intent.getStringExtra("FILE_PATH1").equals(null))
         {
-            textView5.setText("");
+            textView5.setText("사진 없음");
         }
         else {
             webView.getSettings().setJavaScriptEnabled(true);
@@ -50,11 +51,12 @@ public class complexInfo extends AppCompatActivity {
             webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);////웹뷰 쓸때 쓰는것
             webView.loadUrl(intent.getStringExtra("FILE_PATH2"));
             webView.setWebViewClient(new WebViewClientClass());
+            textView5.setText("");
 
         }
-        if(intent.getStringExtra("FILE_PATH3").equals("없음"))
+        if(intent.getStringExtra("FILE_PATH3").equals("")||intent.getStringExtra("FILE_PATH1").equals(null))
         {
-            textView5.setText("");
+            textView5.setText("사진 없음");
         }
         else {
             webView.getSettings().setJavaScriptEnabled(true);
@@ -63,6 +65,7 @@ public class complexInfo extends AppCompatActivity {
             webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);////웹뷰 쓸때 쓰는것
             webView.loadUrl(intent.getStringExtra("FILE_PATH2"));
             webView.setWebViewClient(new WebViewClientClass());
+            textView5.setText("");
 
         }
         String title =intent.getStringExtra("GUBUN")+"("+intent.getStringExtra("DEAL_TYPE")+")";
