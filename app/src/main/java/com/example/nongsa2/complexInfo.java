@@ -315,14 +315,6 @@ public class complexInfo extends AppCompatActivity {
 
 
     }
-    public float bigyo(float a, float b)
-    {
 
-        if(a<b)
-            return a;
-        else
-            return b;
-
-    }
 
 }
