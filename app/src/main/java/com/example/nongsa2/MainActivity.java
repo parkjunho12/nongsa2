@@ -1,5 +1,6 @@
 package com.example.nongsa2;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
@@ -7,8 +8,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -26,14 +25,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements Button.OnClickListener {
     private TextView mTextMessage;
     FragmentManager fm = getSupportFragmentManager();
     Fragment fragment = fm.findFragmentById(R.id.container2);
-    ImageButton imageButton1;
+    ImageButton imageButton1,imageButton2,imageButton3;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -70,18 +68,20 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     };
 
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        ImageView imageView =(ImageView)findViewById(R.id.bg1);
 
-        GlideDrawableImageViewTarget gifImage = new GlideDrawableImageViewTarget(imageView);
-        Glide.with(this).load(R.drawable.rabbit).into(gifImage);
         imageButton1 = (ImageButton) findViewById(R.id.imbtn1);
+        imageButton2 = (ImageButton) findViewById(R.id.garden);
+        imageButton3 = (ImageButton) findViewById(R.id.consultation);
         imageButton1.setOnClickListener(this);
+        imageButton2.setOnClickListener(this);
+        imageButton3.setOnClickListener(this);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
     }
@@ -93,7 +93,16 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         {
             case R.id.imbtn1:
                 fragment = new Gyesi();
-
+                replaceFragment(fragment);
+                Log.d("ddd","MonthFragment");
+                break;
+            case R.id.garden:
+                fragment = new Garden_board();
+                replaceFragment(fragment);
+                Log.d("ddd","MonthFragment");
+                break;
+            case R.id.consultation:
+                fragment = new Consultation();
                 replaceFragment(fragment);
                 Log.d("ddd","MonthFragment");
                 break;

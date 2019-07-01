@@ -102,9 +102,6 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
-
-
-
         }
 
     }
@@ -121,13 +118,6 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
     @Override
     public void onActivityCreated(Bundle b){
         super.onActivityCreated(b);
-
-
-
-
-
-
-
         boardlistview=(ListView) getView().findViewById(R.id.listview);
         boardList = new ArrayList<Board>();
         adapter = new BoardListAdapter(getContext().getApplicationContext(),boardList,this);

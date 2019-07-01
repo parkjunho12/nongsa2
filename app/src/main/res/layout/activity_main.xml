@@ -41,6 +41,7 @@
                     android:orientation="horizontal">
 
                     <ImageButton
+                        android:text="귀농 귀촌 방\n 게시판"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
                         android:layout_margin="30dp"
@@ -48,6 +49,7 @@
                         android:id="@+id/imbtn1"
                         android:background="#00ffffff"
                         android:scaleType="fitCenter"
+
                         android:src="@drawable/barley" />
 
                     <View
@@ -58,12 +60,14 @@
                         android:background="#74000000" />
 
                     <ImageButton
+                        android:id="@+id/garden"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
                         android:layout_margin="30dp"
                         android:layout_weight="1"
                         android:background="#00ffffff"
                         android:scaleType="fitCenter"
+                        android:text="텃밭 분양 \n게시판"
                         android:src="@drawable/bear" />
 
                     <View
@@ -74,6 +78,8 @@
                         android:background="#74000000" />
 
                     <ImageButton
+                        android:text="귀농 귀촌\n지능형 상담"
+                        android:id="@+id/consultation"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
                         android:layout_margin="30dp"
@@ -92,6 +98,7 @@
                     android:orientation="horizontal">
 
                     <ImageButton
+                        android:text="귀농 귀촌 \n지원 정책 "
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
                         android:layout_margin="30dp"
