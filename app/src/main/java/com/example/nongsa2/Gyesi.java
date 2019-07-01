@@ -127,6 +127,14 @@ public class Gyesi extends Fragment  {
 
 
         Button searchbtn = (Button) getView().findViewById(R.id.search);
+        Button backbtn = (Button) getView().findViewById(R.id.back);
+        backbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new Fragment();
+                replaceFragment(fragment);
+            }
+        });
         searchbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

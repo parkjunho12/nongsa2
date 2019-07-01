@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class complexInfo extends AppCompatActivity {
@@ -23,6 +25,14 @@ public class complexInfo extends AppCompatActivity {
         TextView textView4 = (TextView) findViewById(R.id.infos2);
         TextView textView5 = (TextView) findViewById(R.id.infos3);
         WebView webView =(WebView) findViewById(R.id.webview);
+        Button button = (Button) findViewById(R.id.back2);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
 
 
@@ -94,9 +104,6 @@ public class complexInfo extends AppCompatActivity {
         }
     }
 
-    private void bakku(){
 
-
-    }
 }
 
