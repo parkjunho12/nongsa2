@@ -1,6 +1,7 @@
 package com.example.nongsa2;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -27,6 +28,9 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
@@ -93,6 +97,8 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -147,13 +153,20 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
 
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_gyesi, container, false);
+
+
+
+
         fragment = new Fragment();
+
         new BackgroundTask().execute();
+
         return view;
     }
 
@@ -200,14 +213,19 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
         void onFragmentInteraction(Uri uri);
     }
 
+
     class BackgroundTask extends AsyncTask<String, Void, String> {
         String target;
 
+    ProgressDialog progressDialog = new ProgressDialog(getContext());
 
 
 
         @Override
         protected void onPreExecute() {
+            progressDialog.setMessage("로딩중....");
+            progressDialog.setCancelable(true);
+            progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Horizontal);
 //            try {
 //                +URLEncoder.encode(sidoSpinner.toString(),"UTF-8")+"&VACANT_YEAR="+URLEncoder.encode(yearSpinner.toString(),"UTF-8")
 //                        +"&DEAL_TYPE="+URLEncoder.encode(maemaeSpinner.toString(),"UTF-8"///////////검색기능 추가할때 필요한거
@@ -216,7 +234,9 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
 //                e.printStackTrace();/////////검색기능 추가할때 필요한거요겄도
 //            }
             Log.e(this.getClass().getName(), "백그라운드로 list뽑기 시작한다.");
+            progressDialog.show();
         }
+
 
         @Override
         protected String doInBackground(String... params) {
@@ -308,7 +328,9 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
                 e.printStackTrace();
             }
             End_info_request();
+            progressDialog.dismiss();
         }
+
     }
     private void replaceFragment(Fragment fragment){
         FragmentManager fm = getActivity().getSupportFragmentManager();

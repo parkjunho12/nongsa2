@@ -7,6 +7,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -24,6 +26,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements Button.OnClickListener {
@@ -73,7 +76,10 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         BottomNavigationView navView = findViewById(R.id.nav_view);
+        ImageView imageView =(ImageView)findViewById(R.id.bg1);
 
+        GlideDrawableImageViewTarget gifImage = new GlideDrawableImageViewTarget(imageView);
+        Glide.with(this).load(R.drawable.rabbit).into(gifImage);
         imageButton1 = (ImageButton) findViewById(R.id.imbtn1);
         imageButton1.setOnClickListener(this);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);

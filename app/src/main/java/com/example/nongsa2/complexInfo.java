@@ -2,6 +2,7 @@ package com.example.nongsa2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -51,6 +52,7 @@ public class complexInfo extends AppCompatActivity {
 
         Intent intent = getIntent();
         setContentView(R.layout.activity_complex_info);
+
         TextView textView = (TextView) findViewById(R.id.infos);
         TextView textView2 = (TextView) findViewById(R.id.titles);
         TextView textView3 = (TextView) findViewById(R.id.dates);
@@ -175,10 +177,14 @@ public class complexInfo extends AppCompatActivity {
 
     class BackgroundTask extends AsyncTask<String, Void, String> {
         String target;
+        ProgressDialog progressDialog = new ProgressDialog(complexInfo.this);
         @Override
         protected void onPreExecute() {
-
+            progressDialog.setMessage("로딩중....");
+            progressDialog.setCancelable(true);
+            progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Horizontal);
             target = "http://dbwo4011.cafe24.com/migration/city_info_request.php";
+            progressDialog.show();
         }
 
 
@@ -262,10 +268,12 @@ public class complexInfo extends AppCompatActivity {
                 e.printStackTrace();
             }
             end();
+            progressDialog.dismiss();
         }
 
 
     }
+
 
     public void end(){
         int i=city_info_array.getListSize();
