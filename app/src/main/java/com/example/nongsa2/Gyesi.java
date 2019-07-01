@@ -17,9 +17,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -122,14 +124,7 @@ public class Gyesi extends Fragment  {
         boardList = new ArrayList<Board>();
         adapter = new BoardListAdapter(getContext().getApplicationContext(),boardList,this);
         boardlistview.setAdapter(adapter);
-        boardlistview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-            Intent intent = new Intent(getActivity().getApplicationContext(),after_listclick.class);
-            startActivity(intent);
-            }
-        });
 
         Button searchbtn = (Button) getView().findViewById(R.id.search);
         searchbtn.setOnClickListener(new View.OnClickListener() {
@@ -243,18 +238,16 @@ public class Gyesi extends Fragment  {
         public void onPostExecute(String res) {
             Log.e(this.getClass().getName(), "백그라운드 try문안으로");
                     try {
-                        boardList.clear();
                 Log.e(this.getClass().getName(), "백그라운드 try문안으로");
                         Log.e(this.getClass().getName(), "백그라운드 try문안으로");
                 JSONObject jsonObject = new JSONObject(res);
                         Log.e(this.getClass().getName(), "백그라운드 try문안으로");
                 JSONArray jsonArray = jsonObject.getJSONArray("response");
-                Log.e(this.getClass().getName(), "jsonArray"+jsonArray);
+
 
                         int count = 0;
-                        String title;
-                        String content;
-                        String date;
+
+
                 while(count < jsonArray.length()){
                     Log.e(this.getClass().getName(), "들어오긴하냐?");
                     JSONObject object = jsonArray.getJSONObject(count);
@@ -286,16 +279,13 @@ public class Gyesi extends Fragment  {
                     Migration_info_array.setREG_DT(object.getString("REG_DT"));
 
 
-                    title = Migration_info_array.getGUBUN(count)+"("+Migration_info_array.getDEAL_TYPE(count)+")";
-                    date = "\n날짜 : "+Migration_info_array.getREG_DT(count);
-                    content ="시도 :"+Migration_info_array.getSIDO_NM(count)+"\n시군: "+Migration_info_array.getSIGUN_NM(count)+"\n이름 :"+Migration_info_array.getOWNER_NM(count)+"\n전화번호 : "+Migration_info_array.getOWNER_CONTACT(count)
-                            +" \n가격"+Migration_info_array.getDEAL_AMOUNT(count)+"\n정보 : "+Migration_info_array.getDEAL_NEGO_YN(count) ;
-                    Board board = new Board(title,date,content);
-                    boardList.add(board);
+
+
+
                     count++;
 
                 }
-                        adapter.notifyDataSetChanged();
+
             } catch (Exception e){
                 e.printStackTrace();
             }
@@ -318,18 +308,99 @@ public class Gyesi extends Fragment  {
             String title;
             String content;
             String date;
+            String SIDO_NM;
+            String ID;
+            String SIGUN_NM;
+            String ADDR;
+            String DEAL_AMOUNT;
+            String DEAL_BIGO;
+            String BUILDING_AREA;
+            String AREA_ETC;
+            String BUILD_YEAR;
+            String VACANT_YEAR;
+            String STRUCT_TYPE;
+            String OWNER_NM;
+            String OWNER_CONTACT;
+            String INSPECTOR;
+            String LOT_AREA;
+            String BIGO;
+            String FILE_PATH1;
+            String FILE_PATH2;
+            String FILE_PATH3;
+            String DETAIL_URL;
+            String DEAL_NEGO_YN;
+            String LEASE_AMOUNT;
+            String RENT_AMOUNT;
+            String GUBUN;
+            String DEAL_TYPE;
+            String REG_DT;
+
+
+
+            FILE_PATH1=Migration_info_array.getFILE_PATH1(l);
+            if(Migration_info_array.getFILE_PATH1(l).equals("")||Migration_info_array.getFILE_PATH1(l).equals(null))
+            {
+                FILE_PATH1= "없음";
+
+                }
+            FILE_PATH2=Migration_info_array.getFILE_PATH2(l);
+            if(Migration_info_array.getFILE_PATH2(l).equals("")||Migration_info_array.getFILE_PATH2(l).equals(null)) {
+                FILE_PATH2 = "없음";
+            }
+            FILE_PATH3=Migration_info_array.getFILE_PATH3(l);
+            if(Migration_info_array.getFILE_PATH3(l).equals("")||Migration_info_array.getFILE_PATH3(l).equals(null))
+            {
+                FILE_PATH3= "없음";
+
+            }
+
+
+            SIDO_NM = Migration_info_array.getSIDO_NM(l);
+            ID = Migration_info_array.getID(l);
+            SIGUN_NM = Migration_info_array.getSIGUN_NM(l);
+            ADDR = Migration_info_array.getADDR(l);
+            DEAL_AMOUNT = Migration_info_array.getDEAL_AMOUNT(l);
+            DEAL_BIGO = Migration_info_array.getDEAL_BIGO(l);
+            BUILDING_AREA = Migration_info_array.getBUILDING_AREA(l);
+            AREA_ETC = Migration_info_array.getAREA_ETC(l);
+            BUILD_YEAR = Migration_info_array.getBUILD_YEAR(l);
+            VACANT_YEAR = Migration_info_array.getVACANT_YEAR(l);
+            STRUCT_TYPE = Migration_info_array.getSTRUCT_TYPE(l);
+            OWNER_NM = Migration_info_array.getOWNER_NM(l);
+            OWNER_CONTACT = Migration_info_array.getOWNER_CONTACT(l);
+            INSPECTOR = Migration_info_array.getINSPECTOR(l);
+            LOT_AREA = Migration_info_array.getLOT_AREA(l);
+            BIGO = Migration_info_array.getBIGO(l);
+            FILE_PATH1 = Migration_info_array.getFILE_PATH1(l);
+            FILE_PATH2 = Migration_info_array.getFILE_PATH2(l);
+            FILE_PATH3 = Migration_info_array.getFILE_PATH3(l);
+            DETAIL_URL = Migration_info_array.getDETAIL_URL(l);
+            DEAL_NEGO_YN = Migration_info_array.getDEAL_NEGO_YN(l);
+            LEASE_AMOUNT = Migration_info_array.getLEASE_AMOUNT(l);
+            RENT_AMOUNT = Migration_info_array.getRENT_AMOUNT(l);
+            GUBUN = Migration_info_array.getGUBUN(l);
+            DEAL_TYPE = Migration_info_array.getDEAL_TYPE(l);
+            REG_DT = Migration_info_array.getREG_DT(l);
+
+
+
+
+
+
+
+
             title = Migration_info_array.getGUBUN(l)+"("+Migration_info_array.getDEAL_TYPE(l)+")";
             date = "\n날짜 : "+Migration_info_array.getREG_DT(l);
             content ="시도 :"+Migration_info_array.getSIDO_NM(l)+"\n시군: "+Migration_info_array.getSIGUN_NM(l)+"\n이름 :"+Migration_info_array.getOWNER_NM(l)+"\n전화번호 : "+Migration_info_array.getOWNER_CONTACT(l)
                     +" \n가격"+Migration_info_array.getDEAL_AMOUNT(l)+"\n정보 : "+Migration_info_array.getDEAL_NEGO_YN(l) ;
-            Board board = new Board(title,date,content);
+            Board board = new Board( title,  content,  date,  SIDO_NM,  ID,  SIGUN_NM,  ADDR,  DEAL_AMOUNT,  DEAL_BIGO,  BUILDING_AREA,  AREA_ETC,  BUILD_YEAR,  VACANT_YEAR,  STRUCT_TYPE,  OWNER_NM,  OWNER_CONTACT,  INSPECTOR,  LOT_AREA,  BIGO,  FILE_PATH1,  FILE_PATH2,  FILE_PATH3,  DETAIL_URL,  DEAL_NEGO_YN,  LEASE_AMOUNT,  RENT_AMOUNT,  GUBUN,  DEAL_TYPE,  REG_DT);
             boardList.add(board);
-
+            /*
             Log.e(this.getClass().getName(), ""+Migration_info_array.getID(l));
             Log.e(this.getClass().getName(), ""+Migration_info_array.getSIDO_NM(l));
             Log.e(this.getClass().getName(), ""+Migration_info_array.getSIGUN_NM(l));
             Log.e(this.getClass().getName(), ""+Migration_info_array.getADDR(l));
-            Log.e(this.getClass().getName(), "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+            Log.e(this.getClass().getName(), "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");*/
         }  adapter.notifyDataSetChanged();
 
     }

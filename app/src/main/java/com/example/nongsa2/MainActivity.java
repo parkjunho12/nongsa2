@@ -31,14 +31,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     FragmentManager fm = getSupportFragmentManager();
     Fragment fragment = fm.findFragmentById(R.id.container2);
     ImageButton imageButton1;
-    private void replaceFragment(Fragment fragment){
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.container2, fragment);
-        fragmentTransaction.commit();
-    }
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -151,6 +144,13 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
             }
         }
     }
-
+    private void replaceFragment(Fragment fragment){
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.container2, fragment);
+        fragmentTransaction.commit();
+    }
 }
 
