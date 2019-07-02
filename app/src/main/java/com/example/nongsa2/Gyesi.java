@@ -146,9 +146,8 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
         floatingactionbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               fragment = new MemoFragment();
-               replaceFragment(fragment);
-
+                Fragment fragment = new MemoFragment();
+                replaceFragment(fragment);
             }
         });
     }
@@ -344,7 +343,7 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
         fragmentTransaction.commit();
     }
     private void End_info_request() {
-        int i=Migration_info_array.getListSize();
+        int i=boardList.size();
         boardList.clear();
         for(int l=0;l<i;l++)
         {

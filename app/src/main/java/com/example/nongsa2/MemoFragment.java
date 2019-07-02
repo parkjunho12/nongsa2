@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -86,6 +87,9 @@ public class MemoFragment extends Fragment {
         final EditText edit_OWNER_CONTACT = (EditText) view.findViewById(R.id.OWNER_CONTACT);
         final EditText edit_DEAL_AMAUNT = (EditText) view.findViewById(R.id.DEAL_AMAUNT);
 
+        Spinner spinner1 = (Spinner)view.findViewById(R.id.spinner1);
+        String text1 = spinner1.getSelectedItem().toString(); // 스피너에서 선택된 항목의 값을 text1로 받음
+
         Button mRegister_btn = (Button) view.findViewById(R.id.Register_btn);
         mRegister_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +98,7 @@ public class MemoFragment extends Fragment {
                 String OWNER_NM =edit_OWNER_NM.getText().toString();
                 String OWNER_CONTACT =edit_OWNER_CONTACT.getText().toString();
                 String DEAL_AMAUNT =edit_DEAL_AMAUNT.getText().toString();
+
 
                 Response.Listener<String> responseListener =new Response.Listener<String>() {
                     @Override

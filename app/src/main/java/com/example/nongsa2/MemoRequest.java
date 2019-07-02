@@ -27,5 +27,5 @@ public class MemoRequest extends StringRequest {
         Log.e(this.getClass().getName(),"소유주 전화번호!"+OWNER_CONTACT);
         Log.e(this.getClass().getName(),"희망거래가!"+DEAL_AMAUNT);
     }
-    public Map<String, String> getParam() { return parameters; }
+    public Map<String, String> getParams() { return parameters; }
 }
