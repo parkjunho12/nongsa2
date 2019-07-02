@@ -215,7 +215,6 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
         void onFragmentInteraction(Uri uri);
     }
 
-
     class BackgroundTask extends AsyncTask<String, Void, String> {
         String target;
 
@@ -290,7 +289,7 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
 
 
                 while(count < jsonArray.length()){
-                    Log.e(this.getClass().getName(), "들어오긴하냐?");
+                    //Log.e(this.getClass().getName(), "들어오긴하냐?");
                     JSONObject object = jsonArray.getJSONObject(count);
                     Migration_info_array.setID(object.getString("ID"));
                     Migration_info_array.setSIDO_NM(object.getString("SIDO_NM"));

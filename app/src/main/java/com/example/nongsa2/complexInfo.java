@@ -25,6 +25,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class complexInfo extends AppCompatActivity {
+static int comctn=0;
 
     String Long1;
     String Lat1;
@@ -149,8 +150,16 @@ public class complexInfo extends AppCompatActivity {
         textView.setText(content);
         textView2.setText(title);
         textView3.setText(date);
-        new BackgroundTask().execute();
 
+        if(comctn==0)
+        {
+            new BackgroundTask().execute();
+            comctn++;
+        }
+        else
+        {
+            end();
+        }
     }
 
     private class WebViewClientClass extends WebViewClient {
@@ -173,6 +182,7 @@ public class complexInfo extends AppCompatActivity {
 
         return dist;
     }
+
 
     class BackgroundTask extends AsyncTask<String, Void, String> {
         String target;
@@ -239,7 +249,7 @@ public class complexInfo extends AppCompatActivity {
 
                 while(count < jsonArray.length())
                 {
-                    Log.e(this.getClass().getName(), "들어오긴하냐?");
+                    Log.e(this.getClass().getName(), "메인이에요");
                     JSONObject object = jsonArray.getJSONObject(count);
                     city_info_array.setVILL_ID(object.getString("VILL_ID"));
                     city_info_array.setVILL_NM(object.getString("VILL_NM"));
@@ -268,6 +278,7 @@ public class complexInfo extends AppCompatActivity {
             }
             end();
             progressDialog.dismiss();
+
         }
 
 
