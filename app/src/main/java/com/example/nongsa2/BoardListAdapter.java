@@ -105,9 +105,6 @@ public class BoardListAdapter extends BaseAdapter  {
 
 
             parent.startActivity(intent);
-
-
-
     }
 });
         return v;

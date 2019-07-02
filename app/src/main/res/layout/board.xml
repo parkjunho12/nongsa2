@@ -54,19 +54,20 @@
 
         </LinearLayout>
     </LinearLayout>
+
     <Button
-        android:layout_width="0dp"
-        android:layout_weight="0.3"
+        android:id="@+id/addbtn"
+        android:layout_width="33dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="13dp"
+        android:layout_weight="0.3"
+        android:background="@color/cardview_dark_background"
         android:gravity="center"
         android:text="상세정보"
-        android:background="@color/cardview_dark_background"
         android:textColor="#ffffff"
-        android:textSize="15dp"
-        android:id="@+id/addbtn"
-        android:layout_marginRight="13dp"
-        android:layout_marginLeft="8dp"/>
+        android:textSize="15dp" />
 
 
 </LinearLayout>

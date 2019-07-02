@@ -1,41 +1,20 @@
 package com.example.nongsa2;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
 
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -46,7 +25,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -61,7 +40,6 @@ import java.util.List;
 public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListener {
 
     Fragment fragment;
-
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -119,8 +97,6 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
     @Override
     public void onActivityCreated(Bundle b){
         super.onActivityCreated(b);
-
-
         boardlistview=(ListView) getView().findViewById(R.id.listview);
         boardList = new ArrayList<Board>();
         adapter = new BoardListAdapter(getContext().getApplicationContext(),boardList,this);
@@ -129,7 +105,6 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
 
         Button searchbtn = (Button) getView().findViewById(R.id.search);
         Button backbtn = (Button) getView().findViewById(R.id.back);
-        FloatingActionButton floatingactionbutton = (FloatingActionButton) getView().findViewById(R.id.floatingActionButton);
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -141,13 +116,6 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
             @Override
             public void onClick(View view) {
                 End_info_request();
-            }
-        });
-        floatingactionbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),MemoActivity.class);
-                startActivity(intent);
             }
         });
     }
@@ -165,7 +133,6 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
 
 
         fragment = new Fragment();
-
 
         new BackgroundTask().execute();
 
@@ -214,6 +181,7 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 
     class BackgroundTask extends AsyncTask<String, Void, String> {
         String target;
@@ -289,7 +257,7 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
 
 
                 while(count < jsonArray.length()){
-                    //Log.e(this.getClass().getName(), "들어오긴하냐?");
+                    Log.e(this.getClass().getName(), "들어오긴하냐?");
                     JSONObject object = jsonArray.getJSONObject(count);
                     Migration_info_array.setID(object.getString("ID"));
                     Migration_info_array.setSIDO_NM(object.getString("SIDO_NM"));
@@ -445,6 +413,10 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
 
     }
     // 리스너 생성
+
+
+
+
     }
 
 
