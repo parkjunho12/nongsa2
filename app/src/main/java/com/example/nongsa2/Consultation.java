@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -50,6 +52,7 @@ public class Consultation extends Fragment implements MainActivity.OnBackPressed
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     Fragment fragment;
+    Con_array Con_array=new Con_array();
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -95,6 +98,7 @@ public class Consultation extends Fragment implements MainActivity.OnBackPressed
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_consultation, container, false);
         fragment = new Fragment();
+        new BackgroundTask3().execute();
         return view;
     }
     @Override
@@ -104,7 +108,17 @@ public class Consultation extends Fragment implements MainActivity.OnBackPressed
         boardList = new ArrayList<Con_Board>();
         adapter = new Con_BoardListAdapter(getContext().getApplicationContext(),boardList,this);
         boardlistview.setAdapter(adapter);
-
+        boardlistview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                fragment = new Detail_Consultation();
+                int count=i;
+                Bundle bundle=new Bundle();
+                bundle.putString("count", String.valueOf(count));
+                fragment.setArguments(bundle);
+                replaceFragment(fragment);
+            }
+        });
         Button search_btn=(Button) getView().findViewById(R.id.search1);
         Button add_btn=(Button) getView().findViewById(R.id.register);
         search_btn.setOnClickListener(new View.OnClickListener() {
@@ -200,7 +214,7 @@ public class Consultation extends Fragment implements MainActivity.OnBackPressed
             progressDialog.setMessage("로딩중....");
             progressDialog.setCancelable(true);
             progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Horizontal);
-            target = "http://www.okdab.kr/episAutoAnswerApi/expert/list/json?pageSize=10&pageNum=1&kwd=";
+            target = "http://www.okdab.kr/episAutoAnswerApi/expert/list/json?pageSize=1000&pageNum=1&kwd=";
             Log.e(this.getClass().getName(), "백그라운드로 list뽑기 시작한다.");
             progressDialog.show();
         }
@@ -252,15 +266,15 @@ public class Consultation extends Fragment implements MainActivity.OnBackPressed
                 while(count < jsonArray.length()){
                     Log.e(this.getClass().getName(), "들어오긴하냐?");
                     JSONObject object = jsonArray.getJSONObject(count);
-                    Static_setting.REGDT=object.getString("REGDT");
+                    String REGDT=object.getString("REGDT");
                     Log.e(this.getClass().getName(), Static_setting.REGDT);
                     String NTTID=object.getString("NTTID");
                     Log.e(this.getClass().getName(), NTTID);
                     String USERNM=object.getString("USERNM");
                     Log.e(this.getClass().getName(), USERNM);
-                    Static_setting.TITLE=object.getString("TITLE");
+                    String TITLE=object.getString("TITLE");
                     Log.e(this.getClass().getName(), Static_setting.TITLE);
-                    new BackgroundTask2().execute(NTTID,USERNM);
+                    new BackgroundTask2().execute(NTTID,USERNM,REGDT,TITLE);
                     count++;
                 }
             } catch (Exception e){
@@ -271,6 +285,185 @@ public class Consultation extends Fragment implements MainActivity.OnBackPressed
 
     }
     class BackgroundTask2 extends AsyncTask<String, Void, String> {
+        String target;
+
+        ProgressDialog progressDialog = new ProgressDialog(getContext());
+        @Override
+        protected void onPreExecute() {
+            progressDialog.setMessage("로딩중....");
+            progressDialog.setCancelable(true);
+            progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Horizontal);
+            target = "http://www.okdab.kr/episAutoAnswerApi/webchat/expert/detail/json?publicYN=Y&nttId=";
+            Log.e(this.getClass().getName(), "백그라운드로 list뽑기 시작한다.");
+            progressDialog.show();
+        }
+
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            try {
+                String NTTID=params[0];
+                String USERNM=params[1];
+
+                target=target+URLEncoder.encode(NTTID)+"&userNm="+URLEncoder.encode(USERNM);
+                URL url = new URL(target);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String temp;
+                StringBuilder stringBuilder = new StringBuilder();
+                while ((temp = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(temp + "\n");
+                }
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return stringBuilder.toString().trim();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        public void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        public void onPostExecute(String res) {
+            Log.e(this.getClass().getName(), "백그라운드 try문안으로");
+            try {
+                Log.e(this.getClass().getName(), "백그라운드 try문안으로");
+                JSONObject jsonObject = new JSONObject(res);
+                JSONArray jsonArray = jsonObject.getJSONArray("result");
+                int count = 0;
+                while(count < jsonArray.length()){
+                    Log.e(this.getClass().getName(), "들어오긴하냐?");
+                    JSONObject object = jsonArray.getJSONObject(count);
+                    Con_array.setcount(String.valueOf(count));
+                    Con_array.settitle(object.getString("title"));
+                   // Log.e(this.getClass().getName(), title);
+                    Con_array.setregDt(object.getString("regDt"));
+                   // Log.e(this.getClass().getName(), regDt);setNTTID
+                    Con_array.setuserNm(object.getString("userNm"));
+                   // Log.e(this.getClass().getName(), userNm);
+                    Con_array.setnttId(object.getString("nttId"));
+                   // Log.e(this.getClass().getName(), nttId);
+                    Con_array.setcontents(object.getString("contents"));
+                   // Log.e(this.getClass().getName(), contents);
+                    Con_array.setanswerTitle(object.getString("answerTitle"));
+                   // Log.e(this.getClass().getName(), answerTitle);
+                    Con_array.setanswerContents(object.getString("answerContents"));
+                   // Log.e(this.getClass().getName(), answerContents);
+                    Con_array.setanswerUserNm(object.getString("answerUserNm"));
+                  //  Log.e(this.getClass().getName(), answerUserNm);
+                    Con_array.setanswerOrgNm(object.getString("answerOrgNm"));
+                   // Log.e(this.getClass().getName(), answerOrgNm);
+                    Con_array.setanswerDeptNm(object.getString("answerDeptNm"));
+                   // Log.e(this.getClass().getName(), answerDeptNm);
+                    Con_array.setanswerEmail(object.getString("answerEmail"));
+                   // Log.e(this.getClass().getName(), answerEmail);
+                    Con_Board board = new Con_Board(Con_array.gettitle(count),Con_array.getuserNm(count),Con_array.getregDt(count),Con_array.getnttId(count),Con_array.getcontents(count),Con_array.getanswerTitle(count),Con_array.getanswerContents(count),Con_array.getanswerUserNm(count),Con_array.getanswerOrgNm(count),Con_array.getanswerDeptNm(count),Con_array.getanswerEmail(count));
+                    boardList.add(board);
+                    adapter.notifyDataSetChanged();
+                    count++;
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            progressDialog.dismiss();
+        }
+
+    }
+
+
+
+    class BackgroundTask3 extends AsyncTask<String, Void, String> {
+        String target;
+
+        ProgressDialog progressDialog = new ProgressDialog(getContext());
+        @Override
+        protected void onPreExecute() {
+            progressDialog.setMessage("로딩중....");
+            progressDialog.setCancelable(true);
+            progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Horizontal);
+            target = "http://www.okdab.kr/episAutoAnswerApi/expert/list/json?pageSize=1000&pageNum=1&kwd=";
+            Log.e(this.getClass().getName(), "백그라운드로 list뽑기 시작한다.");
+            progressDialog.show();
+        }
+
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+
+                URL url = new URL(target);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String temp;
+                StringBuilder stringBuilder = new StringBuilder();
+                while ((temp = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(temp + "\n");
+                }
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return stringBuilder.toString().trim();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        public void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        public void onPostExecute(String res) {
+            Log.e(this.getClass().getName(), "백그라운드 try문안으로");
+            try {
+                Log.e(this.getClass().getName(), "백그라운드 try문안으로");
+                JSONObject jsonObject = new JSONObject(res);
+                Log.e(this.getClass().getName(), String.valueOf(jsonObject));
+                JSONObject jsonObject1 = jsonObject.getJSONObject("result");
+                JSONArray jsonArray = jsonObject1.getJSONArray("rows");
+                Log.e(this.getClass().getName(), String.valueOf(jsonArray));
+                int count = 0;
+                while(count < jsonArray.length()){
+                    Log.e(this.getClass().getName(), "들어오긴하냐?");
+                    JSONObject object = jsonArray.getJSONObject(count);
+                    String REGDT=object.getString("REGDT");
+                    Log.e(this.getClass().getName(), Static_setting.REGDT);
+                    String NTTID=object.getString("NTTID");
+                    Log.e(this.getClass().getName(), NTTID);
+                    String USERNM=object.getString("USERNM");
+                    Log.e(this.getClass().getName(), USERNM);
+                    String TITLE=object.getString("TITLE");
+                    Log.e(this.getClass().getName(), Static_setting.TITLE);
+                    new BackgroundTask4().execute(NTTID,USERNM,REGDT,TITLE);
+
+                    count++;
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+            progressDialog.dismiss();
+        }
+
+    }
+    class BackgroundTask4 extends AsyncTask<String, Void, String> {
         String target;
 
         ProgressDialog progressDialog = new ProgressDialog(getContext());
@@ -329,25 +522,30 @@ public class Consultation extends Fragment implements MainActivity.OnBackPressed
                 while(count < jsonArray.length()){
                     Log.e(this.getClass().getName(), "들어오긴하냐?");
                     JSONObject object = jsonArray.getJSONObject(count);
-                    String userNm=object.getString("userNm");
-                    Log.e(this.getClass().getName(), userNm);
-                    String nttId=object.getString("nttId");
-                    Log.e(this.getClass().getName(), nttId);
-                    String contents=object.getString("contents");
-                    Log.e(this.getClass().getName(), contents);
-                    String answerTitle= object.getString("answerTitle");
-                    Log.e(this.getClass().getName(), answerTitle);
-                    String answerContents=object.getString("answerContents");
-                    Log.e(this.getClass().getName(), answerContents);
-                    String answerUserNm=object.getString("answerUserNm");
-                    Log.e(this.getClass().getName(), answerUserNm);
-                    String answerOrgNm=object.getString("answerOrgNm");
-                    Log.e(this.getClass().getName(), answerOrgNm);
-                    String answerDeptNm=object.getString("answerDeptNm");
-                    Log.e(this.getClass().getName(), answerDeptNm);
-                    String answerEmail=object.getString("answerEmail");
-                    Log.e(this.getClass().getName(), answerEmail);
-                    Con_Board board = new Con_Board( Static_setting.TITLE, userNm, Static_setting.REGDT, nttId, contents, answerTitle, answerContents, answerUserNm, answerOrgNm, answerDeptNm, answerEmail);
+                    Con_array.setcount(String.valueOf(count));
+                    Con_array.settitle(object.getString("title"));
+                    // Log.e(this.getClass().getName(), title);
+                    Con_array.setregDt(object.getString("regDt"));
+                    // Log.e(this.getClass().getName(), regDt);setNTTID
+                    Con_array.setuserNm(object.getString("userNm"));
+                    // Log.e(this.getClass().getName(), userNm);
+                    Con_array.setnttId(object.getString("nttId"));
+                    // Log.e(this.getClass().getName(), nttId);
+                    Con_array.setcontents(object.getString("contents"));
+                    // Log.e(this.getClass().getName(), contents);
+                    Con_array.setanswerTitle(object.getString("answerTitle"));
+                    // Log.e(this.getClass().getName(), answerTitle);
+                    Con_array.setanswerContents(object.getString("answerContents"));
+                    // Log.e(this.getClass().getName(), answerContents);
+                    Con_array.setanswerUserNm(object.getString("answerUserNm"));
+                    //  Log.e(this.getClass().getName(), answerUserNm);
+                    Con_array.setanswerOrgNm(object.getString("answerOrgNm"));
+                    // Log.e(this.getClass().getName(), answerOrgNm);
+                    Con_array.setanswerDeptNm(object.getString("answerDeptNm"));
+                    // Log.e(this.getClass().getName(), answerDeptNm);
+                    Con_array.setanswerEmail(object.getString("answerEmail"));
+                    // Log.e(this.getClass().getName(), answerEmail);
+                    Con_Board board = new Con_Board(Con_array.gettitle(count),Con_array.getuserNm(count),Con_array.getregDt(count),Con_array.getnttId(count),Con_array.getcontents(count),Con_array.getanswerTitle(count),Con_array.getanswerContents(count),Con_array.getanswerUserNm(count),Con_array.getanswerOrgNm(count),Con_array.getanswerDeptNm(count),Con_array.getanswerEmail(count));
                     boardList.add(board);
                     adapter.notifyDataSetChanged();
                     count++;
@@ -355,6 +553,7 @@ public class Consultation extends Fragment implements MainActivity.OnBackPressed
             } catch (Exception e){
                 e.printStackTrace();
             }
+
             progressDialog.dismiss();
         }
 

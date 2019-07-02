@@ -344,7 +344,6 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
     }
     private void End_info_request() {
         int i=Migration_info_array.getListSize();
-
         boardList.clear();
         for(int l=0;l<i;l++)
         {

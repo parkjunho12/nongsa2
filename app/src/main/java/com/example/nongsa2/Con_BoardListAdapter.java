@@ -48,10 +48,10 @@ public class Con_BoardListAdapter extends BaseAdapter {
         TextView contents = (TextView) v.findViewById(R.id.contents);
         TextView USERNM = (TextView) v.findViewById(R.id.USERNM);
         TextView REGDT = (TextView) v.findViewById(R.id.REGDT);
-        TITLE.setText(boardList.get(i).getTITLE());
-        contents.setText(boardList.get(i).getContents());
-        USERNM.setText(boardList.get(i).getUSERNM());
-        REGDT.setText(boardList.get(i).getREGDT());
+        TITLE.setText(Con_array.gettitle(i));
+        contents.setText(Con_array.getcontents(i));
+        USERNM.setText(Con_array.getuserNm(i));
+        REGDT.setText(Con_array.getregDt(i));
         return v;
     }
 }
