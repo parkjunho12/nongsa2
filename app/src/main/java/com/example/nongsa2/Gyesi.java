@@ -146,8 +146,8 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
         floatingactionbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),MemoActivity.class);
-                startActivity(intent);
+                Fragment fragment = new MemoFragment();
+                replaceFragment(fragment);
             }
         });
     }
