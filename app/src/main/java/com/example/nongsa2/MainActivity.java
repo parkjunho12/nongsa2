@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     private TextView mTextMessage;
     FragmentManager fm = getSupportFragmentManager();
     Fragment fragment = fm.findFragmentById(R.id.container2);
-    ImageButton imageButton1,imageButton2,imageButton3;
-
+    Button imageButton2,imageButton3;
+    Button imageButton1,homebtn;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -88,12 +88,14 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         BottomNavigationView navView = findViewById(R.id.nav_view);
 
-        imageButton1 = (ImageButton) findViewById(R.id.imbtn1);
-        imageButton2 = (ImageButton) findViewById(R.id.garden);
-        imageButton3 = (ImageButton) findViewById(R.id.consultation);
+        imageButton1 = (Button) findViewById(R.id.imbtn1);
+        imageButton2 = (Button) findViewById(R.id.garden);
+        imageButton3 = (Button) findViewById(R.id.consultation);
+        homebtn = (Button) findViewById(R.id.home);
         imageButton1.setOnClickListener(this);
         imageButton2.setOnClickListener(this);
         imageButton3.setOnClickListener(this);
+        homebtn.setOnClickListener(this);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
     }
@@ -103,18 +105,54 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     { Fragment fragment = null;
         switch (view.getId())
         {
+            case R.id.home:
+                fragment = new Fragment();
+                imageButton1.setBackgroundColor(0xffffffff);
+                imageButton1.setTextColor(getResources().getColor(R.color.black));
+                imageButton2.setBackgroundColor(0xffffffff);
+                imageButton2.setTextColor(getResources().getColor(R.color.black));
+                imageButton3.setBackgroundColor(0xffffffff);
+                imageButton3.setTextColor(getResources().getColor(R.color.black));
+                homebtn.setBackgroundColor(getResources().getColor(R.color.back));
+                homebtn.setTextColor(0xffffffff);
+                replaceFragment(fragment);
+                break;
             case R.id.imbtn1:
                 fragment = new Gyesi();
+                homebtn.setBackgroundColor(0xffffffff);
+                homebtn.setTextColor(getResources().getColor(R.color.black));
+                imageButton2.setBackgroundColor(0xffffffff);
+                imageButton2.setTextColor(getResources().getColor(R.color.black));
+                imageButton3.setBackgroundColor(0xffffffff);
+                imageButton3.setTextColor(getResources().getColor(R.color.black));
+                imageButton1.setBackgroundColor(getResources().getColor(R.color.back));
+                imageButton1.setTextColor(0xffffffff);
                 replaceFragment(fragment);
                 Log.d("ddd","MonthFragment");
                 break;
             case R.id.garden:
                 fragment = new Garden_board();
+                homebtn.setBackgroundColor(0xffffffff);
+                homebtn.setTextColor(getResources().getColor(R.color.black));
+                imageButton1.setBackgroundColor(0xffffffff);
+                imageButton1.setTextColor(getResources().getColor(R.color.black));
+                imageButton3.setBackgroundColor(0xffffffff);
+                imageButton3.setTextColor(getResources().getColor(R.color.black));
+                imageButton2.setBackgroundColor(getResources().getColor(R.color.back));
+                imageButton2.setTextColor(0xffffffff);
                 replaceFragment(fragment);
                 Log.d("ddd","MonthFragment");
                 break;
             case R.id.consultation:
                 fragment = new Consultation();
+                homebtn.setBackgroundColor(0xffffffff);
+                homebtn.setTextColor(getResources().getColor(R.color.black));
+                imageButton2.setBackgroundColor(0xffffffff);
+                imageButton2.setTextColor(getResources().getColor(R.color.black));
+                imageButton1.setBackgroundColor(0xffffffff);
+                imageButton1.setTextColor(getResources().getColor(R.color.black));
+                imageButton3.setBackgroundColor(getResources().getColor(R.color.back));
+                imageButton3.setTextColor(0xffffffff);
                 replaceFragment(fragment);
                 Log.d("ddd","MonthFragment");
                 break;
