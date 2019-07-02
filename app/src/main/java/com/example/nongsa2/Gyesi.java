@@ -61,7 +61,7 @@ import java.util.List;
 public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListener {
 
     Fragment fragment;
-
+    static int gyesictn=0;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -167,7 +167,8 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
         fragment = new Fragment();
 
 
-        new BackgroundTask().execute();
+            new BackgroundTask().execute();
+
 
         return view;
     }
@@ -342,7 +343,7 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
         fragmentTransaction.commit();
     }
     private void End_info_request() {
-        int i=Migration_info_array.getListSize();
+        int i=boardList.size();
         boardList.clear();
         for(int l=0;l<i;l++)
         {

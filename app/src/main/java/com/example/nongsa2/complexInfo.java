@@ -109,7 +109,7 @@ static int comctn=0;
             textView5.setText("");
 
         }
-        if (intent.getStringExtra("FILE_PATH2").equals("") || intent.getStringExtra("FILE_PATH1").equals(null)) {
+        if (intent.getStringExtra("FILE_PATH2").equals("") || intent.getStringExtra("FILE_PATH2").equals(null)) {
             textView5.setText("사진 없음");
         } else {
             webView.getSettings().setJavaScriptEnabled(true);
@@ -121,14 +121,14 @@ static int comctn=0;
             textView5.setText("");
 
         }
-        if (intent.getStringExtra("FILE_PATH3").equals("") || intent.getStringExtra("FILE_PATH1").equals(null)) {
+        if (intent.getStringExtra("FILE_PATH3").equals("") || intent.getStringExtra("FILE_PATH3").equals(null)) {
             textView5.setText("사진 없음");
         } else {
             webView.getSettings().setJavaScriptEnabled(true);
             webView.getSettings().setUseWideViewPort(true);
             webView.getSettings().setLoadWithOverviewMode(true);
             webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);////웹뷰 쓸때 쓰는것
-            webView.loadUrl(intent.getStringExtra("FILE_PATH2"));
+            webView.loadUrl(intent.getStringExtra("FILE_PATH3"));
             webView.setWebViewClient(new WebViewClientClass());
             textView5.setText("");
 
