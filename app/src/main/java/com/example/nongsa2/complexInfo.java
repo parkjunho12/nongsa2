@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -50,6 +51,7 @@ static int comctn=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         Intent intent = getIntent();
         setContentView(R.layout.activity_complex_info);
@@ -160,6 +162,7 @@ static int comctn=0;
         {
             end();
         }
+
     }
 
     private class WebViewClientClass extends WebViewClient {
@@ -186,14 +189,16 @@ static int comctn=0;
 
     class BackgroundTask extends AsyncTask<String, Void, String> {
         String target;
-        ProgressDialog progressDialog = new ProgressDialog(complexInfo.this);
+        customprogress progressDialog = new customprogress(complexInfo.this);
+
         @Override
         protected void onPreExecute() {
-            progressDialog.setMessage("로딩중....");
             progressDialog.setCancelable(true);
-            progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Horizontal);
-            target = "http://dbwo4011.cafe24.com/migration/city_info_request.php";
+            progressDialog .getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
             progressDialog.show();
+
+            target = "http://dbwo4011.cafe24.com/migration/city_info_request.php";
+
         }
 
 
@@ -286,9 +291,13 @@ static int comctn=0;
 
 
     public void end(){
+        customprogress customprogress = new customprogress(complexInfo.this);
+
         int i=city_info_array.getListSize();
         float min=distFrom(Float.parseFloat(Lat1), Float.parseFloat(Long1), Float.parseFloat(city_info_array.getLatitude(0)), Float.parseFloat(city_info_array.getIongitude(0)));
         int index=0;
+        customprogress .getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        customprogress.show();
         for(int j=0;j<i;j++)
         {
             if(city_info_array.getLatitude(j).equals("0")&&city_info_array.getIongitude(j).equals("0"))
@@ -331,7 +340,7 @@ static int comctn=0;
             textView.setText(VILL_NM);
         }
 
-
+        customprogress.dismiss();
     }
 
 

@@ -1,10 +1,12 @@
 package com.example.nongsa2;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -225,16 +227,18 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
     class BackgroundTask extends AsyncTask<String, Void, String> {
         String target;
 
-    ProgressDialog progressDialog = new ProgressDialog(getContext());
+    customprogress progressDialog = new customprogress(getContext());
 
 
 
         @Override
         protected void onPreExecute() {
 
-            progressDialog.setMessage("로딩중....");
+
             progressDialog.setCancelable(true);
-            progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Horizontal);
+            progressDialog .getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+
 //            try {
 //                +URLEncoder.encode(sidoSpinner.toString(),"UTF-8")+"&VACANT_YEAR="+URLEncoder.encode(yearSpinner.toString(),"UTF-8")
 //                        +"&DEAL_TYPE="+URLEncoder.encode(maemaeSpinner.toString(),"UTF-8"///////////검색기능 추가할때 필요한거

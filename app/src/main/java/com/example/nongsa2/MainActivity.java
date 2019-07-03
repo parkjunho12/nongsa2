@@ -12,6 +12,7 @@ import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +20,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
 
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +31,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -38,6 +43,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity implements Button.OnClickListener {
     private TextView mTextMessage;
@@ -45,6 +52,13 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     Fragment fragment = fm.findFragmentById(R.id.container2);
     Button imageButton2,imageButton3;
     Button imageButton1,homebtn;
+    static int p =0;
+    static int v=1;
+    private ViewPager viewPager;
+    private imagepagerAdapter imagepagerAdapter;
+    Thread thread =null;
+    Handler handler = null;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -97,14 +111,120 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         imageButton3.setOnClickListener(this);
         homebtn.setOnClickListener(this);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        imagepagerAdapter = new imagepagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(imagepagerAdapter);
+        handler = new Handler(){
+
+
+
+            public void handleMessage(android.os.Message msg) {
+
+                if(p==0){
+
+                    viewPager.setCurrentItem(1);
+
+                    p++;
+
+                    v=1;
+
+                }else if(p==1){
+
+                    viewPager.setCurrentItem(2);
+
+                    p++;
+
+                }else if(p==2){
+
+                    viewPager.setCurrentItem(0);
+
+                    p=0;
+
+                }
+
+            }
+
+        };
+
+
+        thread = new Thread(){
+
+            //run은 jvm이 쓰레드를 채택하면, 해당 쓰레드의 run메서드를 수행한다.
+
+            public void run() {
+
+                super.run();
+
+                while(true){
+
+                    try {
+
+                        Thread.sleep(4000);
+
+                        handler.sendEmptyMessage(0);
+
+                    } catch (InterruptedException e) {
+
+                        // TODO Auto-generated catch block
+
+                        e.printStackTrace();
+
+                    }
+
+
+
+
+
+                }
+
+            }
+
+        };
+
+        thread.start();
+
+
 
     }
+
+//    TimerTask tt = new TimerTask() {
+//        @Override
+//        public void run() {
+//            countdown++;
+//            if(countdown%3==1)
+//            {
+//                imagepagerAdapter imagepagerAdapter = new imagepagerAdapter(getSupportFragmentManager(),countdown);
+//                viewPager.setAdapter(imagepagerAdapter);
+//                viewPager.setCurrentItem(countdown);
+//            }
+//            else if(countdown%3==2)
+//            {
+//                imagepagerAdapter imagepagerAdapter = new imagepagerAdapter(getSupportFragmentManager(),countdown);
+//                viewPager.setAdapter(imagepagerAdapter);
+//                viewPager.setCurrentItem(countdown);
+//            }
+//            else
+//            {
+//                imagepagerAdapter imagepagerAdapter = new imagepagerAdapter(getSupportFragmentManager(),countdown);
+//                viewPager.setAdapter(imagepagerAdapter);
+//                viewPager.setCurrentItem(countdown);
+//            }
+//
+//        }
+//    };
+//    Timer timer =new Timer();
+//    timer.schedule(tt,0,3000);
+
+
+
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onClick(View view)
     { Fragment fragment = null;
         switch (view.getId())
         {
+
             case R.id.home:
                 fragment = new Fragment();
                 imageButton1.setBackgroundColor(0xffffffff);
@@ -217,5 +337,6 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         fragmentTransaction.replace(R.id.container2, fragment);
         fragmentTransaction.commit();
     }
+
 }
 

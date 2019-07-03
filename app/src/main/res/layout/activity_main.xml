@@ -43,9 +43,9 @@
                         android:maxLines="1"
                         android:textSize="20dp"
                         android:text="BTF"
-                        android:shadowColor="#c3e7e0"
+                        android:shadowColor="#ff7f00"
                         android:textStyle="bold"
-                        android:textColor="#cae6d3"
+                        android:textColor="#ff7f00"
 
                         />
                 </LinearLayout>
@@ -65,7 +65,7 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="right"
 
-                        android:backgroundTint="#cae6d3"
+                        android:backgroundTint="#ff7f00"
                         android:background="@drawable/ic_notifications_black_24dp" />
 
                 </LinearLayout>
@@ -78,7 +78,7 @@
                 android:alpha="0.8"
                 android:paddingRight="5dp"
                 android:paddingLeft="5dp"
-                android:background="#cae6d3"></View>
+                android:background="#ff7f00"></View>
 
 
 
@@ -95,7 +95,7 @@
                         android:text="BTF홈"
                         android:id="@id/home"
                         android:textColor="#ffffff"
-                        android:background="#CAE6D3"/>
+                        android:background="#ff7f00"/>
                     <Button
                         android:text="빈집 게시판"
                         android:layout_width="0dp"
@@ -129,7 +129,7 @@
                     android:alpha="0.8"
                     android:paddingRight="5dp"
                     android:paddingLeft="5dp"
-                    android:background="#cae6d3"></View>
+                    android:background="#ff7f00"></View>
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -152,7 +152,7 @@
 
                         android:layout_marginLeft="20dp"
                         android:text="지역별"
-                        android:textColor="#c3e7e0"
+                        android:textColor="#ff7f00"
                         android:textStyle="bold"
                         android:textSize="20dp"/>
                     <TextView

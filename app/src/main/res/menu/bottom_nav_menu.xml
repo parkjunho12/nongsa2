@@ -4,16 +4,19 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home" />
+        android:title="@string/title_home"
+        android:iconTint="#ff7f00"/>
 
     <item
         android:id="@+id/navigation_dashboard"
         android:icon="@drawable/ic_chat_bubble_outline_black_24dp"
-        android:title="Chat" />
+        android:title="Chat"
+        android:iconTint="#ff7f00"/>
 
     <item
         android:id="@+id/navigation_notifications"
         android:icon="@drawable/ic_perm_identity_black_24dp"
+        android:iconTint="#ff7f00"
         android:title="My page" />
 
 </menu>

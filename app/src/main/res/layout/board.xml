@@ -8,6 +8,7 @@
         android:layout_height="match_parent"
         android:layout_weight="0.7"
         android:src="@drawable/home"
+
         android:scaleType="fitXY"
         android:id="@+id/imageview"
         />
@@ -28,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:text="빈집 정보"
 
-                android:textColor="#00000f"
+                android:textColor="#ff7f00"
                 android:textStyle="italic"
                 android:id="@+id/title"/>
 
@@ -63,7 +64,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="13dp"
         android:layout_weight="0.3"
-        android:background="@color/cardview_dark_background"
+        android:background="@color/back"
         android:gravity="center"
         android:text="상세정보"
         android:textColor="#ffffff"
