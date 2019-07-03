@@ -17,6 +17,7 @@
         android:id="@+id/navigation_notifications"
         android:icon="@drawable/ic_perm_identity_black_24dp"
         android:iconTint="#ff7f00"
+
         android:title="My page" />
 
 </menu>

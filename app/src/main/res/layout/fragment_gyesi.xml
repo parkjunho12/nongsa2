@@ -33,7 +33,9 @@
         android:layout_height="match_parent"
         android:foregroundTint="#ff7f00"
         android:contextClickable="true"
-        android:id="@+id/sidospin">
+        android:id="@+id/sidospin"
+        
+        >
 
     </Spinner>
 </LinearLayout>
