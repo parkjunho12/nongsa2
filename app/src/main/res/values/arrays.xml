@@ -300,15 +300,18 @@
     </string-array>
 
 
-
     <string-array name="maemae">
         <item>매매</item>
         <item>임대(전세)</item>
         <item>임대(월세)</item>
         <item>협의후결정</item>
-
-
     </string-array>
+
+    <string-array name="gubun">
+        <item>빈집</item>
+        <item>농지</item>
+    </string-array>
+
     <string-array name="year">
         <item>2019년</item>
         <item>2018년</item>
