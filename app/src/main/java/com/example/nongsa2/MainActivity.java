@@ -193,6 +193,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
 
 private Fragment fa,fb,fc;
     private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onClick(View view)
@@ -215,10 +216,9 @@ private Fragment fa,fb,fc;
                 homebtn.setTextColor(0xffffffff);
                 //replaceFragment(fragment);
 
-
-                if(fa != null) fragmentManager.beginTransaction().hide(fa).commit();
-                if(fb != null) fragmentManager.beginTransaction().hide(fb).commit();
-                if(fc != null) fragmentManager.beginTransaction().hide(fc).commit();
+                if(fa != null) hideFragment(fa);
+                if(fb != null) hideFragment(fb);
+                if(fc != null) hideFragment(fc);
                 break;
             case R.id.imbtn1:
                // fragment = new Gyesi();
@@ -231,14 +231,16 @@ private Fragment fa,fb,fc;
                 imageButton1.setBackgroundColor(getResources().getColor(R.color.back));
                 imageButton1.setTextColor(0xffffffff);
                 //replaceFragment(fragment);
+
                 if(fa == null) {
                     fa = new Gyesi();
-                    fragmentManager.beginTransaction().add(R.id.container2, fa).commit();
+                   // fragmentManager.beginTransaction().replace(R.id.container2, fa).commit();
+                    addFragment(fa);
                 }
 
-                if(fa != null) fragmentManager.beginTransaction().show(fa).commit();
-                if(fb != null) fragmentManager.beginTransaction().hide(fb).commit();
-                if(fc != null) fragmentManager.beginTransaction().hide(fc).commit();
+                if(fa != null) showFragment(fa);
+                if(fb != null) hideFragment(fb);
+                if(fc != null) hideFragment(fc);
                 Log.d("ddd","MonthFragment");
                 break;
             case R.id.garden:
@@ -252,14 +254,15 @@ private Fragment fa,fb,fc;
                 imageButton2.setBackgroundColor(getResources().getColor(R.color.back));
                 imageButton2.setTextColor(0xffffffff);
                 //replaceFragment(fragment);
+
                 if(fb == null) {
                     fb = new Garden_board();
-                    fragmentManager.beginTransaction().add(R.id.container2, fb).commit();
+                    addFragment(fb);
                 }
 
-                if(fa != null) fragmentManager.beginTransaction().hide(fa).commit();
-                if(fb != null) fragmentManager.beginTransaction().show(fb).commit();
-                if(fc != null) fragmentManager.beginTransaction().hide(fc).commit();
+                if(fa != null) hideFragment(fa);
+                if(fb != null) showFragment(fb);
+                if(fc != null) hideFragment(fc);
                 Log.d("ddd","MonthFragment");
                 break;
             case R.id.consultation:
@@ -273,14 +276,15 @@ private Fragment fa,fb,fc;
                 imageButton3.setBackgroundColor(getResources().getColor(R.color.back));
                 imageButton3.setTextColor(0xffffffff);
                // replaceFragment(fragment);
+
                 if(fc == null) {
                     fc = new Consultation();
-                    fragmentManager.beginTransaction().add(R.id.container2, fc).commit();
+                    addFragment(fc);
                 }
 
-                if(fa != null) fragmentManager.beginTransaction().hide(fa).commit();
-                if(fb != null) fragmentManager.beginTransaction().hide(fb).commit();
-                if(fc != null) fragmentManager.beginTransaction().show(fc).commit();
+                if(fa != null) hideFragment(fa);
+                if(fb != null) hideFragment(fb);
+                if(fc != null) showFragment(fc);
                 Log.d("ddd","MonthFragment");
                 break;
         }
@@ -336,6 +340,30 @@ private Fragment fa,fb,fc;
             }
         }
     }
+    private void addFragment(Fragment fragment){
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.add(R.id.container2, fragment);
+        fragmentTransaction.commit();
+    }
+    private void hideFragment(Fragment fragment){
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.hide(fragment);
+        fragmentTransaction.commit();
+    }
+    private void showFragment(Fragment fragment){
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.show(fragment);
+        fragmentTransaction.commit();
+    }
     private void replaceFragment(Fragment fragment){
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
@@ -344,6 +372,5 @@ private Fragment fa,fb,fc;
         fragmentTransaction.replace(R.id.container2, fragment);
         fragmentTransaction.commit();
     }
-
 }
 
