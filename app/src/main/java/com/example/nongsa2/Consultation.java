@@ -97,7 +97,7 @@ public class Consultation extends Fragment implements MainActivity.OnBackPressed
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_consultation, container, false);
-        fragment = new Fragment();
+        fragment = new Consultation();
         new BackgroundTask3().execute();
         return view;
     }
@@ -166,7 +166,7 @@ public class Consultation extends Fragment implements MainActivity.OnBackPressed
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        ((MainActivity) context).setOnBackPressedListener((MainActivity.OnBackPressedListener) this);
+        ((MainActivity) context).setOnBackPressedListener(this);
 
     }
 
@@ -175,11 +175,15 @@ public class Consultation extends Fragment implements MainActivity.OnBackPressed
         super.onDetach();
         mListener = null;
     }
+    private Fragment f1,f2,f3;
+    private FragmentManager fragmentManager;
 
     @Override
     public void onBack() {
         MainActivity activity = (MainActivity) getActivity();
+        fragmentManager = activity.getSupportFragmentManager();
         activity.setOnBackPressedListener(null);
+        replaceFragment(fragment);
         activity.onBackPressed();
     }
     private void addFragment(Fragment fragment){

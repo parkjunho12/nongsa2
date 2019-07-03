@@ -208,6 +208,7 @@ private Fragment f1,f2,f3;
         MainActivity activity = (MainActivity) getActivity();
         fragmentManager = activity.getSupportFragmentManager();
         activity.setOnBackPressedListener(null);
+       replaceFragment(fragment);
         activity.onBackPressed();
     }
 
@@ -364,7 +365,6 @@ private Fragment f1,f2,f3;
         }
 
     }
-
     private void replaceFragment(Fragment fragment){
         FragmentManager fm = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
