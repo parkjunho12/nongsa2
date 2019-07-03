@@ -237,6 +237,40 @@ public class Migration_info_array {
         return REG_DT_list.size();
     }
 
+
+        public void clear() {
+
+    ID_list.clear();
+    SIDO_NM_list.clear();
+    SIGUN_NM_list.clear();
+            ADDR_list.clear();
+            DEAL_AMOUNT_list.clear();
+            DEAL_BIGO_list.clear();
+            BUILDING_AREA_list.clear();
+            AREA_ETC_list.clear();
+            BUILD_YEAR_list.clear();
+            VACANT_YEAR_list.clear();
+            STRUCT_TYPE_list.clear();
+            OWNER_NM_list.clear();
+            OWNER_CONTACT_list.clear();
+            INSPECTOR_list.clear();
+            LOT_AREA_list.clear();
+                    BIGO_list.clear();
+            FILE_PATH2_list.clear();
+                    FILE_PATH1_list.clear();
+            FILE_PATH3_list.clear();
+            DETAIL_URL_list.clear();
+                    DEAL_NEGO_YN_list.clear();
+            LEASE_AMOUNT_list.clear();
+                    RENT_AMOUNT_list.clear();
+            GUBUN_list.clear();
+                    DEAL_TYPE_list.clear();
+
+                    REG_DT_list.clear();
+            Latitude_list.clear();
+                    Longtitude_list.clear();
+    }
+
     static List<Integer> index = new ArrayList<>();
     static List<String> ID_list = new ArrayList<String>();
     static List<String> SIDO_NM_list = new ArrayList<String>();

@@ -112,7 +112,6 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
     private Spinner sidoSpinner;
 
 
-    private String id="";
 
     private ListView boardlistview;
     private BoardListAdapter adapter;
@@ -122,6 +121,14 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
     @Override
     public void onActivityCreated(Bundle b){
         super.onActivityCreated(b);
+        maemaeSpinner=(Spinner)getView().findViewById(R.id.vacantspin);
+        sidoSpinner =(Spinner)getView().findViewById(R.id.sidospin);
+
+        maemaeAdapter =ArrayAdapter.createFromResource(getActivity(),R.array.maemae,android.R.layout.simple_spinner_dropdown_item);
+        maemaeSpinner.setAdapter(maemaeAdapter);
+
+        sidoAdapter =ArrayAdapter.createFromResource(getActivity(),R.array.sido,android.R.layout.simple_spinner_dropdown_item);
+        sidoSpinner.setAdapter(sidoAdapter);
 
 
         boardlistview=(ListView) getView().findViewById(R.id.listview);
@@ -131,19 +138,14 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
 
 
         Button searchbtn = (Button) getView().findViewById(R.id.search);
-        Button backbtn = (Button) getView().findViewById(R.id.back);
+
         FloatingActionButton floatingactionbutton = (FloatingActionButton) getView().findViewById(R.id.floatingActionButton);
-        backbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fragment fragment = new Fragment();
-                replaceFragment(fragment);
-            }
-        });
+
         searchbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                End_info_request();
+               new BackgroundTask().execute();
+               // End_info_request();
             }
         });
         floatingactionbutton.setOnClickListener(new View.OnClickListener() {
@@ -153,6 +155,7 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
                 replaceFragment(fragment);
             }
         });
+
     }
 
 
@@ -170,7 +173,7 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
         fragment = new Fragment();
 
 
-            new BackgroundTask().execute();
+
 
 
         return view;
@@ -228,6 +231,7 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
 
         @Override
         protected void onPreExecute() {
+
             progressDialog.setMessage("로딩중....");
             progressDialog.setCancelable(true);
             progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Horizontal);
@@ -235,7 +239,8 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
 //                +URLEncoder.encode(sidoSpinner.toString(),"UTF-8")+"&VACANT_YEAR="+URLEncoder.encode(yearSpinner.toString(),"UTF-8")
 //                        +"&DEAL_TYPE="+URLEncoder.encode(maemaeSpinner.toString(),"UTF-8"///////////검색기능 추가할때 필요한거
                 try{
-                    target = "http://dbwo4011.cafe24.com/migration/migration_info_request.php?SIDO_NM="+URLEncoder.encode("경상남도","UTF-8");}
+                    Log.e("전라남도",sidoSpinner.getSelectedItem().toString());
+                    target = "http://dbwo4011.cafe24.com/migration/migration_info_request.php?SIDO_NM="+URLEncoder.encode(sidoSpinner.getSelectedItem().toString(),"UTF-8")+"&DEAL_TYPE="+URLEncoder.encode(maemaeSpinner.getSelectedItem().toString(),"UTF-8");}
              catch (UnsupportedEncodingException e) {
                 e.printStackTrace();/////////검색기능 추가할때 필요한거요겄도A
             }
@@ -247,6 +252,7 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
         @Override
         protected String doInBackground(String... params) {
             try {
+
                 URL url = new URL(target);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("POST"); //post방식으로
@@ -283,6 +289,9 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
         public void onPostExecute(String res) {
             Log.e(this.getClass().getName(), "백그라운드 try문안으로");
             try {
+
+                boardList.clear();
+                Migration_info_array.clear();
                 Log.e(this.getClass().getName(), "백그라운드 try문안으로");
                 Log.e(this.getClass().getName(), "백그라운드 try문안으로");
                 JSONObject jsonObject = new JSONObject(res);
@@ -325,15 +334,26 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
                     Migration_info_array.setLatitude(object.getString("Latitude"));
                     Migration_info_array.setLongtitude(object.getString("Longtitude"));
 
-
                     count++;
 
                 }
+                if(count==0)
+                {
+                    AlertDialog dialog;
+                    AlertDialog.Builder builder = new AlertDialog.Builder((Gyesi.this.getActivity()));
+                    dialog =builder.setMessage("조회된 정보가 없습니다.")
+                            .setPositiveButton("확인",null)
+                            .create();
+                    dialog.show();
+                }
+
+                End_info_request();
+
 
             } catch (Exception e){
                 e.printStackTrace();
             }
-            End_info_request();
+
             progressDialog.dismiss();
         }
 
@@ -348,7 +368,8 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
     }
     private void End_info_request() {
         int i=Migration_info_array.getListSize();
-        boardList.clear();
+      //  boardList.clear();
+
         for(int l=0;l<i;l++)
         {
             String title;
@@ -446,8 +467,10 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
             Log.e(this.getClass().getName(), ""+Migration_info_array.getSIGUN_NM(l));
             Log.e(this.getClass().getName(), ""+Migration_info_array.getADDR(l));
             Log.e(this.getClass().getName(), "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");*/
-        }  adapter.notifyDataSetChanged();
-
+            Log.e("bora",boardList.get(l).toString());
+        }
+        Log.e("bora","------------------");
+        adapter.notifyDataSetChanged();
     }
     // 리스너 생성
     }
