@@ -106,7 +106,10 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
         }
 
     }
-
+    private ArrayAdapter maemaeAdapter;
+    private Spinner maemaeSpinner;
+    private ArrayAdapter sidoAdapter;
+    private Spinner sidoSpinner;
 
 
     private String id="";
@@ -231,10 +234,11 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
 //            try {
 //                +URLEncoder.encode(sidoSpinner.toString(),"UTF-8")+"&VACANT_YEAR="+URLEncoder.encode(yearSpinner.toString(),"UTF-8")
 //                        +"&DEAL_TYPE="+URLEncoder.encode(maemaeSpinner.toString(),"UTF-8"///////////검색기능 추가할때 필요한거
-                    target = "http://dbwo4011.cafe24.com/migration/migration_info_request.php";
-//            } catch (UnsupportedEncodingException e) {
-//                e.printStackTrace();/////////검색기능 추가할때 필요한거요겄도
-//            }
+                try{
+                    target = "http://dbwo4011.cafe24.com/migration/migration_info_request.php?SIDO_NM="+URLEncoder.encode("경상남도","UTF-8");}
+             catch (UnsupportedEncodingException e) {
+                e.printStackTrace();/////////검색기능 추가할때 필요한거요겄도A
+            }
             Log.e(this.getClass().getName(), "백그라운드로 list뽑기 시작한다.");
             progressDialog.show();
         }

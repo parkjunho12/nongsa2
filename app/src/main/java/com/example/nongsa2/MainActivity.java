@@ -56,17 +56,17 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     fragment = new Fragment();
-                    getWindow().setStatusBarColor(Color.parseColor("#00ff0000"));
+
                    replaceFragment(fragment);
                     return true;
                 case R.id.navigation_dashboard:
                     fragment = new secondpage();
-                    getWindow().setStatusBarColor(Color.parseColor("#b3e5ff"));
+
                     replaceFragment(fragment);
                     return true;
                 case R.id.navigation_notifications:
                     fragment = new thirdpage();
-                    getWindow().setStatusBarColor(Color.parseColor("#fff7a2"));
+
                     replaceFragment(fragment);
                     return true;
             }

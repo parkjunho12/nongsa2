@@ -35,18 +35,23 @@
     </LinearLayout>
 <LinearLayout
     android:layout_width="0dp"
-    android:layout_weight="1"
+    android:layout_weight="1.5"
     android:layout_height="match_parent"
     android:gravity="center">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="15dp"
-        android:text="농촌 빈집 정보"
-        android:textStyle="bold"
+  <Spinner
+      android:layout_width="0dp"
+      android:layout_weight="1"
+      android:layout_height="match_parent"
+      android:id="@+id/vacantspin">
 
-        />
+  </Spinner>
+    <Spinner
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:id="@+id/sidospin">
+
+    </Spinner>
 </LinearLayout>
     <LinearLayout
         android:layout_width="0dp"
