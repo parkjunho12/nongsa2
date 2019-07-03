@@ -141,7 +141,7 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
 
         Button searchbtn = (Button) getView().findViewById(R.id.search);
 
-        FloatingActionButton floatingactionbutton = (FloatingActionButton) getView().findViewById(R.id.floatingActionButton);
+
 
         searchbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,6 +150,7 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
                // End_info_request();
             }
         });
+        FloatingActionButton floatingactionbutton = (FloatingActionButton) getView().findViewById(R.id.floatingActionButton);
         floatingactionbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -168,16 +169,7 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_gyesi, container, false);
-
-
-
-
         fragment = new Gyesi();
-
-
-
-
-
         return view;
     }
 
