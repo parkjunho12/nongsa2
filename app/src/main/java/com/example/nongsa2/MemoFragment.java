@@ -180,20 +180,249 @@ public class MemoFragment extends Fragment {
                 }
                 else if (adspin1.getItem(i).equals("인천")) {//똑같은 소스에 반복입니다. 인천부분입니다.
                     choice_do = "인천";
-//                    adspin2 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_do_incheon, android.R.layout.simple_spinner_dropdown_item);
-//                    adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//                    spin2.setAdapter(adspin2);
-//                    spin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//                        @Override
-//                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                            choice_se = adspin2.getItem(i).toString();
-//                        }
-//
-//                        @Override
-//                        public void onNothingSelected(AdapterView<?> adapterView) {
-//                        }
-//                    });
+                    adspin2 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_do_incheon, android.R.layout.simple_spinner_dropdown_item);
+                    adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spin2.setAdapter(adspin2);
+                    spin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            choice_se = adspin2.getItem(i).toString();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+                        }
+                    });
                 }
+                else if (adspin1.getItem(i).equals("부산")) {//똑같은 소스에 반복입니다. 인천부분입니다.
+                    choice_do = "부산";
+                    adspin2 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_do_busan, android.R.layout.simple_spinner_dropdown_item);
+                    adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spin2.setAdapter(adspin2);
+                    spin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            choice_se = adspin2.getItem(i).toString();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+                        }
+                    });
+                }
+
+                else if (adspin1.getItem(i).equals("대구")) {//똑같은 소스에 반복입니다. 인천부분입니다.
+                    choice_do = "대구";
+                    adspin2 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_do_daegu, android.R.layout.simple_spinner_dropdown_item);
+                    adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spin2.setAdapter(adspin2);
+                    spin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            choice_se = adspin2.getItem(i).toString();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+                        }
+                    });
+                }
+
+
+                else if (adspin1.getItem(i).equals("대전")) {//똑같은 소스에 반복입니다. 인천부분입니다.
+                    choice_do = "대전";
+                    adspin2 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_do_daejeon, android.R.layout.simple_spinner_dropdown_item);
+                    adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spin2.setAdapter(adspin2);
+                    spin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            choice_se = adspin2.getItem(i).toString();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+                        }
+                    });
+                }
+                else if (adspin1.getItem(i).equals("광주")) {//똑같은 소스에 반복입니다. 인천부분입니다.
+                    choice_do = "광주";
+                    adspin2 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_do_gwangju, android.R.layout.simple_spinner_dropdown_item);
+                    adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spin2.setAdapter(adspin2);
+                    spin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            choice_se = adspin2.getItem(i).toString();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+                        }
+                    });
+                }
+                else if (adspin1.getItem(i).equals("울산")) {//똑같은 소스에 반복입니다. 인천부분입니다.
+                    choice_do = "울산";
+                    adspin2 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_do_ulsan, android.R.layout.simple_spinner_dropdown_item);
+                    adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spin2.setAdapter(adspin2);
+                    spin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            choice_se = adspin2.getItem(i).toString();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+                        }
+                    });
+                }
+                else if (adspin1.getItem(i).equals("경기도")) {//똑같은 소스에 반복입니다. 인천부분입니다.
+                    choice_do = "경기도";
+                    adspin2 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_do_gyeonggi, android.R.layout.simple_spinner_dropdown_item);
+                    adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spin2.setAdapter(adspin2);
+                    spin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            choice_se = adspin2.getItem(i).toString();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+                        }
+                    });
+                }
+                else if (adspin1.getItem(i).equals("충청북도")) {//똑같은 소스에 반복입니다. 인천부분입니다.
+                    choice_do = "충청북도";
+                    adspin2 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_do_chungcheongbuk, android.R.layout.simple_spinner_dropdown_item);
+                    adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spin2.setAdapter(adspin2);
+                    spin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            choice_se = adspin2.getItem(i).toString();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+                        }
+                    });
+                }
+                else if (adspin1.getItem(i).equals("충청남도")) {//똑같은 소스에 반복입니다. 인천부분입니다.
+                    choice_do = "충청남도";
+                    adspin2 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_do_chungcheongnam, android.R.layout.simple_spinner_dropdown_item);
+                    adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spin2.setAdapter(adspin2);
+                    spin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            choice_se = adspin2.getItem(i).toString();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+                        }
+                    });
+                }
+                else if (adspin1.getItem(i).equals("전라북도")) {//똑같은 소스에 반복입니다. 인천부분입니다.
+                    choice_do = "전라북도";
+                    adspin2 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_do_jeollabuk, android.R.layout.simple_spinner_dropdown_item);
+                    adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spin2.setAdapter(adspin2);
+                    spin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            choice_se = adspin2.getItem(i).toString();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+                        }
+                    });
+                }
+                else if (adspin1.getItem(i).equals("전라남도")) {//똑같은 소스에 반복입니다. 인천부분입니다.
+                    choice_do = "전라남도";
+                    adspin2 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_do_jeollanam, android.R.layout.simple_spinner_dropdown_item);
+                    adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spin2.setAdapter(adspin2);
+                    spin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            choice_se = adspin2.getItem(i).toString();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+                        }
+                    });
+                }
+                else if (adspin1.getItem(i).equals("경상북도")) {//똑같은 소스에 반복입니다. 인천부분입니다.
+                    choice_do = "경상북도";
+                    adspin2 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_do_gyeongsangbuk, android.R.layout.simple_spinner_dropdown_item);
+                    adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spin2.setAdapter(adspin2);
+                    spin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            choice_se = adspin2.getItem(i).toString();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+                        }
+                    });
+                }
+                else if (adspin1.getItem(i).equals("경상남도")) {//똑같은 소스에 반복입니다. 인천부분입니다.
+                    choice_do = "경상남도";
+                    adspin2 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_do_gyeongsangnam, android.R.layout.simple_spinner_dropdown_item);
+                    adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spin2.setAdapter(adspin2);
+                    spin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            choice_se = adspin2.getItem(i).toString();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+                        }
+                    });
+                }
+                else if (adspin1.getItem(i).equals("강원도")) {//똑같은 소스에 반복입니다. 인천부분입니다.
+                    choice_do = "강원도";
+                    adspin2 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_do_gangwon, android.R.layout.simple_spinner_dropdown_item);
+                    adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spin2.setAdapter(adspin2);
+                    spin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            choice_se = adspin2.getItem(i).toString();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+                        }
+                    });
+                }
+                else if (adspin1.getItem(i).equals("제주도")) {//똑같은 소스에 반복입니다. 인천부분입니다.
+                    choice_do = "제주도";
+                    adspin2 = ArrayAdapter.createFromResource(getContext(), R.array.spinner_do_jeju, android.R.layout.simple_spinner_dropdown_item);
+                    adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spin2.setAdapter(adspin2);
+                    spin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            choice_se = adspin2.getItem(i).toString();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+                        }
+                    });
+                }
+
+
             }
 
             @Override
