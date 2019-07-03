@@ -190,46 +190,21 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
 
     }
 
-//    TimerTask tt = new TimerTask() {
-//        @Override
-//        public void run() {
-//            countdown++;
-//            if(countdown%3==1)
-//            {
-//                imagepagerAdapter imagepagerAdapter = new imagepagerAdapter(getSupportFragmentManager(),countdown);
-//                viewPager.setAdapter(imagepagerAdapter);
-//                viewPager.setCurrentItem(countdown);
-//            }
-//            else if(countdown%3==2)
-//            {
-//                imagepagerAdapter imagepagerAdapter = new imagepagerAdapter(getSupportFragmentManager(),countdown);
-//                viewPager.setAdapter(imagepagerAdapter);
-//                viewPager.setCurrentItem(countdown);
-//            }
-//            else
-//            {
-//                imagepagerAdapter imagepagerAdapter = new imagepagerAdapter(getSupportFragmentManager(),countdown);
-//                viewPager.setAdapter(imagepagerAdapter);
-//                viewPager.setCurrentItem(countdown);
-//            }
-//
-//        }
-//    };
-//    Timer timer =new Timer();
-//    timer.schedule(tt,0,3000);
 
-
-
-
+private Fragment fa,fb,fc;
+    private FragmentManager fragmentManager;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onClick(View view)
-    { Fragment fragment = null;
+    {
+        //Fragment fragment = null;
+        fragmentManager = getSupportFragmentManager();
+
         switch (view.getId())
         {
 
             case R.id.home:
-                fragment = new Fragment();
+                //fragment = new Fragment();
                 imageButton1.setBackgroundColor(0xffffffff);
                 imageButton1.setTextColor(getResources().getColor(R.color.black));
                 imageButton2.setBackgroundColor(0xffffffff);
@@ -238,10 +213,15 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
                 imageButton3.setTextColor(getResources().getColor(R.color.black));
                 homebtn.setBackgroundColor(getResources().getColor(R.color.back));
                 homebtn.setTextColor(0xffffffff);
-                replaceFragment(fragment);
+                //replaceFragment(fragment);
+
+
+                if(fa != null) fragmentManager.beginTransaction().hide(fa).commit();
+                if(fb != null) fragmentManager.beginTransaction().hide(fb).commit();
+                if(fc != null) fragmentManager.beginTransaction().hide(fc).commit();
                 break;
             case R.id.imbtn1:
-                fragment = new Gyesi();
+               // fragment = new Gyesi();
                 homebtn.setBackgroundColor(0xffffffff);
                 homebtn.setTextColor(getResources().getColor(R.color.black));
                 imageButton2.setBackgroundColor(0xffffffff);
@@ -250,11 +230,19 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
                 imageButton3.setTextColor(getResources().getColor(R.color.black));
                 imageButton1.setBackgroundColor(getResources().getColor(R.color.back));
                 imageButton1.setTextColor(0xffffffff);
-                replaceFragment(fragment);
+                //replaceFragment(fragment);
+                if(fa == null) {
+                    fa = new Gyesi();
+                    fragmentManager.beginTransaction().add(R.id.container2, fa).commit();
+                }
+
+                if(fa != null) fragmentManager.beginTransaction().show(fa).commit();
+                if(fb != null) fragmentManager.beginTransaction().hide(fb).commit();
+                if(fc != null) fragmentManager.beginTransaction().hide(fc).commit();
                 Log.d("ddd","MonthFragment");
                 break;
             case R.id.garden:
-                fragment = new Garden_board();
+               // fragment = new Garden_board();
                 homebtn.setBackgroundColor(0xffffffff);
                 homebtn.setTextColor(getResources().getColor(R.color.black));
                 imageButton1.setBackgroundColor(0xffffffff);
@@ -263,11 +251,19 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
                 imageButton3.setTextColor(getResources().getColor(R.color.black));
                 imageButton2.setBackgroundColor(getResources().getColor(R.color.back));
                 imageButton2.setTextColor(0xffffffff);
-                replaceFragment(fragment);
+                //replaceFragment(fragment);
+                if(fb == null) {
+                    fb = new Garden_board();
+                    fragmentManager.beginTransaction().add(R.id.container2, fb).commit();
+                }
+
+                if(fa != null) fragmentManager.beginTransaction().hide(fa).commit();
+                if(fb != null) fragmentManager.beginTransaction().show(fb).commit();
+                if(fc != null) fragmentManager.beginTransaction().hide(fc).commit();
                 Log.d("ddd","MonthFragment");
                 break;
             case R.id.consultation:
-                fragment = new Consultation();
+                //fragment = new Consultation();
                 homebtn.setBackgroundColor(0xffffffff);
                 homebtn.setTextColor(getResources().getColor(R.color.black));
                 imageButton2.setBackgroundColor(0xffffffff);
@@ -276,7 +272,15 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
                 imageButton1.setTextColor(getResources().getColor(R.color.black));
                 imageButton3.setBackgroundColor(getResources().getColor(R.color.back));
                 imageButton3.setTextColor(0xffffffff);
-                replaceFragment(fragment);
+               // replaceFragment(fragment);
+                if(fc == null) {
+                    fc = new Consultation();
+                    fragmentManager.beginTransaction().add(R.id.container2, fc).commit();
+                }
+
+                if(fa != null) fragmentManager.beginTransaction().hide(fa).commit();
+                if(fb != null) fragmentManager.beginTransaction().hide(fb).commit();
+                if(fc != null) fragmentManager.beginTransaction().show(fc).commit();
                 Log.d("ddd","MonthFragment");
                 break;
         }
