@@ -119,8 +119,10 @@ public class Detail_Consultation extends Fragment implements MainActivity.OnBack
 
     @Override
     public void onBack() {
-        fragment = new Consultation();
+        MainActivity activity = (MainActivity) getActivity();
+        activity.setOnBackPressedListener(null);
         replaceFragment(fragment);
+        activity.onBackPressed();
     }
 
     /**
