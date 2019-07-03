@@ -180,8 +180,15 @@ public class Consultation extends Fragment implements MainActivity.OnBackPressed
     public void onBack() {
         MainActivity activity = (MainActivity) getActivity();
         activity.setOnBackPressedListener(null);
-        replaceFragment(fragment);
         activity.onBackPressed();
+    }
+    private void addFragment(Fragment fragment){
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.add(R.id.container2, fragment);
+        fragmentTransaction.commit();
     }
     private void replaceFragment(Fragment fragment){
         FragmentManager fm = getActivity().getSupportFragmentManager();

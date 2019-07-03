@@ -191,21 +191,21 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     }
 
 
-private Fragment fa,fb,fc;
+public static Fragment fa,fb,fc;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onClick(View view)
     {
-        //Fragment fragment = null;
+        Fragment fragment = null;
         fragmentManager = getSupportFragmentManager();
 
         switch (view.getId())
         {
 
             case R.id.home:
-                //fragment = new Fragment();
+                fragment = new Fragment();
                 imageButton1.setBackgroundColor(0xffffffff);
                 imageButton1.setTextColor(getResources().getColor(R.color.black));
                 imageButton2.setBackgroundColor(0xffffffff);
@@ -214,14 +214,14 @@ private Fragment fa,fb,fc;
                 imageButton3.setTextColor(getResources().getColor(R.color.black));
                 homebtn.setBackgroundColor(getResources().getColor(R.color.back));
                 homebtn.setTextColor(0xffffffff);
-                //replaceFragment(fragment);
+                replaceFragment(fragment);
 
-                if(fa != null) hideFragment(fa);
-                if(fb != null) hideFragment(fb);
-                if(fc != null) hideFragment(fc);
+//                if(fa != null) hideFragment(fa);
+//                if(fb != null) hideFragment(fb);
+//                if(fc != null) hideFragment(fc);
                 break;
             case R.id.imbtn1:
-               // fragment = new Gyesi();
+                fragment = new Gyesi();
                 homebtn.setBackgroundColor(0xffffffff);
                 homebtn.setTextColor(getResources().getColor(R.color.black));
                 imageButton2.setBackgroundColor(0xffffffff);
@@ -230,21 +230,21 @@ private Fragment fa,fb,fc;
                 imageButton3.setTextColor(getResources().getColor(R.color.black));
                 imageButton1.setBackgroundColor(getResources().getColor(R.color.back));
                 imageButton1.setTextColor(0xffffffff);
-                //replaceFragment(fragment);
+                replaceFragment(fragment);
 
-                if(fa == null) {
-                    fa = new Gyesi();
-                   // fragmentManager.beginTransaction().replace(R.id.container2, fa).commit();
-                    addFragment(fa);
-                }
-
-                if(fa != null) showFragment(fa);
-                if(fb != null) hideFragment(fb);
-                if(fc != null) hideFragment(fc);
-                Log.d("ddd","MonthFragment");
+//                if(fa == null) {
+//                    fa = new Gyesi();
+//                   // fragmentManager.beginTransaction().replace(R.id.container2, fa).commit();
+//                    addFragment(fa);
+//                }
+//
+//                if(fa != null) showFragment(fa);
+//                if(fb != null) hideFragment(fb);
+//                if(fc != null) hideFragment(fc);
+//                Log.d("ddd","MonthFragment");
                 break;
             case R.id.garden:
-               // fragment = new Garden_board();
+                fragment = new Garden_board();
                 homebtn.setBackgroundColor(0xffffffff);
                 homebtn.setTextColor(getResources().getColor(R.color.black));
                 imageButton1.setBackgroundColor(0xffffffff);
@@ -253,20 +253,20 @@ private Fragment fa,fb,fc;
                 imageButton3.setTextColor(getResources().getColor(R.color.black));
                 imageButton2.setBackgroundColor(getResources().getColor(R.color.back));
                 imageButton2.setTextColor(0xffffffff);
-                //replaceFragment(fragment);
+                replaceFragment(fragment);
 
-                if(fb == null) {
-                    fb = new Garden_board();
-                    addFragment(fb);
-                }
-
-                if(fa != null) hideFragment(fa);
-                if(fb != null) showFragment(fb);
-                if(fc != null) hideFragment(fc);
-                Log.d("ddd","MonthFragment");
+//                if(fb == null) {
+//                    fb = new Garden_board();
+//                    addFragment(fb);
+//                }
+//
+//                if(fa != null) hideFragment(fa);
+//                if(fb != null) showFragment(fb);
+//                if(fc != null) hideFragment(fc);
+//                Log.d("ddd","MonthFragment");
                 break;
             case R.id.consultation:
-                //fragment = new Consultation();
+                fragment = new Consultation();
                 homebtn.setBackgroundColor(0xffffffff);
                 homebtn.setTextColor(getResources().getColor(R.color.black));
                 imageButton2.setBackgroundColor(0xffffffff);
@@ -275,17 +275,17 @@ private Fragment fa,fb,fc;
                 imageButton1.setTextColor(getResources().getColor(R.color.black));
                 imageButton3.setBackgroundColor(getResources().getColor(R.color.back));
                 imageButton3.setTextColor(0xffffffff);
-               // replaceFragment(fragment);
+                replaceFragment(fragment);
 
-                if(fc == null) {
-                    fc = new Consultation();
-                    addFragment(fc);
-                }
-
-                if(fa != null) hideFragment(fa);
-                if(fb != null) hideFragment(fb);
-                if(fc != null) showFragment(fc);
-                Log.d("ddd","MonthFragment");
+//                if(fc == null) {
+//                    fc = new Consultation();
+//                    addFragment(fc);
+//                }
+//
+//                if(fa != null) hideFragment(fa);
+//                if(fb != null) hideFragment(fb);
+//                if(fc != null) showFragment(fc);
+//                Log.d("ddd","MonthFragment");
                 break;
         }
     }

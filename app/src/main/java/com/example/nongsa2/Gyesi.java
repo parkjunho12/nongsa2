@@ -172,7 +172,7 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
 
 
 
-        fragment = new Fragment();
+        fragment = new Gyesi();
 
 
 
@@ -200,12 +200,14 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
         super.onDetach();
         mListener = null;
     }
+private Fragment f1,f2,f3;
+    private FragmentManager fragmentManager;
 
     @Override
     public void onBack() {
         MainActivity activity = (MainActivity) getActivity();
+        fragmentManager = activity.getSupportFragmentManager();
         activity.setOnBackPressedListener(null);
-       replaceFragment(fragment);
         activity.onBackPressed();
     }
 
@@ -362,6 +364,7 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
         }
 
     }
+
     private void replaceFragment(Fragment fragment){
         FragmentManager fm = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();

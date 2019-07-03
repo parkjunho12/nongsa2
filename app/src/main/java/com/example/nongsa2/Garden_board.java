@@ -99,9 +99,9 @@ public class Garden_board extends Fragment implements MainActivity.OnBackPressed
     public void onBack() {
         MainActivity activity = (MainActivity) getActivity();
         activity.setOnBackPressedListener(null);
-        replaceFragment(fragment);
         activity.onBackPressed();
     }
+
     private void replaceFragment(Fragment fragment){
         FragmentManager fm = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();

@@ -85,7 +85,7 @@ public class Detail_Consultation extends Fragment implements MainActivity.OnBack
         content_text.setText(Con_array.getcontents(Integer.parseInt(count)));
         TextView answer_text=(TextView) view.findViewById(R.id.answer);
         answer_text.setText(Con_array.getanswerContents(Integer.parseInt(count)));
-        fragment = new Fragment();
+        fragment = new Consultation();
 
         return view;
     }
