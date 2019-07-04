@@ -13,27 +13,20 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             >
-
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="1"
-
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:layout_marginTop="10dp"
                     android:gravity="left"
-
                     android:paddingLeft="10dp">
-
-
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
-
                     android:layout_height="match_parent"
                     android:gravity="center">
                     <TextView
@@ -86,18 +79,14 @@
                     android:orientation="horizontal"
                     android:layout_marginTop="10dp"
                     android:gravity="right"
-
                     android:paddingRight="10dp">
-
                     <Button
                         android:id="@+id/search"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:layout_gravity="right"
-
                         android:backgroundTint="#ff7f00"
                         android:background="@drawable/ic_notifications_black_24dp" />
-
                 </LinearLayout>
             </LinearLayout>
 
@@ -110,56 +99,53 @@
                 android:paddingLeft="5dp"
                 android:background="#ff7f00"></View>
 
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.2"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-                    <Button
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="캐캐홈"
-                        android:id="@id/home"
-                        android:textColor="#ffffff"
-                        android:background="#ff7f00"/>
-                    <Button
-                        android:text="빈집 게시판"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent"
-                        android:id="@+id/imbtn1"
-                        android:background="#ffffff"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.2"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="캐캐홈"
+                    android:id="@id/home"
+                    android:textColor="#ffffff"
+                    android:background="#ff7f00"/>
+                <Button
+                    android:text="빈집 게시판"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:id="@+id/imbtn1"
+                    android:background="#ffffff"
+                />
+                <Button
+                    android:id="@+id/garden"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#ffffff"
+                    android:text="텃밭 분양 \n게시판"
                     />
-                    <Button
-                        android:id="@+id/garden"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#ffffff"
-                        android:text="텃밭 분양 \n게시판"
-                        />
-                    <Button
-                        android:text="귀농 귀촌\n지능형 상담"
-                        android:id="@+id/consultation"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:background="#ffffff"
-                        android:layout_weight="1"
-                         />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_margin="5dp"
-                    android:alpha="0.8"
-                    android:paddingRight="5dp"
-                    android:paddingLeft="5dp"
-                    android:background="#ff7f00"></View>
+                <Button
+                    android:text="귀농 귀촌\n지능형 상담"
+                    android:id="@+id/consultation"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="#ffffff"
+                    android:layout_weight="1"
+                     />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="5dp"
+                android:alpha="0.8"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"
+                android:background="#ff7f00"></View>
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -385,6 +371,7 @@
 
     </FrameLayout>
         </LinearLayout>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="0dp"

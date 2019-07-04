@@ -1,9 +1,13 @@
 package com.example.nongsa2;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -11,6 +15,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,16 +25,23 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -83,17 +96,127 @@ public class MemoFragment extends Fragment implements MainActivity.OnBackPressed
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
+
     ArrayAdapter<CharSequence> adspin1, adspin2, adspin3, adspin4; //어댑터를 선언했습니다. adspint1(서울,인천..) adspin2(강남구,강서구..)
     String choice_do="";
     String choice_se="";//검색시 선택된 매세지를 띄우기 위한 선언하였습니다. 그냥 선언안하고 인자로 넘기셔도 됩니다.
     String choice_deal_type="";
     String choice_gubun="";
 
+    //////////////////////////////////////////////사진등록작업 ㄱㄱ
+    private Boolean isPermission = true;
+    private void tedPermission() {
+        PermissionListener permissionListener = new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+                // 권한 요청 성공
+            }
+            @Override
+            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                // 권한 요청 실패
+            }
+        };
+        TedPermission.with(getContext())
+                .setPermissionListener(permissionListener)
+                .setRationaleMessage(getResources().getString(R.string.permission_2))
+                .setDeniedMessage(getResources().getString(R.string.permission_1))
+                .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
+                .check();
+    }
+    private void goToAlbum() {
+
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+        startActivityForResult(intent, PICK_FROM_ALBUM);
+    }
+    private static final int PICK_FROM_ALBUM = 1;
+    private File tempFile;
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == PICK_FROM_ALBUM) {
+
+            Uri photoUri = data.getData();
+
+            Cursor cursor = null;
+
+            try {
+
+                /*
+                 *  Uri 스키마를
+                 *  content:/// 에서 file:/// 로  변경한다.
+                 */
+                String[] proj = { MediaStore.Images.Media.DATA };
+
+                assert photoUri != null;
+                cursor = getActivity().getContentResolver().query(photoUri, proj, null, null, null);
+
+                assert cursor != null;
+                int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+
+                cursor.moveToFirst();
+
+                tempFile = new File(cursor.getString(column_index));
+
+            } finally {
+                if (cursor != null) {
+                    cursor.close();
+                }
+            }
+
+            setImage();
+
+        }
+    }
+    private static final String TAG = "blackjin";
+    private void setImage() {
+
+        ImageView imageView = getView().findViewById(R.id.imageView);
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        Bitmap originalBm = BitmapFactory.decodeFile(tempFile.getAbsolutePath(), options);
+        Log.d(TAG, "setImage : " + tempFile.getAbsolutePath());
+
+        imageView.setImageBitmap(originalBm);
+
+        /**
+         *  tempFile 사용 후 null 처리를 해줘야 합니다.
+         *  (resultCode != RESULT_OK) 일 때 tempFile 을 삭제하기 때문에
+         *  기존에 데이터가 남아 있게 되면 원치 않은 삭제가 이뤄집니다.
+         */
+        tempFile = null;
+
+    }
+
+    //////////////////////////////////////////////////////////////////
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+
+
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_memo, container, false);
+
+        //사진
+        tedPermission();
+
+        Button mGallery_btn = (Button) view.findViewById(R.id.btnGallery);
+        mGallery_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 권한 허용에 동의하지 않았을 경우 토스트를 띄웁니다.
+                if(isPermission) goToAlbum();
+                else Toast.makeText(view.getContext(), getResources().getString(R.string.permission_2), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        //        //사진
+
 
         final EditText edit_ADDR = (EditText) view.findViewById(R.id.ADDR);
         final EditText edit_OWNER_NM = (EditText) view.findViewById(R.id.OWNER_NM);
@@ -144,7 +267,7 @@ public class MemoFragment extends Fragment implements MainActivity.OnBackPressed
                             else /*정보등록실패*/
                             {
                                 AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
-                                builder.setMessage("정보등록 실패\n ID가 중복입니다.")
+                                builder.setMessage("정보등록 실패\n.")
                                         .setNegativeButton("확인",null)
                                         .create()
                                         .show();

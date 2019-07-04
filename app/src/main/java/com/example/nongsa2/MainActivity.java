@@ -3,6 +3,7 @@ package com.example.nongsa2;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
@@ -60,7 +61,6 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     private imagepagerAdapter imagepagerAdapter;
     Thread thread =null;
     Handler handler = null;
-
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
