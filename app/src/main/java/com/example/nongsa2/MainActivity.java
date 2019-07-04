@@ -71,7 +71,14 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     fragment = new Fragment();
-
+                    imageButton1.setBackgroundColor(0xffffffff);
+                    imageButton1.setTextColor(getResources().getColor(R.color.black));
+                    imageButton2.setBackgroundColor(0xffffffff);
+                    imageButton2.setTextColor(getResources().getColor(R.color.black));
+                    imageButton3.setBackgroundColor(0xffffffff);
+                    imageButton3.setTextColor(getResources().getColor(R.color.black));
+                    homebtn.setBackgroundColor(getResources().getColor(R.color.back));
+                    homebtn.setTextColor(0xffffffff);
                    replaceFragment(fragment);
                     return true;
                 case R.id.navigation_dashboard:
@@ -115,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         homebtn.setOnClickListener(this);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
+
         imagepagerAdapter = new imagepagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(imagepagerAdapter);
         handler = new Handler(){

@@ -74,8 +74,7 @@ public class BoardListAdapter extends BaseAdapter  {
             @Override
             public void onClick(View view) {
 
-            Intent intent = new Intent(parent.getContext().getApplicationContext(),complexInfo.class);
-
+                Intent intent = new Intent(parent.getContext().getApplicationContext(),complexInfo.class);
                 intent.putExtra("SIDO_NM",boardList.get(i).getSIDO_NM());
                 intent.putExtra("ID",boardList.get(i).getID());
                 intent.putExtra("SIGUN_NM",boardList.get(i).getSIGUN_NM());

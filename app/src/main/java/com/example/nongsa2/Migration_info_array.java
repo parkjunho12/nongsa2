@@ -270,6 +270,17 @@ public class Migration_info_array {
             Latitude_list.clear();
                     Longtitude_list.clear();
     }
+    static int i=0;
+
+
+
+    public static int getI() {
+        return i;
+    }
+
+    public static void setI(int i) {
+        Migration_info_array.i = i;
+    }
 
     static List<Integer> index = new ArrayList<>();
     static List<String> ID_list = new ArrayList<String>();

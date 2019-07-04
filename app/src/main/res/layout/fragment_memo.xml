@@ -82,7 +82,7 @@
 
 
                 <EditText
-                    android:id="@+id/SIDO_NM"
+                    android:id="@+id/ADDR"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:hint="ex) 충청남도 천안시 안서동 상명대길44"

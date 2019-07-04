@@ -35,8 +35,10 @@ public class Board {
     String Latitude="";
     String Longtitude="";
 
-    public Board(String title, String content, String date, String SIDO_NM, String ID, String SIGUN_NM, String ADDR, String DEAL_AMOUNT, String DEAL_BIGO, String BUILDING_AREA, String AREA_ETC, String BUILD_YEAR, String VACANT_YEAR, String STRUCT_TYPE, String OWNER_NM, String OWNER_CONTACT, String INSPECTOR, String LOT_AREA, String BIGO, String FILE_PATH1, String FILE_PATH2, String FILE_PATH3, String DETAIL_URL, String DEAL_NEGO_YN, String GUBUN, String DEAL_TYPE, String REG_DT,String Latitude,String Longtitude) {
+
+    public Board(String title, String content, String date, String SIDO_NM, String ID, String SIGUN_NM, String ADDR, String DEAL_AMOUNT, String DEAL_BIGO, String BUILDING_AREA, String AREA_ETC, String BUILD_YEAR, String VACANT_YEAR, String STRUCT_TYPE, String OWNER_NM, String OWNER_CONTACT, String INSPECTOR, String LOT_AREA, String BIGO, String FILE_PATH1, String FILE_PATH2, String FILE_PATH3, String DETAIL_URL, String DEAL_NEGO_YN, String GUBUN, String DEAL_TYPE, String REG_DT, String Latitude, String Longtitude) {
         this.title = title;
+
         this.content = content;
         this.date = date;
         this.SIDO_NM = SIDO_NM;
