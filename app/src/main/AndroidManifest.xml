@@ -28,6 +28,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".BoardListAdapter" />
+
+        <meta-data
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="YOUR_CLIENT_ID_HERE" />
     </application>
 
 </manifest>

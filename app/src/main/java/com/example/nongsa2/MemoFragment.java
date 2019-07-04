@@ -1,10 +1,13 @@
 package com.example.nongsa2;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Geocoder;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -24,11 +27,22 @@ import android.widget.Spinner;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.naver.maps.geometry.LatLng;
+import com.naver.maps.geometry.Utmk;
+import com.naver.maps.map.NaverMapSdk;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -46,15 +60,18 @@ public class MemoFragment extends Fragment implements MainActivity.OnBackPressed
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    Check_add_array check_add_array =new Check_add_array();
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    ArrayList<Double> latitude=new ArrayList<Double>();
+    ArrayList<Double> longitude=new ArrayList<Double>();
 
     private OnFragmentInteractionListener mListener;
 
     public MemoFragment() {
         // Required empty public constructor
+
     }
 
     /**
@@ -78,10 +95,13 @@ public class MemoFragment extends Fragment implements MainActivity.OnBackPressed
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        NaverMapSdk.getInstance(getActivity()).setClient(
+                new NaverMapSdk.NaverCloudPlatformClient("YOUR_CLIENT_ID_HERE"));
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
     ArrayAdapter<CharSequence> adspin1, adspin2, adspin3, adspin4; //어댑터를 선언했습니다. adspint1(서울,인천..) adspin2(강남구,강서구..)
     String choice_do="";
@@ -105,6 +125,14 @@ public class MemoFragment extends Fragment implements MainActivity.OnBackPressed
 //        final Spinner spinner2 = (Spinner)view.findViewById(R.id.spinner2);
 //        final String text2 = spinner2.getSelectedItem().toString(); // 시군. 스피너에서 선택된 항목의 값을 text2로 받음
         Button mRegister_btn = (Button) view.findViewById(R.id.Register_btn);
+        Button check_btn = (Button) view.findViewById(R.id.check);
+        check_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String ADDR=edit_ADDR.getText().toString();
+                new BackgroundTask().execute(ADDR);
+            }
+        });
         mRegister_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -486,6 +514,232 @@ public class MemoFragment extends Fragment implements MainActivity.OnBackPressed
 
 
         return view;
+    }
+
+
+        class BackgroundTask extends AsyncTask<String, Void, String> {
+            String target;
+
+            ProgressDialog progressDialog = new ProgressDialog(getContext());
+            @Override
+            protected void onPreExecute() {
+                target = "http://www.juso.go.kr/addrlink/addrLinkApi.do?currentPage=1&countPerPage=10&confmKey=U01TX0FVVEgyMDE5MDYzMDIxMTIyMDEwODg0NjA=&resultType=json&keyword=";
+            }
+
+
+            @Override
+            protected String doInBackground(String... params) {
+                try {
+                    String ADDR=params[0];
+                    target=target+ URLEncoder.encode(ADDR);
+                    URL url = new URL(target);
+                    HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+                    InputStream inputStream = httpURLConnection.getInputStream();
+
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    String temp;
+                    StringBuilder stringBuilder = new StringBuilder();
+                    while ((temp = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(temp + "\n");
+                    }
+                    bufferedReader.close();
+                    inputStream.close();
+                    httpURLConnection.disconnect();
+                    return stringBuilder.toString().trim();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            public void onProgressUpdate(Void... values) {
+                super.onProgressUpdate(values);
+            }
+
+            @Override
+            public void onPostExecute(String res) {
+                Log.e(this.getClass().getName(), "백그라운드 try문안으로");
+                try {
+                    Log.e(this.getClass().getName(), "백그라운드 try문안으로");
+                    JSONObject jsonObject = new JSONObject(res);
+                    Log.e(this.getClass().getName(), String.valueOf(jsonObject));
+                    JSONObject jsonObject1 = jsonObject.getJSONObject("results");
+                    JSONArray jsonArray = jsonObject1.getJSONArray("juso");
+                    Log.e(this.getClass().getName(), String.valueOf(jsonArray));
+                    if(jsonArray.length()==0)
+                    {
+                        AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+                        alert.setTitle("상세주소를  ");
+                        alert.setMessage("입력해주세요.");
+                        alert.setNegativeButton("확인",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                Fragment fragment = new MemoFragment();
+                                replaceFragment(fragment);
+                            }
+                        });
+                        alert.show();
+                    }
+                    int count = 0;
+                    while(count < jsonArray.length()){
+                        JSONObject object = jsonArray.getJSONObject(count);
+                        // 상세 주소 입력을 위해
+                        if(object.getString("roadAddr")==null)
+                        {
+                            AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+                            alert.setTitle("입력하신 주소는 ");
+                            alert.setMessage("존재 하지 않습니다.");
+                            alert.setNegativeButton("확인",new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    Fragment fragment = new MemoFragment();
+                                    replaceFragment(fragment);
+                                }
+                            });
+                            alert.show();
+                        }
+                        else if(object.getString("roadAddr")!=null){
+                            check_add_array.setroadAddr(object.getString("roadAddr")); //도로명
+                            check_add_array.setjibunAddr(object.getString("jibunAddr")); //지번주소
+                            String roadAddr=object.getString("roadAddr");
+                            String jibunAddr=object.getString("jibunAddr");
+                            String admCd=object.getString("admCd");
+                            String rnMgtSn=object.getString("rnMgtSn");
+                            String udrtYn=object.getString("udrtYn");
+                            String buldMnnm=object.getString("buldMnnm");
+                            String buldSlno=object.getString("buldSlno");
+                            Log.e(this.getClass().getName(), roadAddr);
+                            Log.e(this.getClass().getName(),jibunAddr);
+                            Log.e(this.getClass().getName(), admCd);
+                            Log.e(this.getClass().getName(), rnMgtSn);
+                            Log.e(this.getClass().getName(), udrtYn);
+                            Log.e(this.getClass().getName(), buldMnnm);
+                            Log.e(this.getClass().getName(), buldSlno);
+
+                            check_add_array.setadmCd(object.getString("admCd"));
+                            check_add_array.setrnMgtSn(object.getString("rnMgtSn"));
+                            check_add_array.setudrtYn(object.getString("udrtYn"));
+                            check_add_array.setbuldMnnm(object.getString("buldMnnm"));
+                            check_add_array.setbuldSlno(object.getString("buldSlno"));
+                            // 좌표변환을 위해 필요한것들
+
+                            //new BackgroundTask2().execute(admCd,rnMgtSn,udrtYn,buldMnnm,buldSlno);
+                        }
+
+                        count++;
+                    }
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+
+            }
+
+        }
+
+
+
+
+
+
+
+
+    class BackgroundTask2 extends AsyncTask<String, Void, String> {
+        String target;
+
+        @Override
+        protected void onPreExecute() {
+            target = "http://www.juso.go.kr/addrlink/addrCoordApi.do?currentPage=1&countPerPage=10&confmKey=U01TX0FVVEgyMDE5MDYzMDIzMDczNjEwODg0NjI=&resultType=json";
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                String admCd=params[0];
+                String rnMgtSn=params[1];
+                String udrtYn=params[2];
+                Integer buldMnnm= Integer.valueOf((params[3]));
+                Integer buldSlno= Integer.valueOf((params[4]));
+
+                target=target+"&admCd="+URLEncoder.encode(admCd)+"&rnMgtSn="+URLEncoder.encode(rnMgtSn)+"&udrtYn="+URLEncoder.encode(udrtYn)+"&buldMnnm="+buldMnnm+"&buldSlno="+buldSlno;
+                URL url = new URL(target);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String temp;
+                StringBuilder stringBuilder = new StringBuilder();
+                while ((temp = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(temp + "\n");
+                }
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return stringBuilder.toString().trim();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        public void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        public void onPostExecute(String res) {
+
+            try {
+                Log.e(this.getClass().getName(), "BackgroundTask2");
+                JSONObject jsonObject = new JSONObject(res);
+                //Log.e(this.getClass().getName(), String.valueOf(jsonObject));
+                JSONObject jsonObject1 = jsonObject.getJSONObject("results");
+                JSONArray jsonArray = jsonObject1.getJSONArray("juso");
+               // Log.e(this.getClass().getName(), String.valueOf(jsonArray));
+                int count = 0;
+                while(count < jsonArray.length()){
+
+                    JSONObject object = jsonArray.getJSONObject(count);
+
+                    // 상세 주소 입력을 위해
+                    //check_add_array.setroadAddr(object.getString("roadAddr")); //도로명
+                   // check_add_array.setjibunAddr(object.getString("jibunAddr")); //지번주소
+                    float entX= Float.parseFloat(object.getString("entX"));
+                    float entY= Float.parseFloat(object.getString("entY"));
+                    Utmk utmk = new Utmk(entX, entY);
+                    LatLng latLng = utmk.toLatLng();
+                    double latitude=(latLng.latitude);
+                    double longitude=(latLng.longitude);
+
+
+                    check_add_array.setlatitude(String.valueOf(latitude));
+                    check_add_array.setlongitude(String.valueOf(longitude));
+                    // 좌표변환을 위해 필요한것들
+                   // Log.e(this.getClass().getName(), String.valueOf(latitude));
+                   // Log.e(this.getClass().getName(), String.valueOf(longitude));
+                    Log.e(this.getClass().getName(), String.valueOf(check_add_array.getlatitude(count)));
+                    Log.e(this.getClass().getName(), String.valueOf(check_add_array.getlongitude(count)));
+                    count++;
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+        }
+
+
+    }
+
+    private void check_add() {
+        for(int i=0;i<check_add_array.getsize();i++){
+            Log.e(this.getClass().getName(), i+"@@@@@@@@@"+check_add_array.getroadAddr(i));
+            Log.e(this.getClass().getName(), i+"@@@@@@@@@"+check_add_array.getlatitude(i));
+            Log.e(this.getClass().getName(), i+"@@@@@@@@@"+check_add_array.getlongitude(i));
+        }
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
