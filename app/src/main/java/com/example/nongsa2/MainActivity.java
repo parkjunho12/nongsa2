@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     private imagepagerAdapter imagepagerAdapter;
     Thread thread =null;
     Handler handler = null;
+
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -122,8 +124,13 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         homebtn.setOnClickListener(this);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
+        ImageButton first =(ImageButton)findViewById(R.id.first);
+        ImageButton second =(ImageButton)findViewById(R.id.second);
+        ImageButton third =(ImageButton)findViewById(R.id.third);
+        ImageButton four =(ImageButton)findViewById(R.id.four);
 
         imagepagerAdapter = new imagepagerAdapter(getSupportFragmentManager());
+
         viewPager.setAdapter(imagepagerAdapter);
         handler = new Handler(){
 
@@ -276,6 +283,31 @@ public static Fragment fa,fb,fc;
 //                if(fb != null) hideFragment(fb);
 //                if(fc != null) showFragment(fc);
 //                Log.d("ddd","MonthFragment");
+                break;
+
+            case R.id.first:
+                Uri uri = Uri.parse("http://returnfarm.com/cmn/sym/mnu/mpm/1030601/htmlMenuView.do");
+                Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+                startActivity(intent);
+
+                break;
+            case R.id.second:
+
+                Uri uri2 = Uri.parse("http://returnfarm.com/cmn/sym/mnu/mpm/1030401/htmlMenuView.do");
+                Intent intent2 = new Intent(Intent.ACTION_VIEW,uri2);
+                startActivity(intent2);
+                break;
+            case R.id.third:
+                Uri uri3 = Uri.parse("http://returnfarm.com/cmn/sym/mnu/mpm/1030101/htmlMenuView.do");
+                Intent intent3 = new Intent(Intent.ACTION_VIEW,uri3);
+                startActivity(intent3);
+
+                break;
+            case R.id.four:
+                Uri uri4 = Uri.parse("http://returnfarm.com/cmn/sym/mnu/mpm/1030301/htmlMenuView.do");
+                Intent intent4 = new Intent(Intent.ACTION_VIEW,uri4);
+                startActivity(intent4);
+
                 break;
         }
     }
