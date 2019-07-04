@@ -28,6 +28,10 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -94,7 +98,7 @@ public class MemoFragment extends Fragment implements MainActivity.OnBackPressed
         final EditText edit_ADDR = (EditText) view.findViewById(R.id.ADDR);
         final EditText edit_OWNER_NM = (EditText) view.findViewById(R.id.OWNER_NM);
         final EditText edit_OWNER_CONTACT = (EditText) view.findViewById(R.id.OWNER_CONTACT);
-        final EditText edit_DEAL_AMAUNT = (EditText) view.findViewById(R.id.DEAL_AMAUNT);
+        final EditText edit_DEAL_AMOUNT = (EditText) view.findViewById(R.id.DEAL_AMOUNT);
         final EditText edit_DEAL_BIGO = (EditText) view.findViewById(R.id.DEAL_BIGO);
 
 
@@ -108,9 +112,13 @@ public class MemoFragment extends Fragment implements MainActivity.OnBackPressed
                 String ADDR =edit_ADDR.getText().toString();
                 String OWNER_NM =edit_OWNER_NM.getText().toString();
                 String OWNER_CONTACT =edit_OWNER_CONTACT.getText().toString();
-                String DEAL_AMAUNT =edit_DEAL_AMAUNT.getText().toString();
+                String DEAL_AMOUNT =edit_DEAL_AMOUNT.getText().toString();
                 String DEAL_BIGO =edit_DEAL_BIGO.getText().toString();
 
+                SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
+                String REG_DT = df.format(new Date());
+
+                Log.e(this.getClass().getName(),"현재시각!"+REG_DT);
 
                 Response.Listener<String> responseListener =new Response.Listener<String>() {
                     @Override
@@ -147,7 +155,7 @@ public class MemoFragment extends Fragment implements MainActivity.OnBackPressed
                         }
                     }
                 };
-                MemoRequest memoRequest =new MemoRequest(choice_do,choice_se,ADDR,OWNER_NM,OWNER_CONTACT,DEAL_AMAUNT,choice_deal_type,DEAL_BIGO,choice_gubun,responseListener);
+                MemoRequest memoRequest =new MemoRequest(choice_do,choice_se,ADDR,OWNER_NM,OWNER_CONTACT,DEAL_AMOUNT,choice_deal_type,DEAL_BIGO,choice_gubun,REG_DT,responseListener);
                 RequestQueue queue= Volley.newRequestQueue(getActivity().getApplicationContext());
                 queue.add(memoRequest);
             }

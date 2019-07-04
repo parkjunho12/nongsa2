@@ -200,7 +200,7 @@
                     android:text="희망매매가격" />
 
                 <EditText
-                    android:id="@+id/DEAL_AMAUNT"
+                    android:id="@+id/DEAL_AMOUNT"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:hint="ex) 40000000"
