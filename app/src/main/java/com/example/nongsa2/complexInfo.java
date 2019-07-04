@@ -173,18 +173,35 @@ static int comctn=0;
         }
     }
 
-    public static float distFrom(float lat1, float lng1, float lat2, float lng2) {
-        double earthRadius = 6371000; //meters
-        double dLat = Math.toRadians(lat2 - lat1);
-        double dLng = Math.toRadians(lng2 - lng1);
-        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
-                        Math.sin(dLng / 2) * Math.sin(dLng / 2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        float dist = (float) (earthRadius * c);
 
-        return dist;
+
+    private static double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
     }
+
+    // This function converts radians to decimal degrees
+    private static double rad2deg(double rad) {
+        return (rad * 180 / Math.PI);
+    }
+
+    private static double distance(double lat1, double lon1, double lat2, double lon2, String unit) {
+
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+
+        if (unit == "kilometer") {
+            dist = dist * 1.609344;
+        } else if(unit == "meter"){
+            dist = dist * 1609.344;
+        }
+
+        return (dist);
+    }
+
 
 
     class BackgroundTask extends AsyncTask<String, Void, String> {
@@ -242,7 +259,7 @@ static int comctn=0;
         public void onPostExecute(String res) {
             Log.e(this.getClass().getName(), "백그라운드 try문안으로");
             try {
-                Log.e(this.getClass().getName(), "백그라운드 try문안으로");
+
                 Log.e(this.getClass().getName(), "백그라운드 try문안으로");
                 JSONObject jsonObject = new JSONObject(res);
                 Log.e(this.getClass().getName(), "백그라운드 try문안으로");
@@ -254,7 +271,7 @@ static int comctn=0;
 
                 while(count < jsonArray.length())
                 {
-                    Log.e(this.getClass().getName(), "메인이에요");
+
                     JSONObject object = jsonArray.getJSONObject(count);
                     city_info_array.setVILL_ID(object.getString("VILL_ID"));
                     city_info_array.setVILL_NM(object.getString("VILL_NM"));
@@ -294,25 +311,27 @@ static int comctn=0;
         customprogress customprogress = new customprogress(complexInfo.this);
 
         int i=city_info_array.getListSize();
-        float min=distFrom(Float.parseFloat(Lat1), Float.parseFloat(Long1), Float.parseFloat(city_info_array.getLatitude(0)), Float.parseFloat(city_info_array.getIongitude(0)));
+        Log.e(this.getClass().getName(), "0이에요: "+Double.parseDouble(Lat1)+"\n민민: "+distance(Double.parseDouble(Lat1),Double.parseDouble(Long1),Double.parseDouble(city_info_array.getLatitude(0)),Double.parseDouble(city_info_array.getIongitude(0)),"meter"));
+        Double min = distance(Double.parseDouble(Lat1),Double.parseDouble(Long1),Double.parseDouble(city_info_array.getLatitude(0)),Double.parseDouble(city_info_array.getIongitude(0)),"kilometer");
         int index=0;
+        TextView textVi=null;
         customprogress .getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         customprogress.show();
         for(int j=0;j<i;j++)
         {
-            if(city_info_array.getLatitude(j).equals("0")&&city_info_array.getIongitude(j).equals("0"))
+
+            if(Lat1.equals("0")&&Long1.equals("0"))
             {
-
-
+                min=0.0;
+                Log.e(this.getClass().getName(), "0이에요");
             }
             else {
 
-
-                    if(min>distFrom(Float.parseFloat(Lat1), Float.parseFloat(Long1), Float.parseFloat(city_info_array.getLatitude(j)), Float.parseFloat(city_info_array.getIongitude(j))))
+              if(min > distance(Double.parseDouble(Lat1),Double.parseDouble(Long1),Double.parseDouble(city_info_array.getLatitude(j)),Double.parseDouble(city_info_array.getIongitude(j)),"kilometer"))
                     {
 
-                        min=distFrom(Float.parseFloat(Lat1), Float.parseFloat(Long1), Float.parseFloat(city_info_array.getLatitude(j)), Float.parseFloat(city_info_array.getIongitude(j)));
 
+                        min = distance(Double.parseDouble(Lat1),Double.parseDouble(Long1),Double.parseDouble(city_info_array.getLatitude(j)),Double.parseDouble(city_info_array.getIongitude(j)),"kilometer");
                             VILL_ID =city_info_array.getVILL_ID(j);
                             VILL_NM =city_info_array.getVILL_NM(j);
                             VILL_NATURE_RESOURCE =city_info_array.getVILL_ECONOMY_RESOURCE(j);
@@ -327,19 +346,59 @@ static int comctn=0;
                             VILL_COMMUNITY_RESOURCE2 =city_info_array.getVILL_COMMUNITY_RESOURCE2(j);
                             VILL_COMMUNITY_RESOURCE3 =city_info_array.getVILL_COMMUNITY_RESOURCE3(j);
                             VILL_COMMUNITY_RESOURCE4 =city_info_array.getVILL_COMMUNITY_RESOURCE4(j);
-
+                        Log.e(this.getClass().getName(), "마을 이름: "+VILL_NM+"\n제일 가까운 좌표:"+min);
                         }
+                    else
+                    {
+                        min=min;
+                    }
 
 
             }
-           Log.e(this.getClass().getName(), ""+city_info_array.getLatitude(j));
-            Log.e(this.getClass().getName(), ""+city_info_array.getIongitude(j));
 
-            TextView textView =(TextView) findViewById(R.id.titles);
+            textVi =(TextView) findViewById(R.id.titles);
 
-            textView.setText(VILL_NM);
+
         }
-
+        if(min==0.0)
+        {
+            textVi.setText("좌표값이 없습니다");
+            VILL_ID ="근처 좌표를 알수 없습니다";
+            VILL_NM ="근처 좌표를 알수 없습니다";
+            VILL_NATURE_RESOURCE ="";
+            VILL_ECONOMY_RESOURCE ="";
+            VILL_NATURE_RESOURCE1 ="";
+            VILL_NATURE_RESOURCE2 ="";
+            VILL_ECONOMY_RESOURCE1 ="";
+            VILL_ECONOMY_RESOURCE2 ="";
+            VILL_ECONOMY_RESOURCE3 ="";
+            VILL_COMMUNITY_RESOURCE ="";
+            VILL_COMMUNITY_RESOURCE1 ="";
+            VILL_COMMUNITY_RESOURCE2 ="";
+            VILL_COMMUNITY_RESOURCE3 ="";
+            VILL_COMMUNITY_RESOURCE4 ="";
+        }
+        else if(min<5){
+        textVi.setText("5km내 농촌마을\n"+VILL_NM);
+        }
+        else
+        {
+            textVi.setText("5km 내의 농촌 마을이 없습니다.");
+            VILL_ID ="근처 좌표를 알수 없습니다";
+            VILL_NM ="5km 내의 농촌 마을이 없습니다.";
+            VILL_NATURE_RESOURCE ="";
+            VILL_ECONOMY_RESOURCE ="";
+            VILL_NATURE_RESOURCE1 ="";
+            VILL_NATURE_RESOURCE2 ="";
+            VILL_ECONOMY_RESOURCE1 ="";
+            VILL_ECONOMY_RESOURCE2 ="";
+            VILL_ECONOMY_RESOURCE3 ="";
+            VILL_COMMUNITY_RESOURCE ="";
+            VILL_COMMUNITY_RESOURCE1 ="";
+            VILL_COMMUNITY_RESOURCE2 ="";
+            VILL_COMMUNITY_RESOURCE3 ="";
+            VILL_COMMUNITY_RESOURCE4 ="";
+        }
         customprogress.dismiss();
     }
 

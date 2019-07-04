@@ -118,7 +118,7 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
     private ListView boardlistview;
     private BoardListAdapter adapter;
     private List<Board> boardList;
-
+    static int pandan=0;
 
     @Override
     public void onActivityCreated(Bundle b){
@@ -146,8 +146,9 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
         searchbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                complexInfo.comctn=0;
                new BackgroundTask().execute();
-               // End_info_request();
+
             }
         });
         FloatingActionButton floatingactionbutton = (FloatingActionButton) getView().findViewById(R.id.floatingActionButton);
@@ -218,6 +219,7 @@ private Fragment f1,f2,f3;
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 
     class BackgroundTask extends AsyncTask<String, Void, String> {
         String target;
@@ -365,6 +367,7 @@ private Fragment f1,f2,f3;
         fragmentTransaction.replace(R.id.container2, fragment);
         fragmentTransaction.commit();
     }
+
     private void End_info_request() {
         int i=Migration_info_array.getListSize();
       //  boardList.clear();
@@ -458,8 +461,10 @@ private Fragment f1,f2,f3;
             date = "\n등록 날짜 : "+Migration_info_array.getREG_DT(l);
             content ="시도 :"+Migration_info_array.getSIDO_NM(l)+" "+Migration_info_array.getSIGUN_NM(l)+"\n이름 :"+Migration_info_array.getOWNER_NM(l)+"\n전화번호 : "+Migration_info_array.getOWNER_CONTACT(l)
                     +" \n가격"+Migration_info_array.getDEAL_AMOUNT(l) ;
+
             Board board = new Board( title,  content,  date,  SIDO_NM,  ID,  SIGUN_NM,  ADDR,  DEAL_AMOUNT,  DEAL_BIGO,  BUILDING_AREA,  AREA_ETC,  BUILD_YEAR,  VACANT_YEAR,  STRUCT_TYPE,  OWNER_NM,  OWNER_CONTACT,  INSPECTOR,  LOT_AREA,  BIGO,  FILE_PATH1,  FILE_PATH2,  FILE_PATH3,  DETAIL_URL,  DEAL_NEGO_YN,  GUBUN,  DEAL_TYPE,  REG_DT,Latitude,Longtitude);
             boardList.add(board);
+
             /*
             Log.e(this.getClass().getName(), ""+Migration_info_array.getID(l));
             Log.e(this.getClass().getName(), ""+Migration_info_array.getSIDO_NM(l));
@@ -470,8 +475,10 @@ private Fragment f1,f2,f3;
         }
         Log.e("bora","------------------");
         adapter.notifyDataSetChanged();
+
     }
     // 리스너 생성
+
     }
 
 

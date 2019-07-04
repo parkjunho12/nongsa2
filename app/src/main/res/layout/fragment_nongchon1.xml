@@ -19,7 +19,7 @@
     <ImageButton
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ff000000"
+        android:background="@android:color/transparent"
         android:src="@drawable/gut"
         android:id="@+id/nong1"
         android:scaleType="fitXY"/>
