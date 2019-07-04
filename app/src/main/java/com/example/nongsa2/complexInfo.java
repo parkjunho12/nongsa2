@@ -319,7 +319,7 @@ static int comctn=0;
         customprogress.show();
         for(int j=0;j<i;j++)
         {
-            Log.e(this.getClass().getName(), "0이에요");
+
             if(Lat1.equals("0")&&Long1.equals("0"))
             {
                 min=0.0;
@@ -363,9 +363,42 @@ static int comctn=0;
         if(min==0.0)
         {
             textVi.setText("좌표값이 없습니다");
+            VILL_ID ="근처 좌표를 알수 없습니다";
+            VILL_NM ="근처 좌표를 알수 없습니다";
+            VILL_NATURE_RESOURCE ="";
+            VILL_ECONOMY_RESOURCE ="";
+            VILL_NATURE_RESOURCE1 ="";
+            VILL_NATURE_RESOURCE2 ="";
+            VILL_ECONOMY_RESOURCE1 ="";
+            VILL_ECONOMY_RESOURCE2 ="";
+            VILL_ECONOMY_RESOURCE3 ="";
+            VILL_COMMUNITY_RESOURCE ="";
+            VILL_COMMUNITY_RESOURCE1 ="";
+            VILL_COMMUNITY_RESOURCE2 ="";
+            VILL_COMMUNITY_RESOURCE3 ="";
+            VILL_COMMUNITY_RESOURCE4 ="";
         }
-        else{
-        textVi.setText(VILL_NM);}
+        else if(min<5){
+        textVi.setText("5km내 농촌마을\n"+VILL_NM);
+        }
+        else
+        {
+            textVi.setText("5km 내의 농촌 마을이 없습니다.");
+            VILL_ID ="근처 좌표를 알수 없습니다";
+            VILL_NM ="5km 내의 농촌 마을이 없습니다.";
+            VILL_NATURE_RESOURCE ="";
+            VILL_ECONOMY_RESOURCE ="";
+            VILL_NATURE_RESOURCE1 ="";
+            VILL_NATURE_RESOURCE2 ="";
+            VILL_ECONOMY_RESOURCE1 ="";
+            VILL_ECONOMY_RESOURCE2 ="";
+            VILL_ECONOMY_RESOURCE3 ="";
+            VILL_COMMUNITY_RESOURCE ="";
+            VILL_COMMUNITY_RESOURCE1 ="";
+            VILL_COMMUNITY_RESOURCE2 ="";
+            VILL_COMMUNITY_RESOURCE3 ="";
+            VILL_COMMUNITY_RESOURCE4 ="";
+        }
         customprogress.dismiss();
     }
 
