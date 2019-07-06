@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="150dp">
+    android:layout_height="80dp">
 
     <ImageView
         android:layout_width="0dp"
@@ -22,15 +22,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-
             android:background="#ffffff">
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="빈집 정보"
 
+                android:text="빈집 정보"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:textColor="#ff7f00"
-                android:textStyle="italic"
+                android:textStyle="bold"
                 android:id="@+id/title"/>
 
         </LinearLayout>
@@ -40,18 +40,19 @@
             android:orientation="vertical"
 
             android:background="#ffffff">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="날짜"
-                android:textColor="#808080"
-                android:id="@+id/date"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="내용"
                 android:textColor="#808080"
                 android:id="@+id/content"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="날짜"
+                android:textColor="#808080"
+                android:id="@+id/date"/>
 
         </LinearLayout>
     </LinearLayout>

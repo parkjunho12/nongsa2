@@ -30,12 +30,12 @@
   </Spinner>
     <Spinner
         android:layout_width="0dp"
-        android:layout_weight="1.5"
+        android:layout_weight="1"
         android:layout_height="match_parent"
         android:foregroundTint="#ff7f00"
         android:contextClickable="true"
-        android:id="@+id/sidospin"
-        
+        android:id="@+id/guspin"
+
         >
 
     </Spinner>
@@ -61,6 +61,30 @@
 
     </LinearLayout>
 </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+        <LinearLayout
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            />
+    <Spinner
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="?attr/actionBarSize"
+        android:foregroundTint="#ff7f00"
+        android:contextClickable="true"
+        android:id="@+id/sidospin"
+
+        >
+
+    </Spinner>
+        <LinearLayout
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+           />
+
+    </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

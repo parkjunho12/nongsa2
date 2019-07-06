@@ -112,6 +112,8 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
     private Spinner maemaeSpinner;
     private ArrayAdapter sidoAdapter;
     private Spinner sidoSpinner;
+    private ArrayAdapter gubunAdapter;
+    private Spinner gubunSpinner;
 
 
 
@@ -125,7 +127,10 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
         super.onActivityCreated(b);
         maemaeSpinner=(Spinner)getView().findViewById(R.id.vacantspin);
         sidoSpinner =(Spinner)getView().findViewById(R.id.sidospin);
+        gubunSpinner =(Spinner)getView().findViewById(R.id.guspin);
 
+        gubunAdapter =ArrayAdapter.createFromResource(getActivity(),R.array.gubun,android.R.layout.simple_spinner_dropdown_item);
+        gubunSpinner.setAdapter(gubunAdapter);
         maemaeAdapter =ArrayAdapter.createFromResource(getActivity(),R.array.maemae,android.R.layout.simple_spinner_dropdown_item);
         maemaeSpinner.setAdapter(maemaeAdapter);
 
@@ -141,7 +146,7 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
 
         Button searchbtn = (Button) getView().findViewById(R.id.search);
 
-
+        new BackgroundTask().execute();
 
         searchbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -241,7 +246,7 @@ private Fragment f1,f2,f3;
 //                        +"&DEAL_TYPE="+URLEncoder.encode(maemaeSpinner.toString(),"UTF-8"///////////검색기능 추가할때 필요한거
                 try{
                     Log.e("전라남도",sidoSpinner.getSelectedItem().toString());
-                    target = "http://dbwo4011.cafe24.com/migration/migration_info_request.php?SIDO_NM="+URLEncoder.encode(sidoSpinner.getSelectedItem().toString(),"UTF-8")+"&DEAL_TYPE="+URLEncoder.encode(maemaeSpinner.getSelectedItem().toString(),"UTF-8");}
+                    target = "http://dbwo4011.cafe24.com/migration/migration_info_request.php?SIDO_NM="+URLEncoder.encode(sidoSpinner.getSelectedItem().toString(),"UTF-8")+"&DEAL_TYPE="+URLEncoder.encode(maemaeSpinner.getSelectedItem().toString(),"UTF-8")+"&GUBUN="+URLEncoder.encode(gubunSpinner.getSelectedItem().toString(),"UTF-8");}
              catch (UnsupportedEncodingException e) {
                 e.printStackTrace();/////////검색기능 추가할때 필요한거요겄도A
             }
@@ -458,9 +463,9 @@ private Fragment f1,f2,f3;
 
 
             title = Migration_info_array.getGUBUN(l)+"("+Migration_info_array.getDEAL_TYPE(l)+")";
-            date = "\n등록 날짜 : "+Migration_info_array.getREG_DT(l);
-            content ="시도 :"+Migration_info_array.getSIDO_NM(l)+" "+Migration_info_array.getSIGUN_NM(l)+"\n이름 :"+Migration_info_array.getOWNER_NM(l)+"\n전화번호 : "+Migration_info_array.getOWNER_CONTACT(l)
-                    +" \n가격"+Migration_info_array.getDEAL_AMOUNT(l) ;
+            date = "등록 날짜: "+Migration_info_array.getREG_DT(l);
+            content ="시도: "+Migration_info_array.getSIDO_NM(l)+" "+Migration_info_array.getSIGUN_NM(l)+"\n이름: "+Migration_info_array.getOWNER_NM(l)+"\n전화번호: "+Migration_info_array.getOWNER_CONTACT(l)
+                    +" \n가격: "+Migration_info_array.getDEAL_AMOUNT(l) ;
 
             Board board = new Board( title,  content,  date,  SIDO_NM,  ID,  SIGUN_NM,  ADDR,  DEAL_AMOUNT,  DEAL_BIGO,  BUILDING_AREA,  AREA_ETC,  BUILD_YEAR,  VACANT_YEAR,  STRUCT_TYPE,  OWNER_NM,  OWNER_CONTACT,  INSPECTOR,  LOT_AREA,  BIGO,  FILE_PATH1,  FILE_PATH2,  FILE_PATH3,  DETAIL_URL,  DEAL_NEGO_YN,  GUBUN,  DEAL_TYPE,  REG_DT,Latitude,Longtitude);
             boardList.add(board);

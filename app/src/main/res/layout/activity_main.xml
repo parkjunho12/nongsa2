@@ -127,7 +127,8 @@
                         android:textColor="#ffffff"
                         android:background="#ff7f00"/>
                     <Button
-                        android:text="빈집 게시판"
+                        android:text="빈집/농지
+                        분양"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="match_parent"
@@ -140,7 +141,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="#ffffff"
-                        android:text="텃밭 분양 \n게시판"
+                        android:text="텃밭 분양"
                         />
                     <Button
                         android:text="귀농 귀촌\n지능형 상담"

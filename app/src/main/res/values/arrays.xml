@@ -20,7 +20,10 @@
         <item>제주도</item>
     </string-array>
 
-
+    <string-array name="gubun_info">
+        <item>농지</item>
+        <item>빈집</item>
+    </string-array>
     <string-array name = "spinner_do_seoul">
         <item>강남구</item>
         <item>강동구</item>

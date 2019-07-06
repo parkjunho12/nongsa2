@@ -1,88 +1,270 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MoreComplex"
-    android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            android:gravity="left"
-
-            android:paddingLeft="10dp">
-
-            <Button
-                android:id="@+id/morback"
-                android:layout_width="40dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="right"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/ic_navigate_before_black_24dp"
-                android:textColor="#ffffff"
-                android:textSize="15dp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:gravity="center">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:textSize="15dp"
-                android:text="상세 정보"
-                android:textStyle="bold"
-
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            android:gravity="right"
-
-            android:paddingRight="10dp">
-
-
-
-        </LinearLayout>
-    </LinearLayout>
+    tools:context=".complexInfo">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <TextView
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:gravity="left"
+
+                android:paddingLeft="10dp">
+
+                <Button
+                    android:id="@+id/morback"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/ic_navigate_before_black_24dp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:id="@+id/main"
+                    android:textSize="15dp"
+                    android:text="근처 마을 상세 정보"
+                    android:textStyle="bold"
+
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:gravity="right"
+
+                android:paddingRight="10dp">
+
+                <LinearLayout
+
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="10dp"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.1"
-            android:id="@+id/morecom2"
-            android:textSize="25dp"
-            android:gravity="center"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.9"
-            android:id="@+id/morecom"
-            android:gravity="center"/>
+            android:layout_weight="2.2"
+            android:orientation="vertical"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="25dp"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/maeul"
+                    android:textColor="@color/back"
+                    android:text="근처마을 정보"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+
+                    android:layout_marginLeft="10dp"
+                    android:textSize="12dp"
+                    android:alpha="0.5"
+                    android:id="@+id/maeul2"
+                    android:text="근처마을의 유용한 자료를 한꺼번에 확인"/>
+            </LinearLayout>
 
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:padding="10dp"
+                android:layout_weight="0.8"
+
+                android:orientation="vertical"
+                >
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:background="@color/back"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.3"
+                    android:padding="1dp"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:background="@color/back"
+                        android:layout_weight="0.5"
+                        android:text="마을 이름"
+                        android:textColor="#ffffff"
+                        android:textSize="25dp"
+                        android:paddingLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:layout_height="match_parent" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:id="@+id/maeul3"
+                        android:paddingLeft="15dp"
+                        android:text=""
+                        android:gravity="center_vertical"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:background="@color/back"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+
+                    android:layout_weight="1"
+                    android:padding="1dp"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:background="@color/back"
+                        android:layout_weight="0.5"
+                        android:text="자연 정보"
+                        android:textColor="#ffffff"
+                        android:textSize="25dp"
+                        android:paddingLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:layout_height="match_parent" />
+                    <ScrollView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="match_parent"
+
+                        android:paddingLeft="10dp"
+                        android:id="@+id/maeul4"
+                        android:text=""
+                        android:gravity="center_vertical"
+                        android:layout_height="match_parent" />
+                    </ScrollView>
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:background="@color/back"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:padding="1dp"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:background="@color/back"
+                        android:layout_weight="0.5"
+                        android:text="경제 정보"
+                        android:textColor="#ffffff"
+                        android:textSize="25dp"
+                        android:paddingLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:layout_height="match_parent" />
+                    <ScrollView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="match_parent"
+
+                        android:paddingLeft="10dp"
+                        android:id="@+id/maeul5"
+                        android:text=""
+                        android:gravity="center_vertical"
+                        android:layout_height="match_parent" />
+                    </ScrollView>
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:background="@color/back"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+
+                    android:padding="1dp"
+                    >
 
 
+                    <TextView
+                        android:layout_width="0dp"
+                        android:background="@color/back"
+                        android:layout_weight="0.5"
+                        android:text="사회 정보"
+                        android:textColor="#ffffff"
+                        android:textSize="25dp"
+                        android:paddingLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:layout_height="match_parent" />
+                    <ScrollView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:id="@+id/maeul6"
+                        android:paddingLeft="10dp"
+                        android:text=""
+                        android:gravity="center_vertical"
+                        android:layout_height="match_parent" />
+                    </ScrollView>
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:background="@color/back"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
     </LinearLayout>
-
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

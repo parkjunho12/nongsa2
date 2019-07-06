@@ -44,7 +44,7 @@ static int comctn=0;
     String VILL_COMMUNITY_RESOURCE2="";
     String VILL_COMMUNITY_RESOURCE3="";
     String VILL_COMMUNITY_RESOURCE4="";
-
+    String DEAL_TYPE="";
 
 
 
@@ -55,12 +55,23 @@ static int comctn=0;
 
         Intent intent = getIntent();
         setContentView(R.layout.activity_complex_info);
+        TextView hoo =(TextView)findViewById(R.id.hoo1);
+        TextView hoo2 = (TextView)findViewById(R.id.hoo2);
 
-        TextView textView = (TextView) findViewById(R.id.infos);
-        TextView textView2 = (TextView) findViewById(R.id.titles);
-        TextView textView3 = (TextView) findViewById(R.id.dates);
-        TextView textView4 = (TextView) findViewById(R.id.infos2);
-        TextView textView5 = (TextView) findViewById(R.id.infos3);
+        TextView textView = (TextView) findViewById(R.id.one);
+        TextView textView2 = (TextView) findViewById(R.id.two);
+        TextView textView3 = (TextView) findViewById(R.id.three);
+        TextView textView4 = (TextView) findViewById(R.id.four);
+        TextView textView5 = (TextView) findViewById(R.id.five);
+        TextView textView6 = (TextView) findViewById(R.id.six);
+       // TextView textView7 = (TextView) findViewById(R.id.seven);
+       // TextView textView8 = (TextView) findViewById(R.id.eight);
+        TextView textView9 = (TextView) findViewById(R.id.nine);
+
+        TextView textView11 = (TextView) findViewById(R.id.eleven);
+        TextView textView12 = (TextView) findViewById(R.id.twelve);
+        TextView infos3 = (TextView) findViewById(R.id.infos3);
+        TextView dates = (TextView) findViewById(R.id.dates);
         WebView webView = (WebView) findViewById(R.id.webview);
         Button button = (Button) findViewById(R.id.back2);
         Button complex = (Button)findViewById(R.id.complex);
@@ -100,7 +111,7 @@ static int comctn=0;
 
 
         if (intent.getStringExtra("FILE_PATH1").equals("") || intent.getStringExtra("FILE_PATH1").equals(null)) {
-            textView5.setText("사진 없음");
+            infos3.setText("사진 없음");
         } else {
             webView.getSettings().setJavaScriptEnabled(true);
             webView.getSettings().setUseWideViewPort(true);
@@ -108,11 +119,11 @@ static int comctn=0;
             webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);////웹뷰 쓸때 쓰는것
             webView.loadUrl(intent.getStringExtra("FILE_PATH1"));
             webView.setWebViewClient(new WebViewClientClass());
-            textView5.setText("");
+            infos3.setText("");
 
         }
         if (intent.getStringExtra("FILE_PATH2").equals("") || intent.getStringExtra("FILE_PATH2").equals(null)) {
-            textView5.setText("사진 없음");
+            infos3.setText("사진 없음");
         } else {
             webView.getSettings().setJavaScriptEnabled(true);
             webView.getSettings().setUseWideViewPort(true);
@@ -120,11 +131,11 @@ static int comctn=0;
             webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);////웹뷰 쓸때 쓰는것
             webView.loadUrl(intent.getStringExtra("FILE_PATH2"));
             webView.setWebViewClient(new WebViewClientClass());
-            textView5.setText("");
+            infos3.setText("");
 
         }
         if (intent.getStringExtra("FILE_PATH3").equals("") || intent.getStringExtra("FILE_PATH3").equals(null)) {
-            textView5.setText("사진 없음");
+            infos3.setText("사진 없음");
         } else {
             webView.getSettings().setJavaScriptEnabled(true);
             webView.getSettings().setUseWideViewPort(true);
@@ -132,8 +143,19 @@ static int comctn=0;
             webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);////웹뷰 쓸때 쓰는것
             webView.loadUrl(intent.getStringExtra("FILE_PATH3"));
             webView.setWebViewClient(new WebViewClientClass());
-            textView5.setText("");
+            infos3.setText("");
 
+        }
+        DEAL_TYPE=intent.getStringExtra("GUBUN") + "(" + intent.getStringExtra("DEAL_TYPE") + ")";
+        if(DEAL_TYPE.substring(0,2).equals("농지"))
+        {
+            hoo.setText("농지 상세정보");
+            hoo2.setText("농지 검색");
+        }
+        else
+        {
+            hoo.setText("빈집 상세정보");
+            hoo2.setText("빈집 검색");
         }
          Lat1 = intent.getStringExtra("Latitude");
          Long1 = intent.getStringExtra("Longtitude");
@@ -148,10 +170,46 @@ static int comctn=0;
                         + "\nLOT_AREA: " + intent.getStringExtra("LOT_AREA") + "\nBIGO:" + intent.getStringExtra("BIGO") + "\nDEAL_NEGO_YN: " + intent.getStringExtra("DEAL_NEGO_YN");
 
         String date = "등록일 : " + intent.getStringExtra("REG_DT");
-        textView4.setText(content2);
-        textView.setText(content);
-        textView2.setText(title);
-        textView3.setText(date);
+      textView.setText(intent.getStringExtra("OWNER_NM"));
+        textView2.setText(intent.getStringExtra("OWNER_CONTACT"));
+        String c =intent.getStringExtra("DEAL_AMOUNT");
+        if(c.equals("NULL")||c.equals("null")||c.equals("")||c.equals("0"))
+        {
+            c="정보가 없습니다.";
+
+        }
+        textView3.setText(c);
+        textView4.setText(intent.getStringExtra("ADDR"));
+        String b=intent.getStringExtra("DEAL_NEGO_YN");
+        if(b.equals("NULL")||b.equals("null")||b.equals(""))
+        {
+            b="정보가 없습니다.";
+
+        }
+        textView5.setText(b);
+
+     //   textView5.setText(intent.getStringExtra("DEAL_NEGO_YN"));
+        textView6.setText(title);
+        //textView7.setText(intent.getStringExtra("REG_DT"));
+       // textView8.setText(intent.getStringExtra("VACANT_YEAR"));
+        String a=intent.getStringExtra("AREA_ETC");
+        if(a.equals("NULL")||a.equals("null")||a.equals("")||a.equals("0"))
+        {
+            a="정보가 없습니다.";
+            textView9.setText(a);
+        }
+        else if(a.contains("㎡"))
+        textView9.setText(a);
+        else
+        {
+            a=a+"㎡";
+            textView9.setText(a);
+        }
+
+        textView11.setText(intent.getStringExtra("ID"));
+        textView12.setText(intent.getStringExtra("BIGO"));
+
+        dates.setText(date);
 
         if(comctn==0)
         {
@@ -205,6 +263,7 @@ static int comctn=0;
 
 
     class BackgroundTask extends AsyncTask<String, Void, String> {
+
         String target;
         customprogress progressDialog = new customprogress(complexInfo.this);
 
@@ -308,13 +367,14 @@ static int comctn=0;
 
 
     public void end(){
+        TextView textView10 = (TextView) findViewById(R.id.ten);
         customprogress customprogress = new customprogress(complexInfo.this);
 
         int i=city_info_array.getListSize();
         Log.e(this.getClass().getName(), "0이에요: "+Double.parseDouble(Lat1)+"\n민민: "+distance(Double.parseDouble(Lat1),Double.parseDouble(Long1),Double.parseDouble(city_info_array.getLatitude(0)),Double.parseDouble(city_info_array.getIongitude(0)),"meter"));
         Double min = distance(Double.parseDouble(Lat1),Double.parseDouble(Long1),Double.parseDouble(city_info_array.getLatitude(0)),Double.parseDouble(city_info_array.getIongitude(0)),"kilometer");
         int index=0;
-        TextView textVi=null;
+
         customprogress .getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         customprogress.show();
         for(int j=0;j<i;j++)
@@ -347,6 +407,7 @@ static int comctn=0;
                             VILL_COMMUNITY_RESOURCE3 =city_info_array.getVILL_COMMUNITY_RESOURCE3(j);
                             VILL_COMMUNITY_RESOURCE4 =city_info_array.getVILL_COMMUNITY_RESOURCE4(j);
                         Log.e(this.getClass().getName(), "마을 이름: "+VILL_NM+"\n제일 가까운 좌표:"+min);
+
                         }
                     else
                     {
@@ -356,15 +417,17 @@ static int comctn=0;
 
             }
 
-            textVi =(TextView) findViewById(R.id.titles);
+
 
 
         }
         if(min==0.0)
         {
-            textVi.setText("좌표값이 없습니다");
-            VILL_ID ="근처 좌표를 알수 없습니다";
-            VILL_NM ="근처 좌표를 알수 없습니다";
+
+            VILL_ID ="위치 정보가 정확 하지 않습니다.";
+
+            VILL_NM ="위치 정보가 정확 하지 않습니다.";
+            textView10.setText(VILL_NM);
             VILL_NATURE_RESOURCE ="";
             VILL_ECONOMY_RESOURCE ="";
             VILL_NATURE_RESOURCE1 ="";
@@ -378,14 +441,15 @@ static int comctn=0;
             VILL_COMMUNITY_RESOURCE3 ="";
             VILL_COMMUNITY_RESOURCE4 ="";
         }
-        else if(min<5){
-        textVi.setText("5km내 농촌마을\n"+VILL_NM);
+        else if(min<10){
+            textView10.setText(VILL_NM);
         }
         else
         {
-            textVi.setText("5km 내의 농촌 마을이 없습니다.");
-            VILL_ID ="근처 좌표를 알수 없습니다";
-            VILL_NM ="5km 내의 농촌 마을이 없습니다.";
+
+            VILL_ID ="선택지와 근처 농촌마을 간의 직선거리가 10km이내인 경우만 농촌 마을 상세정보를 제공합니다.";
+            VILL_NM ="선택지와 근처 농촌마을 간의 직선거리가 10km\n 이내인 경우만 농촌 마을 상세정보를 제공합니다.";
+            textView10.setText("10km 이내만 제공");
             VILL_NATURE_RESOURCE ="";
             VILL_ECONOMY_RESOURCE ="";
             VILL_NATURE_RESOURCE1 ="";
