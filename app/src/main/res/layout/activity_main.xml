@@ -86,18 +86,14 @@
                     android:orientation="horizontal"
                     android:layout_marginTop="10dp"
                     android:gravity="right"
-
                     android:paddingRight="10dp">
-
                     <Button
                         android:id="@+id/search"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:layout_gravity="right"
-
                         android:backgroundTint="#ff7f00"
                         android:background="@drawable/ic_notifications_black_24dp" />
-
                 </LinearLayout>
             </LinearLayout>
 
@@ -386,6 +382,7 @@
 
     </FrameLayout>
         </LinearLayout>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="0dp"

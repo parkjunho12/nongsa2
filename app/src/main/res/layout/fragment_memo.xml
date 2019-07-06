@@ -149,6 +149,7 @@
 
                     </LinearLayout>
                     <Button
+                        android:id="@+id/check"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:text="재범's 버튼"
@@ -221,6 +222,22 @@
                     android:hint="ex) 자세한 사항 연락주세요"
                     tools:layout_editor_absoluteX="29dp"
                     tools:layout_editor_absoluteY="261dp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
+                    <Button
+                        android:id="@+id/btnGallery"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="사진 등록"
+                        android:layout_weight="2"/>
+
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
