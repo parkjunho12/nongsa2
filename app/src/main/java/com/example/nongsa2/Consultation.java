@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -192,7 +193,6 @@ public class Consultation extends Fragment implements MainActivity.OnBackPressed
         MainActivity activity = (MainActivity) getActivity();
         fragmentManager = activity.getSupportFragmentManager();
         activity.setOnBackPressedListener(null);
-        replaceFragment(fragment);
         activity.onBackPressed();
     }
     private void addFragment(Fragment fragment){
@@ -228,12 +228,11 @@ public class Consultation extends Fragment implements MainActivity.OnBackPressed
     class BackgroundTask extends AsyncTask<String, Void, String> {
         String target;
 
-        ProgressDialog progressDialog = new ProgressDialog(getContext());
+        customprogress progressDialog = new customprogress(getContext());
         @Override
         protected void onPreExecute() {
-            progressDialog.setMessage("로딩중....");
             progressDialog.setCancelable(true);
-            progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Horizontal);
+            progressDialog .getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
             target = "http://www.okdab.kr/episAutoAnswerApi/expert/list/json?pageSize=1000&pageNum=1&kwd=";
             Log.e(this.getClass().getName(), "백그라운드로 list뽑기 시작한다.");
             progressDialog.show();
@@ -307,12 +306,11 @@ public class Consultation extends Fragment implements MainActivity.OnBackPressed
     class BackgroundTask2 extends AsyncTask<String, Void, String> {
         String target;
 
-        ProgressDialog progressDialog = new ProgressDialog(getContext());
+        customprogress progressDialog = new customprogress(getContext());
         @Override
         protected void onPreExecute() {
-            progressDialog.setMessage("로딩중....");
             progressDialog.setCancelable(true);
-            progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Horizontal);
+            progressDialog .getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
             target = "http://www.okdab.kr/episAutoAnswerApi/webchat/expert/detail/json?publicYN=Y&nttId=";
             Log.e(this.getClass().getName(), "백그라운드로 list뽑기 시작한다.");
             progressDialog.show();
@@ -407,12 +405,12 @@ public class Consultation extends Fragment implements MainActivity.OnBackPressed
     class BackgroundTask3 extends AsyncTask<String, Void, String> {
         String target;
 
-        ProgressDialog progressDialog = new ProgressDialog(getContext());
+        customprogress progressDialog = new customprogress(getContext());
         @Override
         protected void onPreExecute() {
-            progressDialog.setMessage("로딩중....");
+
             progressDialog.setCancelable(true);
-            progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Horizontal);
+            progressDialog .getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
             target = "http://www.okdab.kr/episAutoAnswerApi/expert/list/json?pageSize=1000&pageNum=1&kwd=";
             Log.e(this.getClass().getName(), "백그라운드로 list뽑기 시작한다.");
             progressDialog.show();
@@ -486,12 +484,11 @@ public class Consultation extends Fragment implements MainActivity.OnBackPressed
     class BackgroundTask4 extends AsyncTask<String, Void, String> {
         String target;
 
-        ProgressDialog progressDialog = new ProgressDialog(getContext());
+        customprogress progressDialog = new customprogress(getContext());
         @Override
         protected void onPreExecute() {
-            progressDialog.setMessage("로딩중....");
             progressDialog.setCancelable(true);
-            progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Horizontal);
+            progressDialog .getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
             target = "http://www.okdab.kr/episAutoAnswerApi/webchat/expert/detail/json?publicYN=Y&nttId=";
             Log.e(this.getClass().getName(), "백그라운드로 list뽑기 시작한다.");
             progressDialog.show();

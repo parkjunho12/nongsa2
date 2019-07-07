@@ -206,7 +206,7 @@ private Fragment f1,f2,f3;
         MainActivity activity = (MainActivity) getActivity();
         fragmentManager = activity.getSupportFragmentManager();
         activity.setOnBackPressedListener(null);
-       replaceFragment(fragment);
+
         activity.onBackPressed();
     }
 

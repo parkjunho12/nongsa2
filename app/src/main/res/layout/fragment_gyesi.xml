@@ -50,14 +50,7 @@
 
         android:paddingRight="10dp">
 
-        <Button
-            android:id="@+id/search"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="right"
-            android:layout_marginLeft="10dp"
-            android:drawableTint="#ff7f00"
-            android:background="@drawable/ic_search_black_24dp" />
+
 
     </LinearLayout>
 </LinearLayout>
@@ -82,8 +75,16 @@
         <LinearLayout
             android:layout_width="50dp"
             android:layout_height="match_parent"
-           />
-
+           >
+        <Button
+            android:id="@+id/search"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:layout_marginLeft="10dp"
+            android:drawableTint="#ff7f00"
+            android:background="@drawable/ic_search_black_24dp" />
+        </LinearLayout>
     </LinearLayout>
     <View
         android:layout_width="match_parent"

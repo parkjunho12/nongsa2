@@ -312,13 +312,6 @@
                     android:background="@color/back"/>
 
 
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:paddingRight="5dp"
-                    android:paddingLeft="5dp"
-                    android:background="@color/back"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"

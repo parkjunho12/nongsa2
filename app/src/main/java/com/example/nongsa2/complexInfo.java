@@ -371,7 +371,7 @@ static int comctn=0;
         customprogress customprogress = new customprogress(complexInfo.this);
 
         int i=city_info_array.getListSize();
-        Log.e(this.getClass().getName(), "0이에요: "+Double.parseDouble(Lat1)+"\n민민: "+distance(Double.parseDouble(Lat1),Double.parseDouble(Long1),Double.parseDouble(city_info_array.getLatitude(0)),Double.parseDouble(city_info_array.getIongitude(0)),"meter"));
+       // Log.e(this.getClass().getName(), "0이에요: "+Double.parseDouble(Lat1)+"\n민민: "+distance(Double.parseDouble(Lat1),Double.parseDouble(Long1),Double.parseDouble(city_info_array.getLatitude(0)),Double.parseDouble(city_info_array.getIongitude(0)),"meter"));
         Double min = distance(Double.parseDouble(Lat1),Double.parseDouble(Long1),Double.parseDouble(city_info_array.getLatitude(0)),Double.parseDouble(city_info_array.getIongitude(0)),"kilometer");
         int index=0;
 
