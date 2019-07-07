@@ -298,8 +298,8 @@ private Fragment f1,f2,f3;
 
                 boardList.clear();
                 Migration_info_array.clear();
-                Log.e(this.getClass().getName(), "백그라운드 try문안으로");
-                Log.e(this.getClass().getName(), "백그라운드 try문안으로");
+                Log.e(this.getClass().getName(), "ㅅㅇㅅ");
+                Log.e(this.getClass().getName(), "fuck");
                 JSONObject jsonObject = new JSONObject(res);
                 Log.e(this.getClass().getName(), "백그라운드 try문안으로");
                 JSONArray jsonArray = jsonObject.getJSONArray("response");

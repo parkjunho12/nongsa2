@@ -145,7 +145,8 @@
                             android:layout_height="wrap_content"
                             android:hint="ex) 안서동 상명대길44"
                             tools:layout_editor_absoluteX="29dp"
-                            tools:layout_editor_absoluteY="74dp" />
+                            tools:layout_editor_absoluteY="74dp"
+                            android:background="@android:color/transparent"/>
 
                     </LinearLayout>
                     <Button
@@ -173,7 +174,8 @@
                     android:layout_height="wrap_content"
                     android:hint="ex) 홍길동"
                     tools:layout_editor_absoluteX="29dp"
-                    tools:layout_editor_absoluteY="130dp" />
+                    tools:layout_editor_absoluteY="130dp"
+                    android:background="@android:color/transparent"/>
 
                 <TextView
                     android:id="@+id/textView8"
@@ -189,7 +191,8 @@
                     android:layout_height="wrap_content"
                     android:hint="ex) 01012345678"
                     tools:layout_editor_absoluteX="29dp"
-                    tools:layout_editor_absoluteY="188dp" />
+                    tools:layout_editor_absoluteY="188dp"
+                    android:background="@android:color/transparent"/>
 
 
                 <TextView
@@ -206,7 +209,8 @@
                     android:layout_height="wrap_content"
                     android:hint="ex) 40000000"
                     tools:layout_editor_absoluteX="29dp"
-                    tools:layout_editor_absoluteY="261dp" />
+                    tools:layout_editor_absoluteY="261dp"
+                    android:background="@android:color/transparent"/>
                 <TextView
                     android:id="@+id/textView12"
                     android:textStyle="bold"
@@ -221,7 +225,8 @@
                     android:layout_height="wrap_content"
                     android:hint="ex) 자세한 사항 연락주세요"
                     tools:layout_editor_absoluteX="29dp"
-                    tools:layout_editor_absoluteY="261dp" />
+                    tools:layout_editor_absoluteY="261dp"
+                    android:background="@android:color/transparent"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
