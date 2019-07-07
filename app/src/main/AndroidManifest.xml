@@ -15,7 +15,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".more_consultant"></activity>
+        <activity android:name=".chatinfo"></activity>
+
+        <service
+            android:name=".FirebaseInstanceIDService"
+            android:stopWithTask="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".more_consultant" />
         <activity
             android:name=".loding_act"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />

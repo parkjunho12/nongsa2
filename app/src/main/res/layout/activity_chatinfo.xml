@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".chatinfo"
+    android:orientation="vertical">
+<ListView
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:layout_margin="5dp"
+    android:alpha="0.8"
+    android:divider="#ff7f00"
+    android:dividerHeight="1dp"
+    android:padding="5dp"
+    android:id="@+id/chatlist"></ListView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <EditText
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/chatedit"
+            android:layout_height="match_parent" />
+        a<Button
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        android:id="@+id/chatbut"
+        android:text="send"/>
+
+    </LinearLayout>
+</LinearLayout>

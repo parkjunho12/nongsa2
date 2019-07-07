@@ -16,6 +16,7 @@ import android.os.Bundle;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -84,9 +85,10 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
                    replaceFragment(fragment);
                     return true;
                 case R.id.navigation_dashboard:
-                    fragment = new secondpage();
-
-                    replaceFragment(fragment);
+                  //  fragment = new secondpage();
+                    Intent intent = new Intent(getApplicationContext(),chatinfo.class);
+                    startActivity(intent);
+                   // replaceFragment(fragment);
                     return true;
                 case R.id.navigation_notifications:
                     fragment = new thirdpage();
@@ -104,13 +106,15 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     };
 
 
-    @SuppressLint("WrongViewCast")
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Intent intent = new Intent(this,loding_act.class);
         startActivity(intent);
+       // String test = FirebaseInstanceId.getInstance().getToken();
+       // Log.d("Token Value", test);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         BottomNavigationView navView = findViewById(R.id.nav_view);
 

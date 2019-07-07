@@ -462,7 +462,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/infos3"
-                    android:text="사진 없음"
+                    android:text=""
                     android:gravity="center"/>
             </FrameLayout>
             <TextView

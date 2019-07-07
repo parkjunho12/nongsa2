@@ -52,7 +52,7 @@ public class Con_BoardListAdapter extends BaseAdapter {
         index.setText(String.valueOf(i+1));
         TITLE.setText(Con_array.gettitle(i));
         USERNM.setText(Con_array.getuserNm(i));
-        REGDT.setText(Con_array.getregDt(i));
+        REGDT.setText(Con_array.getregDt(i).substring(0,10));
         return v;
     }
 }

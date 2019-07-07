@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "950259789447",
+    "firebase_url": "https://nongsa2-9aa1c.firebaseio.com",
+    "project_id": "nongsa2-9aa1c",
+    "storage_bucket": "nongsa2-9aa1c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:950259789447:android:009e53356c7a4291",
+        "android_client_info": {
+          "package_name": "com.example.nongsa2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "950259789447-gcb924ril02375eong7jms5bf887719v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjcWcisK6-Ya520oDSCtZNsxBUsriH6Kk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "950259789447-gcb924ril02375eong7jms5bf887719v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

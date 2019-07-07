@@ -111,7 +111,7 @@ static int comctn=0;
 
 
         if (intent.getStringExtra("FILE_PATH1").equals("") || intent.getStringExtra("FILE_PATH1").equals(null)) {
-            infos3.setText("사진 없음");
+
         } else {
             webView.getSettings().setJavaScriptEnabled(true);
             webView.getSettings().setUseWideViewPort(true);
@@ -123,7 +123,7 @@ static int comctn=0;
 
         }
         if (intent.getStringExtra("FILE_PATH2").equals("") || intent.getStringExtra("FILE_PATH2").equals(null)) {
-            infos3.setText("사진 없음");
+
         } else {
             webView.getSettings().setJavaScriptEnabled(true);
             webView.getSettings().setUseWideViewPort(true);
@@ -135,7 +135,7 @@ static int comctn=0;
 
         }
         if (intent.getStringExtra("FILE_PATH3").equals("") || intent.getStringExtra("FILE_PATH3").equals(null)) {
-            infos3.setText("사진 없음");
+
         } else {
             webView.getSettings().setJavaScriptEnabled(true);
             webView.getSettings().setUseWideViewPort(true);

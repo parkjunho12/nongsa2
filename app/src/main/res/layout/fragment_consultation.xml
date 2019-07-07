@@ -95,6 +95,7 @@
                 app:useCompatPadding="true"
                 app:fabSize="auto"
                 android:clickable="true"
+                android:backgroundTint="#ff7f00"
                 android:src="@drawable/ic_add_black_24dp" />
         </FrameLayout>
     </LinearLayout>
