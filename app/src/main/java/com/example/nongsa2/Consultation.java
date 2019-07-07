@@ -114,16 +114,16 @@ public class Consultation extends Fragment implements MainActivity.OnBackPressed
         boardlistview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                fragment = new Detail_Consultation();
+                Intent intent = new Intent(getContext().getApplicationContext(),more_consultant.class);
                 int count=i;
                 Bundle bundle=new Bundle();
                 bundle.putString("count", String.valueOf(count));
-                fragment.setArguments(bundle);
-                replaceFragment(fragment);
+                intent.putExtra("count",String.valueOf(count));
+               startActivity(intent);
             }
         });
         Button search_btn=(Button) getView().findViewById(R.id.search1);
-        Button add_btn=(Button) getView().findViewById(R.id.register);
+
         search_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -148,12 +148,7 @@ public class Consultation extends Fragment implements MainActivity.OnBackPressed
                 alert.show();
             }
         });
-        add_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
         FloatingActionButton floatingactionbutton = (FloatingActionButton) getView().findViewById(R.id.floatingActionButton);
         floatingactionbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -225,6 +220,7 @@ public class Consultation extends Fragment implements MainActivity.OnBackPressed
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
     class BackgroundTask extends AsyncTask<String, Void, String> {
         String target;
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="150dp">
+    android:layout_height="70dp">
 
 
     <LinearLayout
@@ -14,29 +14,28 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:background="#ffffff">
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:text="1"
+                android:gravity="center"
+                android:id="@+id/counts"/>
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:orientation="vertical">
+
                  <TextView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:text="제목"
-                    android:textColor="#00000f"
-                    android:textStyle="italic"
+                    android:textColor="@color/back"
+                    android:textStyle="bold"
                     android:gravity="center"
                     android:id="@+id/TITLE"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2"
-                    android:text="내용"
-                    android:textColor="#00000f"
-                    android:textStyle="italic"
-                    android:gravity="center"
-                    android:id="@+id/contents"/>
+
             </LinearLayout>
             <LinearLayout
                 android:layout_width="0dp"
@@ -50,7 +49,7 @@
                     android:layout_weight="1"
                     android:text="사용자 이름"
                     android:textColor="#00000f"
-                    android:textStyle="italic"
+
                     android:gravity="center"
                     android:id="@+id/USERNM"/>
 
@@ -60,7 +59,7 @@
                     android:layout_weight="1"
                     android:text="등록일"
                     android:textColor="#00000f"
-                    android:textStyle="italic"
+
                     android:gravity="center"
                     android:id="@+id/REGDT"/>
 
