@@ -458,6 +458,7 @@ public class Consultation extends Fragment implements MainActivity.OnBackPressed
                 while(count < jsonArray.length()){
                     Log.e(this.getClass().getName(), "들어오긴하냐?");
                     JSONObject object = jsonArray.getJSONObject(count);
+                    Log.e(this.getClass().getName(), String.valueOf(object));
                     String REGDT=object.getString("REGDT");
                     Log.e(this.getClass().getName(), Static_setting.REGDT);
                     String NTTID=object.getString("NTTID");

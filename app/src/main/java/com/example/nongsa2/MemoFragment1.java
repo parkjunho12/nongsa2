@@ -1,25 +1,14 @@
 package com.example.nongsa2;
 
-import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,15 +17,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.geometry.Utmk;
 import com.naver.maps.map.NaverMapSdk;
@@ -46,14 +35,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -61,17 +48,17 @@ import java.util.Locale;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link MemoFragment.OnFragmentInteractionListener} interface
+ * {@link MemoFragment1.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link MemoFragment#newInstance} factory method to
+ * Use the {@link MemoFragment1#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MemoFragment extends Fragment implements MainActivity.OnBackPressedListener{
+public class MemoFragment1 extends Fragment implements MainActivity.OnBackPressedListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    Check_add_array check_add_array =new Check_add_array();
+    Check_add_array1 check_add_array =new Check_add_array1();
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -79,15 +66,15 @@ public class MemoFragment extends Fragment implements MainActivity.OnBackPressed
 
     private OnFragmentInteractionListener mListener;
 
-    public MemoFragment() {
+    public MemoFragment1() {
         // Required empty public constructor
 
         edit_ADDR = null;
-    edit_OWNER_NM=null ;
-        edit_OWNER_CONTACT=null ;
-        edit_DEAL_AMOUNT =null;
-        edit_DEAL_BIGO=null;
-
+        formname=null ;
+        SELL_AREA_INFO=null ;
+        price =null;
+        home=null;
+        fa=null;
     }
 
     /**
@@ -99,8 +86,8 @@ public class MemoFragment extends Fragment implements MainActivity.OnBackPressed
      * @return A new instance of fragment MemoFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MemoFragment newInstance(String param1, String param2) {
-        MemoFragment fragment = new MemoFragment();
+    public static MemoFragment1 newInstance(String param1, String param2) {
+        MemoFragment1 fragment = new MemoFragment1();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -125,20 +112,24 @@ public class MemoFragment extends Fragment implements MainActivity.OnBackPressed
     String choice_deal_type="";
     String choice_gubun="";
     EditText edit_ADDR ;
-    EditText edit_OWNER_NM ;
-    EditText edit_OWNER_CONTACT ;
-    EditText edit_DEAL_AMOUNT ;
-    EditText edit_DEAL_BIGO;
+    EditText formname ;
+    EditText SELL_AREA_INFO ;
+    EditText price ;
+    EditText home;
+    EditText fa;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =inflater.inflate(R.layout.fragment_memo, container, false);
+        View view =inflater.inflate(R.layout.fragment_memo1, container, false);
 
        edit_ADDR = (EditText) view.findViewById(R.id.ADDR);
+         formname = (EditText) view.findViewById(R.id.formname);
+         SELL_AREA_INFO = (EditText) view.findViewById(R.id.SELL_AREA_INFO);
+         price = (EditText) view.findViewById(R.id.price);
+         home= (EditText) view.findViewById(R.id.home);
+         fa= (EditText) view.findViewById(R.id.fa);
 
-       edit_DEAL_AMOUNT = (EditText) view.findViewById(R.id.DEAL_AMOUNT);
-        edit_DEAL_BIGO = (EditText) view.findViewById(R.id.DEAL_BIGO);
 
         final Spinner spin1 = (Spinner)view.findViewById(R.id.spinner1);
         final Spinner spin2 = (Spinner)view.findViewById(R.id.spinner2);
@@ -158,6 +149,7 @@ public class MemoFragment extends Fragment implements MainActivity.OnBackPressed
         check_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 CheckTypesTask task = new CheckTypesTask();
                 task.execute();
                 String Addres="";
@@ -189,14 +181,16 @@ public class MemoFragment extends Fragment implements MainActivity.OnBackPressed
         mRegister_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                String ADDR =edit_ADDR.getText().toString();
-
-                String DEAL_AMOUNT =edit_DEAL_AMOUNT.getText().toString();
-                String DEAL_BIGO =edit_DEAL_BIGO.getText().toString();
-
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
                 String REG_DT = df.format(new Date());
+                String ADDR =edit_ADDR.getText().toString();
+                String formname1=formname.getText().toString();
+                String SELL_AREA_INFO1=SELL_AREA_INFO.getText().toString();
+                String price1=price.getText().toString();
+                String home1=home.getText().toString();
+                String fa1=fa.getText().toString();
+
+
 
                 Log.e(this.getClass().getName(),"현재시각!"+REG_DT);
 
@@ -235,7 +229,8 @@ public class MemoFragment extends Fragment implements MainActivity.OnBackPressed
                         }
                     }
                 };
-                MemoRequest memoRequest =new MemoRequest(Static_setting.ID,choice_do,choice_se,ADDR,Static_setting.Name,Static_setting.Phone,DEAL_AMOUNT,choice_deal_type,DEAL_BIGO,choice_gubun,REG_DT,check_add_array.getlatitude(number),check_add_array.getlongitude(number),responseListener);
+
+                MemoRequest1 memoRequest =new MemoRequest1("직접",formname1,ADDR,SELL_AREA_INFO1,home1,fa1,"직접 전화",price1,REG_DT,Static_setting.ID,Static_setting.Name,Static_setting.Phone,spin1.getSelectedItem().toString(),responseListener);
                 RequestQueue queue= Volley.newRequestQueue(getActivity().getApplicationContext());
                 queue.add(memoRequest);
             }
@@ -245,35 +240,8 @@ public class MemoFragment extends Fragment implements MainActivity.OnBackPressed
 
         final Spinner spin3 = (Spinner)view.findViewById(R.id.DEAL_TYPE);
 
-        adspin3 = ArrayAdapter.createFromResource(getContext(),R.array.maemae, android.R.layout.simple_spinner_dropdown_item);
-        spin3.setAdapter(adspin3);
-        spin3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                choice_deal_type = adspin3.getItem(i).toString();//선택된 값을 넣습니다.
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
 
-            }
-        });
-
-        final Spinner spin4 = (Spinner)view.findViewById(R.id.GUBUN);
-
-        adspin4 = ArrayAdapter.createFromResource(getContext(),R.array.gubun, android.R.layout.simple_spinner_dropdown_item);
-        spin4.setAdapter(adspin4);
-        spin4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                choice_gubun = adspin4.getItem(i).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
 //        Button btn_refresh = (Button)findViewById(R.id.btn_refresh);//xml과 class에 변수들을 연결해줍니다. final를 사용한 이유는 spin2가 함수안에서 사용되기 때문에 코딩전체로 선언한 것입니다.
         adspin1 = ArrayAdapter.createFromResource(getContext(), R.array.sido, android.R.layout.simple_spinner_dropdown_item);//첫번째 어댑터에 값을 넣습니다. this=는 현재class를 의미합니다.
@@ -621,7 +589,7 @@ public class MemoFragment extends Fragment implements MainActivity.OnBackPressed
                         alert.setMessage("입력해주세요.");
                         alert.setNegativeButton("확인",new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                Fragment fragment = new MemoFragment();
+                                Fragment fragment = new MemoFragment1();
                                 replaceFragment(fragment);
                             }
                         });
@@ -638,7 +606,7 @@ public class MemoFragment extends Fragment implements MainActivity.OnBackPressed
                             alert.setMessage("존재 하지 않습니다.");
                             alert.setNegativeButton("확인",new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
-                                    Fragment fragment = new MemoFragment();
+                                    Fragment fragment = new MemoFragment1();
                                     replaceFragment(fragment);
                                 }
                             });
@@ -757,8 +725,7 @@ public class MemoFragment extends Fragment implements MainActivity.OnBackPressed
                     LatLng latLng = utmk.toLatLng();
                      latitude = (latLng.latitude);
                      longitude = (latLng.longitude);
-                    check_add_array.setlatitude(String.valueOf(latitude));
-                    check_add_array.setlongitude(String.valueOf(longitude));
+
                     // 좌표변환을 위해 필요한것들
                     Log.e("@@@@@@@latitude@@@", String.valueOf(latitude));
                     Log.e("@@@@@@@longitude@@", String.valueOf(longitude));
@@ -784,8 +751,7 @@ public class MemoFragment extends Fragment implements MainActivity.OnBackPressed
                 android.R.layout.select_dialog_singlechoice);
         for(int i=0;i<check_add_array.getsize();i++){
             Log.e(this.getClass().getName(), i+"@@@@@@@@@"+check_add_array.getroadAddr(i));
-            Log.e(this.getClass().getName(), i+"@@@@@@@@@"+check_add_array.getlatitude(i));
-            Log.e(this.getClass().getName(), i+"@@@@@@@@@"+check_add_array.getlongitude(i));
+
             adapter.add(check_add_array.getroadAddr(i));
         }
 

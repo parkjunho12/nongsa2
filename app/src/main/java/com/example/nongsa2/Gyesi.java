@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -160,8 +161,23 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
         floatingactionbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment fragment = new MemoFragment();
-                replaceFragment(fragment);
+                if(Static_setting.ID=="비회원")
+                {
+                    AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+                    builder.setMessage("비회원입니다. \n로그인 하시겠습니까?")
+                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    fragment = new secondpage();
+                                    replaceFragment(fragment);
+                                }
+                            })
+                            .create()
+                            .show();
+                }
+                else {
+                    Fragment fragment = new MemoFragment();
+                    replaceFragment(fragment);
+                }
             }
         });
 
@@ -304,13 +320,14 @@ private Fragment f1,f2,f3;
                 Log.e(this.getClass().getName(), "백그라운드 try문안으로");
                 JSONArray jsonArray = jsonObject.getJSONArray("response");
 
-
+                Log.e(this.getClass().getName(), String.valueOf(jsonArray));
                 int count = 0;
 
 
                 while(count < jsonArray.length()){
                     //Log.e(this.getClass().getName(), "들어오긴하냐?");
                     JSONObject object = jsonArray.getJSONObject(count);
+                    Log.e(this.getClass().getName(), String.valueOf(object));
                     Migration_info_array.setID(object.getString("ID"));
                     Migration_info_array.setSIDO_NM(object.getString("SIDO_NM"));
                     Migration_info_array.setSIGUN_NM(object.getString("SIGUN_NM"));

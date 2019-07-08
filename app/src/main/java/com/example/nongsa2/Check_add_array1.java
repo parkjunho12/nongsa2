@@ -3,7 +3,7 @@ package com.example.nongsa2;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Check_add_array {
+public class Check_add_array1 {
 
     static List<String> roadAddr_list = new ArrayList<String>();
     static List<String> jibunAddr_list = new ArrayList<String>();
@@ -12,8 +12,7 @@ public class Check_add_array {
     static List<String> udrtYn_list = new ArrayList<String>();
     static List<String> buldMnnm_list = new ArrayList<String>();
     static List<String> buldSlno_list = new ArrayList<String>();
-    static List<String> latitude_list = new ArrayList<String>();
-    static List<String> longitude_list = new ArrayList<String>();
+
     public static void clear( ) {
         roadAddr_list.clear();
         jibunAddr_list.clear();
@@ -22,24 +21,9 @@ public class Check_add_array {
         udrtYn_list.clear();
         buldMnnm_list.clear();
         buldSlno_list.clear();
-        latitude_list.clear();
-        longitude_list.clear();
-    }
-    public static String getlatitude( int i) {
-        return latitude_list.get(i);
+
     }
 
-    public static void setlatitude(String latitude) {
-        latitude_list.add(latitude);
-    }
-
-    public static String getlongitude(int i) {
-        return longitude_list.get(i);
-    }
-
-    public static void setlongitude(String longitude) {
-        longitude_list.add(longitude);
-    }
 
 
 

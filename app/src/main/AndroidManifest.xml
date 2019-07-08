@@ -27,6 +27,8 @@
         </service>
 
         <activity android:name=".more_consultant" />
+        <activity android:name=".more_garden"></activity>
+        <activity android:name=".more_consultant" />
         <activity
             android:name=".loding_act"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
