@@ -105,7 +105,9 @@ public class Garden_board extends Fragment  implements MainActivity.OnBackPresse
 
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
+            Log.e("@@@@@@@@@@@@@@@@@@@", mParam1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            Log.e("@@@@@@@@@@@@@@@@@@@", mParam2);
         }
 
     }
@@ -191,6 +193,12 @@ public class Garden_board extends Fragment  implements MainActivity.OnBackPresse
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_garden_board, container, false);
+        if(mParam2==Static_setting.Name)
+        {
+            Log.e("@@@@@@@@@@@@@@@@@@@", "리라라라라라라리라라라릴");
+            new BackgroundTask1().execute();
+        }
+
         fragment = new Garden_board();
         return view;
     }
@@ -359,6 +367,139 @@ public class Garden_board extends Fragment  implements MainActivity.OnBackPresse
                             Garden_array.getphone(count));
                     boardList.add(board);
                     adapter.notifyDataSetChanged();
+                    count++;
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            progressDialog.dismiss();
+        }
+
+    }
+
+
+
+
+    class BackgroundTask1 extends AsyncTask<String, Void, String> {
+        String target;
+
+        customprogress progressDialog = new customprogress(getContext());
+
+
+
+        @Override
+        protected void onPreExecute() {
+
+
+            progressDialog.setCancelable(true);
+            progressDialog .getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+
+            try {
+                target = "http://dbwo4011.cafe24.com/migration/garden_info_request1.php?ID="+URLEncoder.encode(mParam1,"UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            Log.e(this.getClass().getName(), "백그라운드로 list뽑기 시작한다.");
+            progressDialog.show();
+        }
+
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+
+                URL url = new URL(target);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST"); //post방식으로
+                httpURLConnection.setDoInput(true); // server와 통신에서 입력가능상태로 설정
+                httpURLConnection.setDoOutput(true);//server와의 통신에서 출력 가능한 상태로
+
+                OutputStreamWriter wr = new OutputStreamWriter(httpURLConnection.getOutputStream());//서버로
+                wr.flush();//flush!
+                InputStream inputStream = httpURLConnection.getInputStream();
+
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String temp;
+                StringBuilder stringBuilder = new StringBuilder();
+                while ((temp = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(temp + "\n");
+                }
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return stringBuilder.toString().trim();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        public void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        public void onPostExecute(String res) {
+            Log.e(this.getClass().getName(), "백그라운드 try문안으로");
+            try {
+                boardList.clear();
+                Garden_array.clear();
+                JSONObject jsonObject = new JSONObject(res);
+                Log.e(this.getClass().getName(), "백그라운드 try문안으로");
+                JSONArray jsonArray = jsonObject.getJSONArray("response");
+
+                Log.e(this.getClass().getName(), String.valueOf(jsonArray));
+                int count = 0;
+
+                Log.e("jsonArray.length()", String.valueOf(jsonArray.length()));
+                while(count< jsonArray.length()){
+                    Log.e("String.valueOf(count)", String.valueOf(count));
+                    JSONObject object = jsonArray.getJSONObject(count);
+
+                    Log.e(this.getClass().getName(), String.valueOf(object));
+                    Log.e("#####################", String.valueOf(count));
+                    Garden_array.setFARM_TYPE(object.getString("FARM_TYPE"));
+
+                    Garden_array.setFARM_NM(object.getString("FARM_NM"));
+
+                    Garden_array.setADDRESS1(object.getString("ADDRESS1"));
+
+                    Garden_array.setSELL_AREA_INFO(object.getString("SELL_AREA_INFO"));
+
+                    Garden_array.setHOMEPAGE(object.getString("HOMEPAGE"));
+
+                    Garden_array.setOFF_SITE(object.getString("OFF_SITE"));
+
+                    Garden_array.setAPPLY_MTHD(object.getString("APPLY_MTHD"));
+
+                    Garden_array.setPRICE(object.getString("PRICE"));
+
+                    Garden_array.setREGIST(object.getString("REGIST_DT"));
+
+
+                    Garden_array.setID(object.getString("ID"));
+                    Garden_array.setName(object.getString("Name"));
+                    Garden_array.setphone(object.getString("phone"));
+
+                        Garden_board_Board board = new Garden_board_Board(Garden_array.getFARM_TYPE(count),
+                                Garden_array.getFARM_NM(count),
+                                Garden_array.getADDRESS1(count),
+                                Garden_array.getSELL_AREA_INFO(count),
+                                Garden_array.getHOMEPAGE(count),
+                                Garden_array.getOFF_SITE(count),
+                                Garden_array.getAPPLY_MTHD(count),
+                                Garden_array.getPRICE(count),
+                                Garden_array.getREGIST(count),
+                                Garden_array.getID(count),
+                                Garden_array.getName(count),
+                                Garden_array.getphone(count));
+                        boardList.add(board);
+                        adapter.notifyDataSetChanged();
+
                     count++;
                 }
             } catch (Exception e){

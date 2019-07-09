@@ -91,7 +91,9 @@ public class Consultation extends Fragment implements MainActivity.OnBackPressed
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
+            Log.e("@@@@@@@@@@@@@@@@@@@", mParam1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            Log.e("@@@@@@@@@@@@@@@@@@@", mParam2);
         }
     }
 
@@ -101,7 +103,15 @@ public class Consultation extends Fragment implements MainActivity.OnBackPressed
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_consultation, container, false);
         fragment = new Consultation();
-        new BackgroundTask3().execute();
+        if(mParam2==Static_setting.Name)
+        {
+            Log.e("@@@@@@@@@@@@@@@@@@@", "리라라라라라라리라라라릴");
+            new BackgroundTask7().execute();
+        }
+        else {
+            Log.e("@@@@@@@@@@@@@@@@@@@", "호호호호호호호호호호호홓");
+            new BackgroundTask3().execute();
+        }
         return view;
     }
     @Override
@@ -580,4 +590,182 @@ public class Consultation extends Fragment implements MainActivity.OnBackPressed
 
     }
 
+
+    class BackgroundTask7 extends AsyncTask<String, Void, String> {
+        String target;
+
+        customprogress progressDialog = new customprogress(getContext());
+        @Override
+        protected void onPreExecute() {
+            progressDialog.setCancelable(true);
+            progressDialog .getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            target = "http://www.okdab.kr/episAutoAnswerApi/expert/list/json?pageSize=1000&pageNum=1&kwd=";
+            Log.e(this.getClass().getName(), "백그라운드로 list뽑기 시작한다.");
+            progressDialog.show();
+        }
+
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                String kwd=params[0];
+                target=target+URLEncoder.encode(kwd);
+                URL url = new URL(target);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String temp;
+                StringBuilder stringBuilder = new StringBuilder();
+                while ((temp = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(temp + "\n");
+                }
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return stringBuilder.toString().trim();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        public void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        public void onPostExecute(String res) {
+            Log.e(this.getClass().getName(), "백그라운드 try문안으로");
+            try {
+                Log.e(this.getClass().getName(), "백그라운드 try문안으로");
+                JSONObject jsonObject = new JSONObject(res);
+                Log.e(this.getClass().getName(), String.valueOf(jsonObject));
+                JSONObject jsonObject1 = jsonObject.getJSONObject("result");
+                JSONArray jsonArray = jsonObject1.getJSONArray("rows");
+                Log.e(this.getClass().getName(), String.valueOf(jsonArray));
+                int count = 0;
+                while(count < jsonArray.length()){
+                    Log.e(this.getClass().getName(), "들어오긴하냐?");
+                    JSONObject object = jsonArray.getJSONObject(count);
+                    String REGDT=object.getString("REGDT");
+                    Log.e(this.getClass().getName(), Static_setting.REGDT);
+                    String NTTID=object.getString("NTTID");
+                    Log.e(this.getClass().getName(), NTTID);
+                    String USERNM=object.getString("USERNM");
+                    Log.e(this.getClass().getName(), USERNM);
+                    String TITLE=object.getString("TITLE");
+                    Log.e(this.getClass().getName(), Static_setting.TITLE);
+                    if(USERNM==mParam2)
+                    {
+                        new BackgroundTask8().execute(NTTID,USERNM,REGDT,TITLE);
+                    }
+                    count++;
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+            progressDialog.dismiss();
+        }
+
+    }
+    class BackgroundTask8 extends AsyncTask<String, Void, String> {
+        String target;
+
+        customprogress progressDialog = new customprogress(getContext());
+        @Override
+        protected void onPreExecute() {
+            progressDialog.setCancelable(true);
+            progressDialog .getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            target = "http://www.okdab.kr/episAutoAnswerApi/webchat/expert/detail/json?publicYN=Y&nttId=";
+            Log.e(this.getClass().getName(), "백그라운드로 list뽑기 시작한다.");
+            progressDialog.show();
+        }
+
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            try {
+                String NTTID=params[0];
+                String USERNM=params[1];
+
+                target=target+URLEncoder.encode(NTTID)+"&userNm="+URLEncoder.encode(USERNM);
+                URL url = new URL(target);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String temp;
+                StringBuilder stringBuilder = new StringBuilder();
+                while ((temp = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(temp + "\n");
+                }
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return stringBuilder.toString().trim();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        public void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        public void onPostExecute(String res) {
+            Log.e(this.getClass().getName(), "백그라운드 try문안으로");
+            try {
+                Log.e(this.getClass().getName(), "백그라운드 try문안으로");
+                JSONObject jsonObject = new JSONObject(res);
+                JSONArray jsonArray = jsonObject.getJSONArray("result");
+                int count = 0;
+                while(count < jsonArray.length()){
+                    Log.e(this.getClass().getName(), "들어오긴하냐?");
+                    JSONObject object = jsonArray.getJSONObject(count);
+                    Con_array.setcount(String.valueOf(count));
+                    Con_array.settitle(object.getString("title"));
+                    // Log.e(this.getClass().getName(), title);
+                    Con_array.setregDt(object.getString("regDt"));
+                    // Log.e(this.getClass().getName(), regDt);setNTTID
+                    Con_array.setuserNm(object.getString("userNm"));
+                    // Log.e(this.getClass().getName(), userNm);
+                    Con_array.setnttId(object.getString("nttId"));
+                    // Log.e(this.getClass().getName(), nttId);
+                    Con_array.setcontents(object.getString("contents"));
+                    // Log.e(this.getClass().getName(), contents);
+                    Con_array.setanswerTitle(object.getString("answerTitle"));
+                    // Log.e(this.getClass().getName(), answerTitle);
+                    Con_array.setanswerContents(object.getString("answerContents"));
+                    // Log.e(this.getClass().getName(), answerContents);
+                    Con_array.setanswerUserNm(object.getString("answerUserNm"));
+                    //  Log.e(this.getClass().getName(), answerUserNm);
+                    Con_array.setanswerOrgNm(object.getString("answerOrgNm"));
+                    // Log.e(this.getClass().getName(), answerOrgNm);
+                    Con_array.setanswerDeptNm(object.getString("answerDeptNm"));
+                    // Log.e(this.getClass().getName(), answerDeptNm);
+                    Con_array.setanswerEmail(object.getString("answerEmail"));
+                    // Log.e(this.getClass().getName(), answerEmail);
+                    Con_Board board = new Con_Board(Con_array.gettitle(count),Con_array.getuserNm(count),Con_array.getregDt(count),Con_array.getnttId(count),Con_array.getcontents(count),Con_array.getanswerTitle(count),Con_array.getanswerContents(count),Con_array.getanswerUserNm(count),Con_array.getanswerOrgNm(count),Con_array.getanswerDeptNm(count),Con_array.getanswerEmail(count));
+                    boardList.add(board);
+                    adapter.notifyDataSetChanged();
+                    count++;
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            progressDialog.dismiss();
+        }
+
+    }
 }

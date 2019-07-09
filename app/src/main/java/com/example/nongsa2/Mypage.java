@@ -102,9 +102,10 @@ public class Mypage extends Fragment implements MainActivity.OnBackPressedListen
             @Override
             public void onClick(View view) {
                 Fragment fragment = new Gyesi();
-//                Bundle bundle = new Bundle();
-//                bundle.putString("param1", param1);
-//                bundle.putString("param2", param2);
+                Bundle bundle = new Bundle();
+                bundle.putString("param1", Static_setting.ID);
+                bundle.putString("param2", Static_setting.Name);
+                fragment.setArguments(bundle);
                 replaceFragment(fragment);
             }
         });
@@ -113,6 +114,10 @@ public class Mypage extends Fragment implements MainActivity.OnBackPressedListen
             @Override
             public void onClick(View view) {
                 Fragment fragment = new Garden_board();
+                Bundle bundle = new Bundle();
+                bundle.putString("param1", Static_setting.ID);
+                bundle.putString("param2", Static_setting.Name);
+                fragment.setArguments(bundle);
                 replaceFragment(fragment);
             }
         });
@@ -121,6 +126,10 @@ public class Mypage extends Fragment implements MainActivity.OnBackPressedListen
             @Override
             public void onClick(View view) {
                 Fragment fragment = new Consultation();
+                Bundle bundle = new Bundle();
+                bundle.putString("param1", Static_setting.ID);
+                bundle.putString("param2", Static_setting.Name);
+                fragment.setArguments(bundle);
                 replaceFragment(fragment);
             }
         });
