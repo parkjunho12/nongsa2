@@ -31,8 +31,90 @@
         android:paddingLeft="5dp"
         android:background="#ff7f00"></View>
 
+<LinearLayout
+    android:layout_margin="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border"
+    android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:id="@+id/ss"
+                android:gravity="center"
+                android:textColor="@color/back"
+                android:text="ID "/>
+    <TextView
+        android:layout_width="0dp"
+        android:gravity="left"
+        android:layout_weight="5"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border"
+        android:id="@+id/myID"
+        android:textColor="@color/back"
+        />
+</LinearLayout>
+            <LinearLayout
+                android:layout_margin="10dp"
+                android:background="@drawable/border"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:id="@+id/s1s"
+                    android:gravity="center"
+                    android:textColor="@color/back"
+                    android:text="Name "/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:gravity="left"
+                    android:layout_weight="5"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border"
+                    android:id="@+id/myName"
+                    android:textColor="@color/back"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:background="@drawable/border"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:id="@+id/s3s"
+                    android:gravity="center"
+                    android:textColor="@color/back"
+                    android:text="Phone "/>
+                <TextView
+                    android:layout_width="0dp"
 
-
+                    android:gravity="left"
+                    android:layout_weight="5"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border"
+                    android:id="@+id/myPhone"
+                    android:textColor="@color/back"
+                    />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="5dp"
+                android:alpha="0.8"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"
+                android:background="#ff7f00"></View>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -48,6 +130,52 @@
             android:paddingRight="5dp"
             android:paddingLeft="5dp"
             android:background="#ff7f00"></View>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:id="@+id/myhome"
+                android:textColor="@color/back"
+                android:text="나의 빈집게시물"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="5dp"
+                android:alpha="0.8"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"
+                android:background="#ff7f00"></View>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:id="@+id/mygarden"
+                android:textColor="@color/back"
+                android:text="나의 텃밭게시물"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="5dp"
+                android:alpha="0.8"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"
+                android:background="#ff7f00"></View>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:id="@+id/mycon"
+                android:textColor="@color/back"
+                android:text="나의 전문가상담글"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="5dp"
+                android:alpha="0.8"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"
+                android:background="#ff7f00"></View>
         <Button
             android:layout_width="match_parent"
             android:background="@android:color/transparent"

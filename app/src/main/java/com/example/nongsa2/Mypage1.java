@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -20,6 +21,35 @@ public class Mypage1 extends AppCompatActivity {
         setContentView(R.layout.activity_mypage1);
         Button button =(Button)findViewById(R.id.logout);
         Button button2 =(Button)findViewById(R.id.chatroom);
+        Button myhome =(Button)findViewById(R.id.myhome);
+        myhome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+            }
+        });
+        Button mygarden =(Button)findViewById(R.id.mygarden);
+        mygarden.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        Button mycon =(Button)findViewById(R.id.mycon);
+        mycon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        TextView myID=(TextView) findViewById(R.id.myID);
+        TextView myName=(TextView) findViewById(R.id.myName);
+        TextView myPhone=(TextView) findViewById(R.id.myPhone);
+        myID.setText(Static_setting.ID);
+        myName.setText(Static_setting.Name);
+        myPhone.setText(Static_setting.Phone);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

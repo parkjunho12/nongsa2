@@ -17,11 +17,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -93,80 +95,65 @@ public class Mypage extends Fragment implements MainActivity.OnBackPressedListen
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_mypage, container, false);
-          ID=(EditText) view.findViewById(R.id.ID1);
-          PW=(EditText) view.findViewById(R.id.password);
-          Name=(EditText) view.findViewById(R.id.Name1);
-          Phone=(EditText) view.findViewById(R.id.phone1);
-        Log.e(this.getClass().getName(), "Static_setting!" + Static_setting.ID);
-        Log.e(this.getClass().getName(), "Static_setting!" + Static_setting.PW);
-        Log.e(this.getClass().getName(), "Static_setting!" + Static_setting.Name);
-        Log.e(this.getClass().getName(), "Static_setting!" + Static_setting.Phone);
-        ID.setText((Static_setting.ID));
-        PW.setText((Static_setting.PW));
-        Name.setText((Static_setting.Name));
-        Phone.setText((Static_setting.Phone));
-          ID1 =ID.getText().toString();
-          PW1 =PW.getText().toString();
-          Name1 =Name.getText().toString();
-          Phone1 =Phone.getText().toString();
-        Button modify_btn=(Button) view.findViewById(R.id.modify_btn);
-        modify_btn.setOnClickListener(new View.OnClickListener() {
+        Button button =(Button) view.findViewById(R.id.logout);
+        Button button2 =(Button) view.findViewById(R.id.chatroom);
+        Button myhome =(Button) view.findViewById(R.id.myhome);
+        myhome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                modify(Static_setting.ID,ID1,PW1,Name1,Phone1);
+                Fragment fragment = new Gyesi();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("param1", param1);
+//                bundle.putString("param2", param2);
+                replaceFragment(fragment);
             }
         });
-        Button cancel=(Button) view.findViewById(R.id.cancel);
-        cancel.setOnClickListener(new View.OnClickListener() {
+        Button mygarden =(Button)view.findViewById(R.id.mygarden);
+        mygarden.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new Garden_board();
+                replaceFragment(fragment);
+            }
+        });
+        Button mycon =(Button) view.findViewById(R.id.mycon);
+        mycon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new Consultation();
+                replaceFragment(fragment);
+            }
+        });
+        TextView myID=(TextView) view.findViewById(R.id.myID);
+        TextView myName=(TextView) view.findViewById(R.id.myName);
+        TextView myPhone=(TextView) view.findViewById(R.id.myPhone);
+        myID.setText(Static_setting.ID);
+        myName.setText(Static_setting.Name);
+        myPhone.setText(Static_setting.Phone);
+
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Static_setting.ID="비회원";
-                Static_setting.ID="";
-                Static_setting.ID="";
-                Static_setting.ID="";
+                Static_setting.PW="";
+                Static_setting.Name="";
+                Static_setting.Phone="";
+
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+
+            }
+        });
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new ChatRoomFragment();
+                replaceFragment(fragment);
             }
         });
 
         return view;
-    }
-
-    private void modify(String M_ID, String ID, String PW, String Name, String Phone) {
-        Response.Listener<String> responseListener =new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonResponse = new JSONObject(response);
-                    boolean success = jsonResponse.getBoolean("success");
-                    Log.e(this.getClass().getName(),"회원등록시!"+success);
-                    Log.e(this.getClass().getName(),"success!"+success);
-                    if(success) /*회원가입성공*/
-                    {
-                        AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
-                        builder.setMessage("회원정보 수정 성공")
-                                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                    }
-                                })
-                                .create()
-                                .show();
-                    }
-                    else /*회원가입실패*/
-                    {
-                        AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
-                        builder.setMessage("회원정보 수정 실패")
-                                .setNegativeButton("확인",null)
-                                .create()
-                                .show();
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        Modify_Myinfo_Request Modify_Myinfo_Request=new Modify_Myinfo_Request(M_ID,ID, PW, Name, Phone,responseListener);
-        RequestQueue queue= Volley.newRequestQueue(getActivity().getApplicationContext());
-        queue.add(Modify_Myinfo_Request);
     }
 
 

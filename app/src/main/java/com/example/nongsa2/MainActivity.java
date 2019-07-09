@@ -105,10 +105,12 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
                     Log.e("@@@@@@@@@@@@@@@@@@!","@@@@@@@@@@@@@@@@@@!!"+Static_setting.Phone);
                     if (FirebaseAuth.getInstance().getCurrentUser()==null) {
                         mainIntent2 = new Intent(MainActivity.this, LoginActivity.class);
+                        MainActivity.this.startActivity(mainIntent2);
                     } else {
-                        mainIntent2 = new Intent(MainActivity.this, Mypage1.class);
+                        fragment=new Mypage();
+                        replaceFragment(fragment);
                     }
-                    MainActivity.this.startActivity(mainIntent2);
+
                     return true;
             }
             if(fragment!=null) {
@@ -297,15 +299,6 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
                 imageButton2.setTextColor(0xffffffff);
                 replaceFragment(fragment);
 
-//                if(fb == null) {
-//                    fb = new Garden_board();
-//                    addFragment(fb);
-//                }
-//
-//                if(fa != null) hideFragment(fa);
-//                if(fb != null) showFragment(fb);
-//                if(fc != null) hideFragment(fc);
-//                Log.d("ddd","MonthFragment");
                 break;
             case R.id.consultation:
                 fragment = new Consultation();
