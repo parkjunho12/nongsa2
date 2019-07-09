@@ -120,7 +120,10 @@ public class Mypage extends Fragment implements MainActivity.OnBackPressedListen
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Static_setting.ID="비회원";
+                Static_setting.ID="";
+                Static_setting.ID="";
+                Static_setting.ID="";
             }
         });
 

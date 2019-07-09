@@ -23,6 +23,11 @@ public class Mypage1 extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Static_setting.ID="비회원";
+                Static_setting.PW="";
+                Static_setting.Name="";
+                Static_setting.Phone="";
+
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);

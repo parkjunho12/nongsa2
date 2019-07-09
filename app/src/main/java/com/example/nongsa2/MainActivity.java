@@ -1,13 +1,22 @@
 package com.example.nongsa2;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.RequiresApi;
@@ -25,6 +34,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 
 public class MainActivity extends AppCompatActivity implements Button.OnClickListener {
     private TextView mTextMessage;
@@ -63,7 +85,6 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
                 case R.id.navigation_dashboard:
                   //  fragment = new secondpage();
                     Intent mainIntent = null;
-
                     if (FirebaseAuth.getInstance().getCurrentUser()==null) {
                         mainIntent = new Intent(MainActivity.this, LoginActivity.class);
                     } else {
@@ -75,7 +96,10 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
                     return true;
                 case R.id.navigation_notifications:
                     Intent mainIntent2 = null;
-
+                    Log.e("@@@@@@@@@@@@@@@@@@!","@@@@@@@@@@@@@@@@@@!"+Static_setting.ID);
+                    Log.e("@@@@@@@@@@@@@@@@@@!","@@@@@@@@@@@@@@@@@@!!"+Static_setting.PW);
+                    Log.e("@@@@@@@@@@@@@@@@@@!","@@@@@@@@@@@@@@@@@@!!"+Static_setting.Name);
+                    Log.e("@@@@@@@@@@@@@@@@@@!","@@@@@@@@@@@@@@@@@@!!"+Static_setting.Phone);
                     if (FirebaseAuth.getInstance().getCurrentUser()==null) {
                         mainIntent2 = new Intent(MainActivity.this, LoginActivity.class);
                     } else {
@@ -100,7 +124,6 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
        // String test = FirebaseInstanceId.getInstance().getToken();
        // Log.d("Token Value", test);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -122,6 +145,12 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         ImageButton four =(ImageButton)findViewById(R.id.four);
 
         imagepagerAdapter = new imagepagerAdapter(getSupportFragmentManager());
+        if (FirebaseAuth.getInstance().getCurrentUser()==null) {
+        } else {
+            new BackgroundTask().execute();
+        }
+
+
 
         viewPager.setAdapter(imagepagerAdapter);
         handler = new Handler(){
@@ -176,11 +205,14 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         thread.start();
 
 
+    }
+
+    private void checkLogin(String ID) {
 
     }
 
 
-public static Fragment fa,fb,fc;
+    public static Fragment fa,fb,fc;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -195,6 +227,7 @@ public static Fragment fa,fb,fc;
 
             case R.id.home:
                 fragment = new Fragment();
+
                 imageButton1.setBackgroundColor(0xffffffff);
                 imageButton1.setTextColor(getResources().getColor(R.color.black));
                 imageButton2.setBackgroundColor(0xffffffff);
@@ -385,6 +418,62 @@ public static Fragment fa,fb,fc;
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.replace(R.id.container2, fragment);
         fragmentTransaction.commit();
+    }
+
+
+
+    class BackgroundTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+
+        @Override
+        protected String doInBackground(String... params) {
+            return null;
+        }
+
+        @Override
+        public void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        public void onPostExecute(String res) {
+            Response.Listener<String> responseListener = new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.e(this.getClass().getName(), "트라이문out");
+                    try {
+                        Log.e(this.getClass().getName(), "try in!");
+                        JSONObject jsonResponse = new JSONObject(response);
+                        boolean success = jsonResponse.getBoolean("success");
+                        Log.e(this.getClass().getName(), "success!" + success);
+                        if (success) {
+                            Log.e(this.getClass().getName(), "성공함!");
+                            Log.e(this.getClass().getName(), "jsonResponse!" + jsonResponse);
+                            String ID = jsonResponse.getString("ID");
+                            String PW = jsonResponse.getString("PW");
+                            String Name = jsonResponse.getString("Name");
+                            String Phone = jsonResponse.getString("Phone");
+
+                            Static_setting.ID = ID;
+                            Static_setting.PW = PW;
+                            Static_setting.Name = Name;
+                            Static_setting.Phone = Phone;
+
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+            CheckRequest CheckRequest = new CheckRequest(FirebaseAuth.getInstance().getCurrentUser().getEmail(), responseListener);
+            RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+            queue.add(CheckRequest);
+        }
+
     }
 }
 

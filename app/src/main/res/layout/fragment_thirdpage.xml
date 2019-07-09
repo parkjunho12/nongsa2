@@ -63,7 +63,7 @@
                     android:id="@+id/ID"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:hint="ID"
+                    android:hint="abcd123@0000"
                     tools:layout_editor_absoluteX="29dp"
                     tools:layout_editor_absoluteY="74dp" />
 
@@ -130,7 +130,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Register_btn"
+                    android:text="등록하기"
                     android:textStyle="bold" />
 
 
@@ -140,7 +140,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Back_btn"
+                    android:text="돌아가기"
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
