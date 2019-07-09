@@ -167,9 +167,8 @@ public class Garden_board extends Fragment  implements MainActivity.OnBackPresse
                     builder.setMessage("비회원입니다. \n로그인 하시겠습니까?")
                             .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    fragment = new thirdpage();
-
-                                    replaceFragment(fragment);
+                                    Intent intent=new Intent(getActivity(), LoginActivity.class);
+                                    startActivity(intent);
                                 }
                             })
                             .create()

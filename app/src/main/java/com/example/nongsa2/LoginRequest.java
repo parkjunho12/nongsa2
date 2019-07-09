@@ -20,9 +20,10 @@ public class LoginRequest extends StringRequest {
         parameters.put("ID",ID);
         parameters.put("PW",PW);
 
-        Log.e(this.getClass().getName(),"ID!"+ID);
-        Log.e(this.getClass().getName(),"PW!"+PW);
-
+        Log.e(this.getClass().getName(),"@@@@@@@@@@@@@@@@@@!"+Static_setting.ID);
+        Log.e(this.getClass().getName(),"@@@@@@@@@@@@@@@@@@!!"+Static_setting.PW);
+        Log.e(this.getClass().getName(),"@@@@@@@@@@@@@@@@@@!!"+Static_setting.Name);
+        Log.e(this.getClass().getName(),"@@@@@@@@@@@@@@@@@@!!"+Static_setting.Phone);
     }
 
 
