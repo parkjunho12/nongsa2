@@ -66,7 +66,7 @@ public class BoardListAdapter extends BaseAdapter  {
 
         if(boardList.get(i).getTitle().substring(0,2).equals("농지"))
         {
-            imageView.setImageResource(R.drawable.bat);
+            imageView.setImageResource(R.drawable.farm);
         }
 
         Button addbutton =(Button)v.findViewById(R.id.addbtn);

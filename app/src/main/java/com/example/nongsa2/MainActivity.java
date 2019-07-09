@@ -9,6 +9,7 @@ import android.os.Bundle;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements Button.OnClickListener {
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     Fragment fragment = fm.findFragmentById(R.id.container2);
     Button imageButton2,imageButton3;
     Button imageButton1,homebtn;
+    LinearLayout linearLayout;
     static int p =0;
     static int v=1;
     private ViewPager viewPager;
@@ -105,7 +108,24 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
        // Log.d("Token Value", test);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         BottomNavigationView navView = findViewById(R.id.nav_view);
+        linearLayout = (LinearLayout)findViewById(R.id.linbtn);
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+
+                Fragment fragment = new Fragment();
+                imageButton1.setBackgroundColor(0xffffffff);
+                imageButton1.setTextColor(getResources().getColor(R.color.black));
+                imageButton2.setBackgroundColor(0xffffffff);
+                imageButton2.setTextColor(getResources().getColor(R.color.black));
+                imageButton3.setBackgroundColor(0xffffffff);
+                imageButton3.setTextColor(getResources().getColor(R.color.black));
+                homebtn.setBackgroundColor(getResources().getColor(R.color.back));
+                homebtn.setTextColor(0xffffffff);
+                replaceFragment(fragment);
+            }
+        });
         imageButton1 = (Button) findViewById(R.id.imbtn1);
         imageButton2 = (Button) findViewById(R.id.garden);
         imageButton3 = (Button) findViewById(R.id.consultation);

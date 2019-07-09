@@ -42,8 +42,10 @@ import com.google.firebase.firestore.WriteBatch;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.gson.Gson;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,11 +53,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 
 public class ChatFragment extends Fragment {
 
     private Button sendBtn;
     private EditText msg_input;
+    private String msg;
     private RecyclerView recyclerView;
     private RecyclerViewAdapter mAdapter;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -211,7 +222,7 @@ public class ChatFragment extends Fragment {
                     getUserInfoFromServer(key);
                 }
                 userCount = users.size();
-                //users.put(myUid, (long) 0);
+              //  users.put(myUid, (long) 0);
                 //document.getReference().update("users", users);
             }
         });
@@ -242,7 +253,7 @@ public class ChatFragment extends Fragment {
 
     Button.OnClickListener sendBtnClickListener = new View.OnClickListener() {
         public void onClick(View view) {
-            String msg = msg_input.getText().toString();
+            msg = msg_input.getText().toString();
             sendMessage(msg, "0", null);
             msg_input.setText("");
         }
@@ -291,7 +302,8 @@ public class ChatFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            //sendGCM();
+                            Log.e("d",msg);
+                                sendGCM();
                             sendBtn.setEnabled(true);
                         }
                     }
@@ -300,14 +312,45 @@ public class ChatFragment extends Fragment {
 
         });
     };
-    public void showProgressDialog(String title ) {
+    void sendGCM(){
+        Gson gson = new Gson();
+        Log.e("d",msg);
+        NotificationModel notificationModel = new NotificationModel();
+        notificationModel.notification.title = userList.get(myUid).getUsernm();
+        notificationModel.notification.body = msg;
+        notificationModel.data.title = userList.get(myUid).getUsernm();
+        notificationModel.data.body = msg;
+
+        for ( Map.Entry<String, UserModel> elem : userList.entrySet() ){
+            if (myUid.equals(elem.getValue().getUid())) continue;
+            notificationModel.to = elem.getValue().getToken();
+            RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf8"), gson.toJson(notificationModel));
+            Log.e("실패",elem.getValue().getToken());
+            Request request = new Request.Builder()
+                    .header("Content-Type", "application/json")
+                    .addHeader("Authorization", "key=AAAAJGmjvyY:APA91bGjdc81yoK9bUJl72uIuek9ra7qCxgwwothkO6iwmtd7iSbiCz2a6r9vOFKBs1cGb5_6DeZ2A8p5ZOj1DaTmSfkVGJfEXa3vBDak_dkvoFOoWBwxeGSiYL4D7DjaPHsHrMRMinP")
+                    .url("https://fcm.googleapis.com/fcm/send")
+                    .post(requestBody)
+                    .build();
+
+            OkHttpClient okHttpClient = new OkHttpClient();
+
+            okHttpClient.newCall(request).enqueue(new Callback() {
+
+                @Override
+                public void onFailure(Call call, IOException e) {         Log.e("실패","하윙");        }
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {         Log.e("ㅋㅋ","하윙");         }
+            });
+        }
+    }
+
+    public void showProgressDialog( ) {
         if (progressDialog==null) {
             progressDialog = new customprogress(getContext());
         }
         progressDialog.setIndeterminate(true);
-        progressDialog.setTitle(title);
-        progressDialog.setMessage("Please wait..");
-        progressDialog.setCancelable(false);
+        progressDialog.setCancelable(true);
         progressDialog.show();
     }
     public void setProgressDialog(int value) {
@@ -346,6 +389,7 @@ public class ChatFragment extends Fragment {
             messageList = new ArrayList<Message>();
             setUnread2Read();
             startListening();
+
         }
 
         public void startListening() {
@@ -397,6 +441,7 @@ public class ChatFragment extends Fragment {
 
             messageList.clear();
             notifyDataSetChanged();
+
         }
 
         @Override
@@ -418,7 +463,9 @@ public class ChatFragment extends Fragment {
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = null;
+
             view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
+
             return new MessageViewHolder(view);
         }
 
