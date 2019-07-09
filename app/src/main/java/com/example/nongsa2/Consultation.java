@@ -148,15 +148,31 @@ public class Consultation extends Fragment implements MainActivity.OnBackPressed
                 alert.show();
             }
         });
-
         FloatingActionButton floatingactionbutton = (FloatingActionButton) getView().findViewById(R.id.floatingActionButton);
         floatingactionbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment fragment = new AddFragment();
-                replaceFragment(fragment);
+                if(Static_setting.ID=="비회원")
+                {
+                    AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+                    builder.setMessage("비회원입니다. \n로그인 하시겠습니까?")
+                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    fragment = new thirdpage();
+
+                                    replaceFragment(fragment);
+                                }
+                            })
+                            .create()
+                            .show();
+                }
+                else {
+                    Fragment fragment = new AddFragment();
+                    replaceFragment(fragment);
+                }
             }
         });
+
     }
 
 
@@ -189,14 +205,6 @@ public class Consultation extends Fragment implements MainActivity.OnBackPressed
         fragmentManager = activity.getSupportFragmentManager();
         activity.setOnBackPressedListener(null);
         activity.onBackPressed();
-    }
-    private void addFragment(Fragment fragment){
-        FragmentManager fm = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.add(R.id.container2, fragment);
-        fragmentTransaction.commit();
     }
     private void replaceFragment(Fragment fragment){
         FragmentManager fm = getActivity().getSupportFragmentManager();
@@ -458,6 +466,7 @@ public class Consultation extends Fragment implements MainActivity.OnBackPressed
                 while(count < jsonArray.length()){
                     Log.e(this.getClass().getName(), "들어오긴하냐?");
                     JSONObject object = jsonArray.getJSONObject(count);
+                    Log.e(this.getClass().getName(), String.valueOf(object));
                     String REGDT=object.getString("REGDT");
                     Log.e(this.getClass().getName(), Static_setting.REGDT);
                     String NTTID=object.getString("NTTID");
