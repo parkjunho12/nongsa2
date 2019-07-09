@@ -1,54 +1,28 @@
 package com.example.nongsa2;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.iid.FirebaseInstanceId;
-
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
-import android.os.CountDownTimer;
-import android.os.Handler;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.TableLayout;
-import android.widget.TextView;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.Timer;
-import java.util.TimerTask;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity implements Button.OnClickListener {
     private TextView mTextMessage;
@@ -91,9 +65,18 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
                    // replaceFragment(fragment);
                     return true;
                 case R.id.navigation_notifications:
-                    fragment = new thirdpage();
+                    if (Static_setting.ID=="비회원")
+                    {
+                        fragment = new secondpage();
 
-                    replaceFragment(fragment);
+                        replaceFragment(fragment);
+                    }
+                    else{
+                        fragment = new Mypage();
+
+                        replaceFragment(fragment);
+                    }
+
                     return true;
             }
             if(fragment!=null) {
@@ -117,7 +100,10 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
        // Log.d("Token Value", test);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         BottomNavigationView navView = findViewById(R.id.nav_view);
-
+        Log.e(this.getClass().getName(), "Static_setting!" + Static_setting.ID);
+        Log.e(this.getClass().getName(), "Static_setting!" + Static_setting.PW);
+        Log.e(this.getClass().getName(), "Static_setting!" + Static_setting.Name);
+        Log.e(this.getClass().getName(), "Static_setting!" + Static_setting.Phone);
         imageButton1 = (Button) findViewById(R.id.imbtn1);
         imageButton2 = (Button) findViewById(R.id.garden);
         imageButton3 = (Button) findViewById(R.id.consultation);

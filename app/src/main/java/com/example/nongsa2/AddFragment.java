@@ -93,17 +93,17 @@ public class AddFragment extends Fragment implements MainActivity.OnBackPressedL
     public void onActivityCreated(Bundle b) {
         super.onActivityCreated(b);
         final EditText edit_title = (EditText) getView().findViewById(R.id.title);
-        final EditText edit_userNm = (EditText) getView().findViewById(R.id.userNm);
+
         final EditText edit_content = (EditText) getView().findViewById(R.id.content);
         //여기 오류?
         final String title = edit_title.getText().toString();
-        final String userNm = edit_userNm.getText().toString();
+
         final String content = edit_content.getText().toString();
         Button reg_btn = (Button) getView().findViewById(R.id.Register_btn);
         reg_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Add_board(title, userNm, content);
+                Add_board(title, Static_setting.Name, content);
             }
         });
         Button back_btn = (Button) getView().findViewById(R.id.Back_btn);

@@ -10,7 +10,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-
+import androidx.fragment.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -28,6 +28,7 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,12 +38,13 @@ import androidx.fragment.app.FragmentManager;
  * Use the {@link secondpage#newInstance} factory method to
  * create an instance of this fragment.
  */
+
 public class secondpage extends Fragment implements MainActivity.OnBackPressedListener{
     private EditText mEmailView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-
+    Fragment fragment;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -89,8 +91,9 @@ public class secondpage extends Fragment implements MainActivity.OnBackPressedLi
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View view =inflater.inflate(R.layout.fragment_secondpage, container, false);
 
+        View view =inflater.inflate(R.layout.fragment_secondpage, container, false);
+        fragment = new secondpage();
         mPasswordView = (EditText) view.findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -105,20 +108,43 @@ public class secondpage extends Fragment implements MainActivity.OnBackPressedLi
 
         mEmailView = (EditText) view.findViewById(R.id.email);
 
+        Button Register_btn = (Button) view.findViewById(R.id.Register_btn);
+        Register_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragment = new thirdpage();
+
+                replaceFragment(fragment);
+            }
+        });
         Button mEmailSignInButton = (Button) view.findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 attemptLogin();
-
-
             }
         });
         mLoginFormView = view.findViewById(R.id.login_form);
         mProgressView = view.findViewById(R.id.login_progress);
         return view;
+    }
+    private Fragment f1,f2,f3;
+    private FragmentManager fragmentManager;
+
+    @Override
+    public void onBack() {
+        MainActivity activity = (MainActivity) getActivity();
+        fragmentManager = activity.getSupportFragmentManager();
+        activity.setOnBackPressedListener(null);
+        activity.onBackPressed();
+    }
+    private void replaceFragment(Fragment fragment){
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        //fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.container2, fragment);
+        fragmentTransaction.commit();
     }
     private void attemptLogin() {
 
@@ -156,15 +182,16 @@ public class secondpage extends Fragment implements MainActivity.OnBackPressedLi
                         intent.putExtra("Name", Name);
                         intent.putExtra("Phone", Phone);
 
-                        Log.e(this.getClass().getName(), "로그인성공!");
-                        Log.e(this.getClass().getName(), "ID!" + ID);
-                        Log.e(this.getClass().getName(), "PW!" + PW);
-                        Log.e(this.getClass().getName(), "Name!" + Name);
-                        Log.e(this.getClass().getName(), "Phone!" + Phone);
+
                         Static_setting.ID=ID;
                         Static_setting.PW=PW;
                         Static_setting.Name=Name;
                         Static_setting.Phone=Phone;
+                        Log.e(this.getClass().getName(), "로그인성공!");
+                        Log.e(this.getClass().getName(), "ID!" + Static_setting.ID);
+                        Log.e(this.getClass().getName(), "PW!" + Static_setting.PW);
+                        Log.e(this.getClass().getName(), "Name!" + Static_setting.Name);
+                        Log.e(this.getClass().getName(), "Phone!" + Static_setting.Phone);
                         startActivity(intent);
                         //nextIntent();
                     } else {
@@ -214,10 +241,7 @@ public class secondpage extends Fragment implements MainActivity.OnBackPressedLi
         mListener = null;
     }
 
-    @Override
-    public void onBack() {
 
-    }
 
     /**
      * This interface must be implemented by activities that contain this

@@ -62,21 +62,7 @@
                     tools:layout_editor_absoluteX="29dp"
                     tools:layout_editor_absoluteY="74dp" />
 
-                <TextView
-                    android:id="@+id/textView7"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="성명"
-                    android:textStyle="bold" />
 
-                <EditText
-                    android:id="@+id/userNm"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:hint="ex) 홍길동"
-                    tools:layout_editor_absoluteX="29dp"
-                    tools:layout_editor_absoluteY="130dp" />
 
                 <TextView
                     android:id="@+id/textView8"

@@ -15,7 +15,7 @@ public class MemoRequest extends StringRequest {
     public MemoRequest(String ID, String SIDO_NM, String SIGUN_NM, String ADDR, String OWNER_NM, String OWNER_CONTACT, String DEAL_AMOUNT, String DEAL_TYPE, String DEAL_BIGO, String GUBUN, String REG_DT,String latitude,String longitude, Response.Listener<String> listener) {
         super(Method.POST, URL, listener, null);
 
-        
+
         parameters=new HashMap<>();
         parameters.put("ID",ID);
         parameters.put("SIDO_NM",SIDO_NM);

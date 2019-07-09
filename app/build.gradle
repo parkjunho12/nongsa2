@@ -41,8 +41,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.android.volley:volley:1.1.0'
     implementation "gun0912.ted:tedpermission:2.1.0" //ted permission 사진 가져올라면 사용자 권한 받아야 함
-   // implementation 'com.google.firebase:firebase-auth:16.0.2'
+    // implementation 'com.google.firebase:firebase-auth:16.0.2'
     implementation 'com.google.firebase:firebase-database:16.0.1'
-   // implementation 'com.firebaseui:firebase-ui-auth:4.1.0'
+    // implementation 'com.firebaseui:firebase-ui-auth:4.1.0'
 }
 apply plugin: 'com.google.gms.google-services'
