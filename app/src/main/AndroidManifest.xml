@@ -15,35 +15,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".chatinfo"></activity>
-
-        <service
-            android:name=".FirebaseInstanceIDService"
-            android:stopWithTask="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
-
+        <activity android:name=".ChatActivity"></activity>
+        <activity android:name=".Mypage1" />
+        <activity android:name=".ChatlistActivity" />
+        <activity android:name=".LoginActivity" />
         <activity android:name=".more_consultant" />
         <activity
             android:name=".loding_act"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity android:name=".Consultation" />
-        <activity android:name=".Garden_board" />
-        <activity android:name=".MoreComplex" />
-        <activity android:name=".complexInfo" />
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BoardListAdapter" />
+        <activity android:name=".MoreComplex" />
+        <activity android:name=".complexInfo" />
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"></activity>
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"

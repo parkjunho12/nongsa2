@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Mypage1"
+    android:orientation="vertical"
+    android:gravity="center">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/frag">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="나의 페이지"
+        android:textColor="#ffffff"
+        android:gravity="center"
+        android:background="@color/back"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="5dp"
+        android:alpha="0.8"
+        android:paddingRight="5dp"
+        android:paddingLeft="5dp"
+        android:background="#ff7f00"></View>
+
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:id="@+id/chatroom"
+            android:textColor="@color/back"
+            android:text="나의 채팅방"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="5dp"
+            android:alpha="0.8"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:background="#ff7f00"></View>
+        <Button
+            android:layout_width="match_parent"
+            android:background="@android:color/transparent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/back"
+
+            android:id="@+id/logout"
+            android:text="로그아웃"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="5dp"
+            android:alpha="0.8"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:background="#ff7f00"></View>
+    </LinearLayout>
+    </FrameLayout>
+
+
+</LinearLayout>

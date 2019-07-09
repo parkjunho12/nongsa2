@@ -1,22 +1,14 @@
 package com.example.nongsa2;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,29 +18,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
-import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TableLayout;
 import android.widget.TextView;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity implements Button.OnClickListener {
     private TextView mTextMessage;
@@ -86,14 +62,26 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
                     return true;
                 case R.id.navigation_dashboard:
                   //  fragment = new secondpage();
-                    Intent intent = new Intent(getApplicationContext(),chatinfo.class);
-                    startActivity(intent);
+                    Intent mainIntent = null;
+
+                    if (FirebaseAuth.getInstance().getCurrentUser()==null) {
+                        mainIntent = new Intent(MainActivity.this, LoginActivity.class);
+                    } else {
+                        mainIntent = new Intent(MainActivity.this, ChatlistActivity.class);
+                    }
+                    MainActivity.this.startActivity(mainIntent);
+
                    // replaceFragment(fragment);
                     return true;
                 case R.id.navigation_notifications:
-                    fragment = new thirdpage();
+                    Intent mainIntent2 = null;
 
-                    replaceFragment(fragment);
+                    if (FirebaseAuth.getInstance().getCurrentUser()==null) {
+                        mainIntent2 = new Intent(MainActivity.this, LoginActivity.class);
+                    } else {
+                        mainIntent2 = new Intent(MainActivity.this, Mypage1.class);
+                    }
+                    MainActivity.this.startActivity(mainIntent2);
                     return true;
             }
             if(fragment!=null) {
@@ -111,8 +99,8 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent intent = new Intent(this,loding_act.class);
-        startActivity(intent);
+
+
        // String test = FirebaseInstanceId.getInstance().getToken();
        // Log.d("Token Value", test);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);

@@ -1,14 +1,18 @@
 package com.example.nongsa2;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,9 +24,20 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -34,106 +49,110 @@ import org.json.JSONObject;
  * create an instance of this fragment.
  */
 public class thirdpage extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
 
     public thirdpage() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment thirdpage.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static thirdpage newInstance(String param1, String param2) {
-        thirdpage fragment = new thirdpage();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
+   private EditText user_id;
+    private EditText user_pw;
+    SharedPreferences sharedPreferences;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_thirdpage, container, false);
 
-        final EditText ed_ID = (EditText) view.findViewById(R.id.ID);
-        final EditText ed_PW = (EditText) view.findViewById(R.id.PW);
+        user_id = (EditText) view.findViewById(R.id.ID);
+         user_pw = (EditText) view.findViewById(R.id.PW);
         final EditText ed_Name = (EditText) view.findViewById(R.id.Name);
         final EditText ed_Phone = (EditText) view.findViewById(R.id.Phone);
+        sharedPreferences = getActivity().getSharedPreferences("junho", Activity.MODE_PRIVATE);
+        String id = sharedPreferences.getString("user_id", "");
+        if (!"".equals(id)) {
+            user_id.setText(id);
+        }
 
         Button mRegister_btn = (Button) view.findViewById(R.id.Register_btn);
         mRegister_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String ID =ed_ID.getText().toString();
-                String PW =ed_PW.getText().toString();
-                String Name =ed_Name.getText().toString();
-                String Phone =ed_Phone.getText().toString();
 
-                Response.Listener<String> responseListener =new Response.Listener<String>() {
+
+                if (!validateForm()) return;
+                final String id = user_id.getText().toString();
+
+                FirebaseAuth.getInstance().createUserWithEmailAndPassword(id, user_pw.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonResponse = new JSONObject(response);
-                            boolean success = jsonResponse.getBoolean("success");
-                            Log.e(this.getClass().getName(),"회원등록시!"+success);
-                            Log.e(this.getClass().getName(),"success!"+success);
-                            if(success) /*회원가입성공*/
-                            {
-                                AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
-                                builder.setMessage("회원등록 성공")
-                                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                Intent intent=new Intent(getActivity(),MainActivity.class);
-                                                getActivity().getApplicationContext().startActivity(intent);
-                                            }
-                                        })
-                                        .create()
-                                        .show();
-                            }
-                            else /*회원가입실패*/
-                            {
-                                AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
-                                builder.setMessage("회원등록 실패\n ID가 중복입니다.")
-                                        .setNegativeButton("확인",null)
-                                        .create()
-                                        .show();
-                            }
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            sharedPreferences.edit().putString("user_id", id).commit();
+                            final String uid = FirebaseAuth.getInstance().getUid();
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                            UserModel userModel = new UserModel();
+                            userModel.setUid(uid);
+                            userModel.setUserid(id);
+                            userModel.setUsernm(extractIDFromEmail(id));
+                            userModel.setUsermsg("...");
+
+                            FirebaseFirestore db = FirebaseFirestore.getInstance();
+                            Log.e("존나 ",uid+":uid  "+userModel.getToken()+"token"+userModel.getUserid()+"id");
+                            db.collection("users").document(uid)
+                                    .set(userModel)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+
+
+
+                                            Response.Listener<String> responseListener =new Response.Listener<String>() {
+
+                                                @Override
+                                                public void onResponse(String response) {
+                                                    try {
+
+                                                        JSONObject jsonResponse = new JSONObject(response);
+                                                        boolean success = jsonResponse.getBoolean("success");
+
+                                                        if(success) /*회원가입성공*/
+                                                        {
+
+                                                        }
+                                                        else /*회원가입실패*/
+                                                        {
+
+                                                        }
+
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+                                            };
+                                            String ID =user_id.getText().toString();
+                                            String PW =user_pw.getText().toString();
+                                            String Name =ed_Name.getText().toString();
+                                            String Phone =ed_Phone.getText().toString();
+                                            RegisterRequest registerRequest=new RegisterRequest(ID, PW, Name, Phone,responseListener);
+                                            RequestQueue queue= Volley.newRequestQueue(getActivity().getApplicationContext());
+                                            queue.add(registerRequest);
+
+
+                                            Intent intent = new Intent(getContext(), MainActivity.class);
+                                            sendRegistrationToServer();
+                                            startActivity(intent);
+
+                                            Log.d(String.valueOf(R.string.app_name), "DocumentSnapshot added with ID: " + uid);
+                                        }
+                                    });
+                        } else {
+                            Util9.showMessage(getContext(), task.getException().getMessage());
                         }
                     }
-                };
-                RegisterRequest registerRequest=new RegisterRequest(ID, PW, Name, Phone,responseListener);
-                RequestQueue queue= Volley.newRequestQueue(getActivity().getApplicationContext());
-                queue.add(registerRequest);
+                });
+
+
+
             }
         });
 
@@ -153,44 +172,38 @@ public class thirdpage extends Fragment {
 
         return view;
     }
-
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+    String extractIDFromEmail(String email){
+        String[] parts = email.split("@");
+        return parts[0];
     }
+    void sendRegistrationToServer() {
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String token = FirebaseInstanceId.getInstance().getToken();
+        Map<String, Object> map = new HashMap<>();
+        map.put("token", token);
+        FirebaseFirestore.getInstance().collection("users").document(uid).set(map, SetOptions.merge());
+    }
+    private boolean validateForm() {
+        boolean valid = true;
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        String email = user_id.getText().toString();
+        if (TextUtils.isEmpty(email)) {
+            user_id.setError("Required.");
+            valid = false;
         } else {
-            // throw new RuntimeException(context.toString()
-            //   + " must implement OnFragmentInteractionListener");
+            user_id.setError(null);
         }
+
+        String password = user_pw.getText().toString();
+        if (TextUtils.isEmpty(password)) {
+            user_pw.setError("Required.");
+            valid = false;
+        } else {
+            user_pw.setError(null);
+        }
+
+        return valid;
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
 }

@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "950259789447",
-    "firebase_url": "https://nongsa2-9aa1c.firebaseio.com",
-    "project_id": "nongsa2-9aa1c",
-    "storage_bucket": "nongsa2-9aa1c.appspot.com"
+    "project_number": "156391161638",
+    "firebase_url": "https://heys-aef78.firebaseio.com",
+    "project_id": "heys-aef78",
+    "storage_bucket": "heys-aef78.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:950259789447:android:009e53356c7a4291",
+        "mobilesdk_app_id": "1:156391161638:android:009e53356c7a4291",
         "android_client_info": {
           "package_name": "com.example.nongsa2"
         }
       },
       "oauth_client": [
         {
-          "client_id": "950259789447-gcb924ril02375eong7jms5bf887719v.apps.googleusercontent.com",
+          "client_id": "156391161638-38mp211s4auuudvfhd44mq754u4vbfpk.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAjcWcisK6-Ya520oDSCtZNsxBUsriH6Kk"
+          "current_key": "AIzaSyAp1gd-UZfORE-VLcxKi1N9y-x8lBAX-aU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "950259789447-gcb924ril02375eong7jms5bf887719v.apps.googleusercontent.com",
+              "client_id": "156391161638-38mp211s4auuudvfhd44mq754u4vbfpk.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
