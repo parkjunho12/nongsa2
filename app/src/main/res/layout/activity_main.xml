@@ -88,13 +88,20 @@
                     android:layout_marginTop="10dp"
                     android:gravity="right"
                     android:paddingRight="10dp">
-                    <Button
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                        <Button
                         android:id="@+id/alarm"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:layout_gravity="right"
                         android:backgroundTint="#ff7f00"
                         android:background="@drawable/ic_notifications_black_24dp" />
+                    </FrameLayout>
                 </LinearLayout>
             </LinearLayout>
 

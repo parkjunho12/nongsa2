@@ -8,10 +8,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 
 public class loding_act extends Activity {
+    private UserModel userModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,9 +29,33 @@ public class loding_act extends Activity {
                 .setTimestampsInSnapshotsEnabled(true)
                 .build();
         firestore.setFirestoreSettings(settings);
+        if(FirebaseAuth.getInstance().getCurrentUser()==null)
+        {
+            Static_setting.ID="비공개";
+        }
+        else
+        {
+            getUserInfoFromServer();
+        }
 
         startLoading();
     }
+    void getUserInfoFromServer(){
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        DocumentReference docRef = FirebaseFirestore.getInstance().collection("users").document(uid);
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                userModel = documentSnapshot.toObject(UserModel.class);
+                Static_setting.ID = userModel.getUserid();
+                Static_setting.Name = userModel.getRealname();
+                Static_setting.Phone = userModel.getPhone();
+
+            }
+        });
+    }
+
     private void startLoading() {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
