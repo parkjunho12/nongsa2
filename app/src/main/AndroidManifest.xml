@@ -12,8 +12,9 @@
     <application
 
         android:allowBackup="true"
-        android:label="캐럿캐자"
-        android:roundIcon="@drawable/carrot_app"
+        android:label="캐캐"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
        android:usesCleartextTraffic="true"
 
