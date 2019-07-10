@@ -23,7 +23,11 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,7 +54,7 @@ public class Mypage extends Fragment implements MainActivity.OnBackPressedListen
      String PW1="" ;
      String Name1="" ;
      String Phone1="" ;
-
+    private UserModel userModel;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -155,7 +159,21 @@ public class Mypage extends Fragment implements MainActivity.OnBackPressedListen
 
         return view;
     }
+    void getUserInfoFromServer(){
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+        DocumentReference docRef = FirebaseFirestore.getInstance().collection("users").document(uid);
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                userModel = documentSnapshot.toObject(UserModel.class);
+                Static_setting.ID = userModel.getUserid();
+                Static_setting.Name = userModel.getRealname();
+                Static_setting.Phone = userModel.getPhone();
+
+            }
+        });
+    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -182,10 +200,8 @@ public class Mypage extends Fragment implements MainActivity.OnBackPressedListen
     }
     @Override
     public void onBack() {
-        MainActivity activity = (MainActivity) getActivity();
-        fragmentManager = activity.getSupportFragmentManager();
-        activity.setOnBackPressedListener(null);
-        activity.onBackPressed();
+     Fragment fragment = new Fragment();
+     replaceFragment(fragment);
     }
 
     private void replaceFragment(Fragment fragment){

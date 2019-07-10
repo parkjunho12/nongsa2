@@ -24,6 +24,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/back"
                 android:layout_marginBottom="5dp"
                 android:text="새로운 게시글을 등록하세요!"
                 android:textSize="30dp"
@@ -50,6 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="제목"
+                    android:textColor="@color/back"
                     android:textSize="16dp"
                     android:textStyle="bold" />
 
@@ -70,6 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="본문"
+                    android:textColor="@color/back"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -102,16 +105,21 @@
                     android:layout_weight="1"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-
+                    android:background="@color/back"
+                    android:textColor="#ffffff"
 
                     android:text="Register"
                     android:textStyle="bold" />
-
+                <LinearLayout
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"></LinearLayout>
 
                 <Button
                     android:id="@+id/Back_btn"
                     android:layout_weight="1"
                     android:layout_width="0dp"
+                    android:background="@color/back"
+                    android:textColor="#ffffff"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:gravity="center"

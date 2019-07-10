@@ -11,6 +11,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -68,6 +70,7 @@ public class thirdpage extends Fragment {
          user_pw = (EditText) view.findViewById(R.id.PW);
         final EditText ed_Name = (EditText) view.findViewById(R.id.Name);
         final EditText ed_Phone = (EditText) view.findViewById(R.id.Phone);
+
         sharedPreferences = getActivity().getSharedPreferences("junho", Activity.MODE_PRIVATE);
         String id = sharedPreferences.getString("user_id", "");
         if (!"".equals(id)) {
@@ -95,6 +98,8 @@ public class thirdpage extends Fragment {
                             userModel.setUserid(id);
                             userModel.setUsernm(extractIDFromEmail(id));
                             userModel.setUsermsg("...");
+                            userModel.setRealname(ed_Name.getText().toString());
+                            userModel.setPhone(ed_Phone.getText().toString());
 
                             FirebaseFirestore db = FirebaseFirestore.getInstance();
                             Log.e("존나 ",uid+":uid  "+userModel.getToken()+"token"+userModel.getUserid()+"id");
@@ -106,42 +111,16 @@ public class thirdpage extends Fragment {
 
 
 
-                                            Response.Listener<String> responseListener =new Response.Listener<String>() {
 
-                                                @Override
-                                                public void onResponse(String response) {
-                                                    try {
-
-                                                        JSONObject jsonResponse = new JSONObject(response);
-                                                        boolean success = jsonResponse.getBoolean("success");
-
-                                                        if(success) /*회원가입성공*/
-                                                        {
-
-                                                        }
-                                                        else /*회원가입실패*/
-                                                        {
-
-                                                        }
-
-                                                    } catch (JSONException e) {
-                                                        e.printStackTrace();
-                                                    }
-                                                }
-                                            };
-                                            String ID =user_id.getText().toString();
-                                            String PW =user_pw.getText().toString();
-                                            String Name =ed_Name.getText().toString();
-                                            String Phone =ed_Phone.getText().toString();
-                                            RegisterRequest registerRequest=new RegisterRequest(ID, PW, Name, Phone,responseListener);
-                                            RequestQueue queue= Volley.newRequestQueue(getActivity().getApplicationContext());
-                                            queue.add(registerRequest);
+                                           Static_setting.ID =user_id.getText().toString();
+                                            Static_setting.PW =user_pw.getText().toString();
+                                       Static_setting.Name =ed_Name.getText().toString();
+                                         Static_setting.Phone =ed_Phone.getText().toString();
 
 
                                             Intent intent = new Intent(getContext(), MainActivity.class);
                                             sendRegistrationToServer();
                                             startActivity(intent);
-
                                             Log.d(String.valueOf(R.string.app_name), "DocumentSnapshot added with ID: " + uid);
                                         }
                                     });
@@ -159,18 +138,34 @@ public class thirdpage extends Fragment {
         ///////////////////////////////////
         ////////////* 뒤로가기*////////////
         ///////////////////////////////////
-        Button mBack_btn = (Button) view.findViewById(R.id.Back_btn);
+        Button mBack_btn = (Button) view.findViewById(R.id.regback);
         mBack_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent( getContext(), MainActivity.class);
-                startActivity(intent);
+                Fragment fragment = new Fragment();
+                replaceFragment(fragment);
+            }
+        });
+        Button mBack_btn2 = (Button) view.findViewById(R.id.Back_btn);
+        mBack_btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new Fragment();
+                replaceFragment(fragment);
             }
         });
 
 
 
         return view;
+    }
+    private void replaceFragment(Fragment fragment){
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.log_frag, fragment);
+        fragmentTransaction.commit();
     }
     String extractIDFromEmail(String email){
         String[] parts = email.split("@");

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/alarm_image"
+        android:layout_width="48dp"
+        android:src="@drawable/ic_notifications_black_24dp"
+        android:layout_height="48dp"
+        android:layout_margin="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/alarm_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/alarm_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/back"
+                android:textSize="18dp"
+                android:text="room name"/>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/alarm_msg"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:text="last msg"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>

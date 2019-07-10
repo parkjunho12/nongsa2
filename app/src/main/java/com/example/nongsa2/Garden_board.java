@@ -150,7 +150,7 @@ public class Garden_board extends Fragment  implements MainActivity.OnBackPresse
 
         Button searchbtn = (Button) getView().findViewById(R.id.search);
 
-
+        new BackgroundTask().execute(sidoSpinner.getSelectedItem().toString());
         searchbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -192,6 +192,7 @@ public class Garden_board extends Fragment  implements MainActivity.OnBackPresse
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_garden_board, container, false);
         fragment = new Garden_board();
+
         return view;
     }
 

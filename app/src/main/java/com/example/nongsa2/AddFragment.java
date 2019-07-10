@@ -182,11 +182,8 @@ public class AddFragment extends Fragment implements MainActivity.OnBackPressedL
 
     @Override
     public void onBack() {
-        MainActivity activity = (MainActivity) getActivity();
-        fragmentManager = activity.getSupportFragmentManager();
-        activity.setOnBackPressedListener(null);
+        Fragment fragment = new Consultation();
         replaceFragment(fragment);
-        activity.onBackPressed();
     }
     private void replaceFragment(Fragment fragment){
         FragmentManager fm = getActivity().getSupportFragmentManager();

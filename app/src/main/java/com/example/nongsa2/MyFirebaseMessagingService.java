@@ -18,13 +18,14 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
-
+static int alarmcount=0;
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         if (remoteMessage.getData().size() > 0) {
             String title = remoteMessage.getData().get("title");
             String body = remoteMessage.getData().get("body");
             Log.d("바디",remoteMessage.getData().get("body"));
+            alarmcount++;
             sendNotification(title,body);
         }
     }

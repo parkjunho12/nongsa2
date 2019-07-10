@@ -19,13 +19,60 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="나의 페이지"
-                android:textColor="#ffffff"
-                android:gravity="center"
-                android:background="@color/back"/>
+                android:layout_height="?attr/actionBarSize"
+                android:gravity="center">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:gravity="left"
+
+                    android:paddingLeft="10dp">
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:id="@+id/listmain"
+                        android:textColor="@color/back"
+                        android:textSize="15dp"
+                        android:text="마이페이지"
+                        android:textStyle="bold"
+
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:gravity="right"
+
+                    android:paddingRight="10dp">
+
+                    <LinearLayout
+
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="right"
+                        android:layout_marginLeft="10dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -39,7 +86,7 @@
                 android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/border"
+                android:background="@android:color/transparent"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="0dp"
@@ -49,20 +96,33 @@
                     android:id="@+id/ss"
                     android:gravity="center"
                     android:textColor="@color/back"
+
                     android:text="ID "/>
+                <View
+                    android:layout_width="1dp"
+                    android:background="@color/back"
+                    android:layout_height="match_parent"/>
                 <TextView
                     android:layout_width="0dp"
                     android:gravity="center"
                     android:layout_weight="5"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/border"
+                    android:background="@android:color/transparent"
                     android:id="@+id/myID"
                     android:textColor="@color/back"
                     />
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="5dp"
+                android:alpha="0.8"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"
+                android:background="#ff7f00"></View>
             <LinearLayout
                 android:layout_margin="10dp"
-                android:background="@drawable/border"
+                android:background="@android:color/transparent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -75,20 +135,32 @@
                     android:gravity="center"
                     android:textColor="@color/back"
                     android:text="Name "/>
+                <View
+                    android:layout_width="1dp"
+                    android:background="@color/back"
+                    android:layout_height="match_parent"/>
                 <TextView
                     android:layout_width="0dp"
                     android:gravity="center"
                     android:layout_weight="5"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/border"
+                    android:background="@android:color/transparent"
                     android:id="@+id/myName"
                     android:textColor="@color/back"
                     />
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="5dp"
+                android:alpha="0.8"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"
+                android:background="#ff7f00"></View>
             <LinearLayout
                 android:layout_margin="10dp"
                 android:layout_width="match_parent"
-                android:background="@drawable/border"
+                android:background="@android:color/transparent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
@@ -100,17 +172,26 @@
                     android:gravity="center"
                     android:textColor="@color/back"
                     android:text="Phone "/>
+                <View
+                    android:layout_width="1dp"
+                    android:background="@color/back"
+                    android:layout_height="match_parent"/>
                 <TextView
                     android:layout_width="0dp"
 
                     android:gravity="center"
                     android:layout_weight="5"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/border"
+                    android:background="@android:color/transparent"
                     android:id="@+id/myPhone"
                     android:textColor="@color/back"
                     />
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:background="@color/basic"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -122,10 +203,11 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
+                android:background="#ffffff"
                 android:id="@+id/chatroom"
+                android:layout_margin="5dp"
                 android:textColor="@color/back"
-                android:text="나의 채팅방"/>
+                android:text="나의 채팅방으로 가기"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -137,10 +219,11 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
+                android:background="#ffffff"
                 android:id="@+id/myhome"
+                android:layout_margin="5dp"
                 android:textColor="@color/back"
-                android:text="나의 빈집게시물"/>
+                android:text="나의 빈집게시물로 가기"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -153,10 +236,11 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
+                android:background="#ffffff"
                 android:id="@+id/mygarden"
                 android:textColor="@color/back"
-                android:text="나의 텃밭게시물"/>
+                android:layout_margin="5dp"
+                android:text="나의 텃밭게시물로 가기"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -168,10 +252,11 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
+                android:background="#ffffff"
                 android:id="@+id/mycon"
+                android:layout_margin="5dp"
                 android:textColor="@color/back"
-                android:text="나의 전문가상담글"/>
+                android:text="나의 전문가상담글으로 가기"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -182,12 +267,13 @@
                 android:background="#ff7f00"></View>
             <Button
                 android:layout_width="match_parent"
-                android:background="@android:color/transparent"
+                android:layout_margin="5dp"
+                android:background="#ffffff"
                 android:layout_height="wrap_content"
                 android:textColor="@color/back"
 
                 android:id="@+id/logout"
-                android:text="로그아웃"/>
+                android:text="로그아웃 버튼"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -196,6 +282,7 @@
                 android:paddingRight="5dp"
                 android:paddingLeft="5dp"
                 android:background="#ff7f00"></View>
+            </LinearLayout>
         </LinearLayout>
         </ScrollView>
     </FrameLayout>

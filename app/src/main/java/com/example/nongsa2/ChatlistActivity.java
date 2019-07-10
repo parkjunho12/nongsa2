@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -48,7 +49,14 @@ public class ChatlistActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chatlist);
         firestoreAdapter = new RecyclerViewAdapter(FirebaseFirestore.getInstance().collection("users").orderBy("usernm"));
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        Button button =(Button)findViewById(R.id.listback);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                finish();
+            }
+        });
         recyclerView.setLayoutManager( new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(this));
 

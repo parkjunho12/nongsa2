@@ -89,7 +89,7 @@
                     android:gravity="right"
                     android:paddingRight="10dp">
                     <Button
-                        android:id="@+id/search"
+                        android:id="@+id/alarm"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:layout_gravity="right"
@@ -166,17 +166,16 @@
                     android:id="@+id/container2"
                     android:layout_marginBottom="?attr/actionBarSize"
                     android:background="#ffffff">
-                    <ScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     >
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.2">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -201,7 +200,8 @@
                     <androidx.viewpager.widget.ViewPager
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
                         android:id="@+id/viewpager">
 
                     </androidx.viewpager.widget.ViewPager>
@@ -215,8 +215,9 @@
                         android:paddingLeft="5dp"
                         android:background="#ff7f00"></View>
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.2">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -240,7 +241,8 @@
 
                  <LinearLayout
                      android:layout_width="match_parent"
-                     android:layout_height="300dp"
+                     android:layout_height="0dp"
+                     android:layout_weight="1.7"
                      android:orientation="vertical">
            <LinearLayout
                android:layout_width="match_parent"
@@ -259,7 +261,7 @@
 
                         android:layout_width="100dp"
                         android:layout_height="0dp"
-                        android:layout_weight="1"
+                        android:layout_weight="0.8"
                         android:id="@+id/first"
                         android:onClick="onClick"
                        android:src="@drawable/man2"
@@ -287,7 +289,7 @@
 
                              android:layout_width="100dp"
                              android:layout_height="0dp"
-                             android:layout_weight="1"
+                             android:layout_weight="0.8"
                              android:id="@+id/second"
                              android:onClick="onClick"
                              android:src="@drawable/tax2"
@@ -324,7 +326,7 @@
                              <ImageButton
                                   android:layout_width="100dp"
                                  android:layout_height="0dp"
-                                 android:layout_weight="1"
+                                 android:layout_weight="0.8"
                                  android:id="@+id/third"
                                  android:onClick="onClick"
                                  android:src="@drawable/career2"
@@ -352,7 +354,7 @@
 
                                  android:layout_width="100dp"
                                  android:layout_height="0dp"
-                                 android:layout_weight="1"
+                                 android:layout_weight="0.8"
                                  android:id="@+id/four"
                                  android:src="@drawable/center2"
                                  android:onClick="onClick"
@@ -378,7 +380,7 @@
 
 
                 </LinearLayout>
-                    </ScrollView>
+
 
 
     </FrameLayout>

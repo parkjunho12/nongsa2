@@ -827,7 +827,7 @@ public class MemoFragment1 extends Fragment implements MainActivity.OnBackPresse
     }
     @Override
     public void onBack() {
-        Fragment fragment = new Gyesi();
+        Fragment fragment = new Garden_board();
         replaceFragment(fragment);
     }
 

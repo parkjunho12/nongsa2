@@ -7,6 +7,24 @@ public class UserModel {
     private String token;
     private String userphoto;
     private String usermsg;
+    private String realname;
+    private String phone;
+
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     public String getUserid() {
         return userid;

@@ -45,8 +45,8 @@
                 android:background="#ffffff">
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+
                     android:text="사용자 이름"
                     android:textColor="#00000f"
 
@@ -59,7 +59,6 @@
                     android:layout_weight="1"
                     android:text="등록일"
                     android:textColor="#00000f"
-
                     android:gravity="center"
                     android:id="@+id/REGDT"/>
 

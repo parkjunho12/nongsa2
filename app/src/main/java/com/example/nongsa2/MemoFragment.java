@@ -327,6 +327,7 @@ public class MemoFragment extends Fragment implements MainActivity.OnBackPressed
                 Log.e(this.getClass().getName(),"현재시각!"+REG_DT);
 
                 Response.Listener<String> responseListener =new Response.Listener<String>() {
+
                     @Override
                     public void onResponse(String response) {
                         try {

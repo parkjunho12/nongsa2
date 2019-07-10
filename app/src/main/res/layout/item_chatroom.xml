@@ -8,6 +8,7 @@
         <ImageView
             android:id="@+id/room_image"
             android:layout_width="48dp"
+            android:src="@drawable/ic_home_black_24dp"
             android:layout_height="48dp"
             android:layout_margin="10dp"/>
 
@@ -19,12 +20,14 @@
                     android:id="@+id/text_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+
                     android:orientation="horizontal">
                     <TextView
                         android:id="@+id/room_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
+                        android:textColor="@color/back"
                         android:textSize="18dp"
                         android:text="room name"/>
 
@@ -45,6 +48,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_below="@id/text_layout"
                     android:layout_width="wrap_content"
+
                     android:layout_height="wrap_content"
                     android:text="last msg"/>
 
@@ -55,6 +59,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:textColor="@color/back"
                     android:text="last time"/>
 
                 <TextView
