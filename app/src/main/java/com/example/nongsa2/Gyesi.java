@@ -105,7 +105,9 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
 
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
+            Log.e("@@@@@@@@@@@@@@@@@@@", mParam1);//ID
             mParam2 = getArguments().getString(ARG_PARAM2);
+            Log.e("@@@@@@@@@@@@@@@@@@@", mParam2);//NAME
         }
 
     }
@@ -146,9 +148,13 @@ public class Gyesi extends Fragment  implements MainActivity.OnBackPressedListen
 
 
         Button searchbtn = (Button) getView().findViewById(R.id.search);
-
-        new BackgroundTask().execute();
-
+        if(Static_setting.ID==mParam1)
+        {
+            new BackgroundTask1().execute();
+        }
+        else {
+            new BackgroundTask().execute();
+        }
         searchbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -264,6 +270,147 @@ private Fragment f1,f2,f3;
                     Log.e("전라남도",sidoSpinner.getSelectedItem().toString());
                     target = "http://dbwo4011.cafe24.com/migration/migration_info_request.php?SIDO_NM="+URLEncoder.encode(sidoSpinner.getSelectedItem().toString(),"UTF-8")+"&DEAL_TYPE="+URLEncoder.encode(maemaeSpinner.getSelectedItem().toString(),"UTF-8")+"&GUBUN="+URLEncoder.encode(gubunSpinner.getSelectedItem().toString(),"UTF-8");}
              catch (UnsupportedEncodingException e) {
+                e.printStackTrace();/////////검색기능 추가할때 필요한거요겄도A
+            }
+            Log.e(this.getClass().getName(), "백그라운드로 list뽑기 시작한다.");
+            progressDialog.show();
+        }
+
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+
+                URL url = new URL(target);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST"); //post방식으로
+                httpURLConnection.setDoInput(true); // server와 통신에서 입력가능상태로 설정
+                httpURLConnection.setDoOutput(true);//server와의 통신에서 출력 가능한 상태로
+
+                OutputStreamWriter wr = new OutputStreamWriter(httpURLConnection.getOutputStream());//서버로
+                wr.flush();//flush!
+                InputStream inputStream = httpURLConnection.getInputStream();
+
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String temp;
+                StringBuilder stringBuilder = new StringBuilder();
+                while ((temp = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(temp + "\n");
+                }
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return stringBuilder.toString().trim();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        public void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        public void onPostExecute(String res) {
+            Log.e(this.getClass().getName(), "백그라운드 try문안으로");
+            try {
+
+                boardList.clear();
+                Migration_info_array.clear();
+                Log.e(this.getClass().getName(), "ㅅㅇㅅ");
+                Log.e(this.getClass().getName(), "fuck");
+                JSONObject jsonObject = new JSONObject(res);
+                Log.e(this.getClass().getName(), "백그라운드 try문안으로");
+                JSONArray jsonArray = jsonObject.getJSONArray("response");
+
+                Log.e(this.getClass().getName(), String.valueOf(jsonArray));
+                int count = 0;
+
+
+                while(count < jsonArray.length()){
+                    //Log.e(this.getClass().getName(), "들어오긴하냐?");
+                    JSONObject object = jsonArray.getJSONObject(count);
+                    Log.e(this.getClass().getName(), String.valueOf(object));
+                    Migration_info_array.setID(object.getString("ID"));
+                    Migration_info_array.setSIDO_NM(object.getString("SIDO_NM"));
+                    Migration_info_array.setSIGUN_NM(object.getString("SIGUN_NM"));
+                    Migration_info_array.setADDR(object.getString("ADDR"));
+                    Migration_info_array.setDEAL_AMOUNT(object.getString("DEAL_AMOUNT"));
+                    Migration_info_array.setDEAL_BIGO(object.getString("DEAL_BIGO"));
+                    Migration_info_array.setBUILDING_AREA(object.getString("BUILDING_AREA"));
+                    Migration_info_array.setAREA_ETC(object.getString("AREA_ETC"));
+                    Migration_info_array.setBUILD_YEAR(object.getString("BUILD_YEAR"));
+                    Migration_info_array.setVACANT_YEAR(object.getString("VACANT_YEAR"));
+                    Migration_info_array.setSTRUCT_TYPE(object.getString("STRUCT_TYPE"));
+                    Migration_info_array.setOWNER_NM(object.getString("OWNER_NM"));
+                    Migration_info_array.setOWNER_CONTACT(object.getString("OWNER_CONTACT"));
+                    Migration_info_array.setINSPECTOR(object.getString("INSPECTOR"));
+                    Migration_info_array.setLOT_AREA(object.getString("LOT_AREA"));
+                    Migration_info_array.setBIGO(object.getString("BIGO"));
+                    Migration_info_array.setFILE_PATH1(object.getString("FILE_PATH1"));
+                    Migration_info_array.setFILE_PATH2(object.getString("FILE_PATH2"));
+                    Migration_info_array.setFILE_PATH3(object.getString("FILE_PATH3"));
+                    Migration_info_array.setDETAIL_URL(object.getString("DETAIL_URL"));
+                    Migration_info_array.setDEAL_NEGO_YN(object.getString("DEAL_NEGO_YN"));
+                    Migration_info_array.setLEASE_AMOUNT(object.getString("LEASE_AMOUNT"));
+                    Migration_info_array.setRENT_AMOUNT(object.getString("RENT_AMOUNT"));
+                    Migration_info_array.setGUBUN(object.getString("GUBUN"));
+                    Migration_info_array.setDEAL_TYPE(object.getString("DEAL_TYPE"));
+                    Migration_info_array.setREG_DT(object.getString("REG_DT"));
+                    Migration_info_array.setLatitude(object.getString("Latitude"));
+                    Migration_info_array.setLongtitude(object.getString("Longtitude"));
+
+                    count++;
+
+                }
+                if(count==0)
+                {
+                    AlertDialog dialog;
+                    AlertDialog.Builder builder = new AlertDialog.Builder((Gyesi.this.getActivity()));
+                    dialog =builder.setMessage("조회된 정보가 없습니다.")
+                            .setPositiveButton("확인",null)
+                            .create();
+                    dialog.show();
+                }
+
+                End_info_request();
+
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            progressDialog.dismiss();
+        }
+
+    }
+
+
+    class BackgroundTask1 extends AsyncTask<String, Void, String> {
+        String target;
+
+        customprogress progressDialog = new customprogress(getContext());
+
+
+
+        @Override
+        protected void onPreExecute() {
+
+
+            progressDialog.setCancelable(true);
+            progressDialog .getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+
+//            try {
+//                +URLEncoder.encode(sidoSpinner.toString(),"UTF-8")+"&VACANT_YEAR="+URLEncoder.encode(yearSpinner.toString(),"UTF-8")
+//                        +"&DEAL_TYPE="+URLEncoder.encode(maemaeSpinner.toString(),"UTF-8"///////////검색기능 추가할때 필요한거
+            try{
+
+                target = "http://dbwo4011.cafe24.com/migration/migration_info_request1.php?ID="+URLEncoder.encode(mParam1,"UTF-8");
+            } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();/////////검색기능 추가할때 필요한거요겄도A
             }
             Log.e(this.getClass().getName(), "백그라운드로 list뽑기 시작한다.");

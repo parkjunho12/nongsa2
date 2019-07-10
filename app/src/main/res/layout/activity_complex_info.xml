@@ -161,6 +161,38 @@
                         android:layout_width="0dp"
                         android:background="@color/back"
                         android:layout_weight="0.5"
+                        android:text="사용자 ID"
+                        android:textColor="#ffffff"
+                        android:textSize="25dp"
+                        android:paddingLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:layout_height="match_parent" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:paddingLeft="15dp"
+                        android:text=""
+                        android:id="@+id/eleven"
+                        android:gravity="center_vertical"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:background="@color/back"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:padding="1dp"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:background="@color/back"
+                        android:layout_weight="0.5"
                         android:text="전화번호"
                         android:textColor="#ffffff"
                         android:textSize="25dp"
@@ -371,38 +403,7 @@
                     android:layout_height="match_parent" />
             </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:paddingRight="5dp"
-                    android:paddingLeft="5dp"
-                    android:background="@color/back"/>
-                <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:padding="1dp"
-                >
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:background="@color/back"
-                    android:layout_weight="0.5"
-                    android:text="관리부서"
-                    android:textColor="#ffffff"
-                    android:textSize="25dp"
-                    android:paddingLeft="10dp"
-                    android:gravity="center_vertical"
-                    android:layout_height="match_parent" />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:paddingLeft="15dp"
-                    android:text=""
-                    android:id="@+id/eleven"
-                    android:gravity="center_vertical"
-                    android:layout_height="match_parent" />
-            </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
