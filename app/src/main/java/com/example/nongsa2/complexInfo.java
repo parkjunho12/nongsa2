@@ -1,5 +1,6 @@
 package com.example.nongsa2;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -15,6 +16,12 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -24,6 +31,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 public class complexInfo extends AppCompatActivity {
 static int comctn=0;
@@ -222,7 +231,38 @@ static int comctn=0;
         }
 
     }
-
+//    private Map<String, String> selectedUsers = new HashMap<>();
+//
+//   UserModel userModel ;
+//
+//    public void CreateChattingRoom(final DocumentReference room) {
+//
+//        selectedUsers.put(userModel.getUid(), userModel.getUsernm());
+//        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+//        Map<String, Integer> users = new HashMap<>();
+//        String title = "";
+//        for( String key : selectedUsers.keySet()) {
+//            users.put(key, 0);
+//            if (title.length() < 20 & !key.equals(uid)) {
+//                title += selectedUsers.get(key) + ", ";
+//            }
+//        }
+//        Map<String, Object> data = new HashMap<>();
+//        data.put("title", title.substring(0, title.length() - 2));
+//        data.put("users", users);
+//
+//        room.set(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Void> task) {
+//                if (task.isSuccessful()) {
+//                    Intent intent = new Intent(complexInfo.this, ChatActivity.class);
+//                    intent.putExtra("roomID", room.getId());
+//                    startActivity(intent);
+//                    complexInfo.this.finish();
+//                }
+//            }
+//        });
+//    }
     private class WebViewClientClass extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {

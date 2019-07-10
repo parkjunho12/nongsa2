@@ -18,8 +18,15 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
@@ -33,6 +40,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -49,6 +57,10 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class MainActivity extends AppCompatActivity implements Button.OnClickListener {
     private TextView mTextMessage;
@@ -56,6 +68,8 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     Fragment fragment = fm.findFragmentById(R.id.container2);
     Button imageButton2,imageButton3;
     Button imageButton1,homebtn;
+    LinearLayout linearLayout1;
+    private TextView count;
     LinearLayout linearLayout;
     static int p =0;
     static int v=1;
@@ -155,6 +169,8 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         imageButton2 = (Button) findViewById(R.id.garden);
         imageButton3 = (Button) findViewById(R.id.consultation);
         homebtn = (Button) findViewById(R.id.home);
+
+
         imageButton1.setOnClickListener(this);
         imageButton2.setOnClickListener(this);
         imageButton3.setOnClickListener(this);
@@ -165,7 +181,22 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         ImageButton second =(ImageButton)findViewById(R.id.second);
         ImageButton third =(ImageButton)findViewById(R.id.third);
         ImageButton four =(ImageButton)findViewById(R.id.four);
+        linearLayout1 =(LinearLayout)findViewById(R.id.linal);
 
+
+        linearLayout1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(FirebaseAuth.getInstance().getCurrentUser()==null)
+                {
+                    Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                    startActivity(intent);
+                }
+                else{
+                Fragment fragment = new ChatRoomFragment();
+                replaceFragment(fragment);
+            }}
+        });
         imagepagerAdapter = new imagepagerAdapter(getSupportFragmentManager());
         if (FirebaseAuth.getInstance().getCurrentUser()==null) {
         } else {
@@ -228,6 +259,8 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
 
 
     }
+
+
 
     private void checkLogin(String ID) {
 

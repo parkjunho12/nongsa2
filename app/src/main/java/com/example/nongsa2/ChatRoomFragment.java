@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +56,7 @@ public class ChatRoomFragment extends Fragment {
     }
 
 
-
+    private TextView textView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -65,10 +66,11 @@ public class ChatRoomFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(inflater.getContext()));
        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
         Button button =(Button)view.findViewById(R.id.roomback);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment fragment = new Mypage();
+                Fragment fragment = new Fragment();
                 replaceFragment(fragment);
 
             }
@@ -122,10 +124,11 @@ public class ChatRoomFragment extends Fragment {
                                 userList.put(doc.getId(), doc.toObject(UserModel.class));
                             }
                             getRoomInfo();
+
                         }
                     });
         }
-        Integer unreadTotal = 0;
+       Integer unreadTotal = 0;
         public void getRoomInfo() {
             // my chatting room information
             listenerRegistration = firestore.collection("rooms").whereGreaterThanOrEqualTo("users."+myUid, 0)
@@ -158,6 +161,7 @@ public class ChatRoomFragment extends Fragment {
                                     if (myUid.equals(key)) {
                                         Integer  unread = (int) (long) users.get(key);
                                         unreadTotal += unread;
+
                                         chatRoomModel.setUnreadCount(unread);
                                         break;
                                     }
@@ -179,7 +183,9 @@ public class ChatRoomFragment extends Fragment {
                             for(Map.Entry<Date,ChatRoomModel> entry : orderedRooms.entrySet()) {
                                 roomList.add(entry.getValue());
                             }
+
                             notifyDataSetChanged();
+
                             setBadge(getContext(), unreadTotal);
                         }
                     });
@@ -188,6 +194,7 @@ public class ChatRoomFragment extends Fragment {
         public void stopListening() {
             if (listenerRegistration != null) {
                 listenerRegistration.remove();
+
                 listenerRegistration = null;
             }
             if (listenerUsers != null) {
@@ -223,6 +230,7 @@ public class ChatRoomFragment extends Fragment {
             } else {
                 roomViewHolder.room_count.setVisibility(View.INVISIBLE);
             }
+
             if (chatRoomModel.getUnreadCount() > 0) {
                 roomViewHolder.unread_count.setText(chatRoomModel.getUnreadCount().toString());
                 roomViewHolder.unread_count.setVisibility(View.VISIBLE);
@@ -262,6 +270,7 @@ public class ChatRoomFragment extends Fragment {
                 last_time = view.findViewById(R.id.last_time);
                 room_count = view.findViewById(R.id.room_count);
                 unread_count = view.findViewById(R.id.unread_count);
+
             }
         }
     }
@@ -271,6 +280,7 @@ public class ChatRoomFragment extends Fragment {
         if (launcherClassName == null) {
             return;
         }
+
         Intent intent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
         intent.putExtra("badge_count", count);
         intent.putExtra("badge_count_package_name", context.getPackageName());
